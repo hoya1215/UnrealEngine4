@@ -16,7 +16,6 @@ class GAME_API UEquipmentSlotWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	//UEquipmentSlotWidget(const FObjectInitializer& ObjectInitializer);
 
 	void PushEquipment(AItem* Item, UTexture2D* Texture = nullptr);
 	void PullEquipment();

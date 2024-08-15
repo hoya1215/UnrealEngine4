@@ -26,6 +26,7 @@
 #include "EnemyController.h"
 #include "Pet.h"
 #include "Wing.h"
+#include "EquipmentSlotWidget.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -71,20 +72,6 @@ AMyCharacter::AMyCharacter()
 	Bullet = ProjectileClassFinder.Class;
 	MuzzleOffset = FVector(100.f, 0.f, 0.f);
 
-	//FName GunSocket(TEXT("hand_r_socket"));
-	//if (GetMesh()->DoesSocketExist(GunSocket))
-	//{
-	//	MyGun = CreateDefaultSubobject<AGun>(TEXT("Gun"));
-
-	//	//static ConstructorHelpers::FObjectFinder<UParticleSystem> Fire(TEXT("ParticleSystem'/Game/StarterContent/Particles/P_Fire.P_Fire'"));
-	//	//if (Fire.Succeeded())
-	//	//{
-	//	//	Gun->SetTemplate(Fire.Object);
-	//	//	Gun->Activate();
-
-	//	//}
-	//}
-	//MyGun->SetupAttachment(GetMesh(), GunSocket);
 
 	Stat = CreateDefaultSubobject<UMyCharacterStatComponent>(TEXT("Stat"));
 
@@ -124,7 +111,7 @@ void AMyCharacter::BeginPlay()
 	
 	FName GunSocket(TEXT("hand_r_socket"));
 
-	auto Gun = GetWorld()->SpawnActor<AGun>(FVector::ZeroVector, FRotator::ZeroRotator);
+	//auto Gun = GetWorld()->SpawnActor<AGun>(FVector::ZeroVector, FRotator::ZeroRotator);
 
 	if (MyInventoryWidgetClass)
 	{
@@ -161,17 +148,6 @@ void AMyCharacter::BeginPlay()
 	}
 
 
-
-	// 미리 총알 담기
-	//if (GetWorld())
-	//{
-	//	for (int i = 0; i < 50; ++i)
-	//	{
-	//		ABullet* Bullet = GetWorld()->SpawnActor<ABullet>(ABullet::StaticClass());
-	//		Magazine.Add(Bullet);
-	//	}
-	//}
-	//
 	if (GetWorld())
 	{
 		for (TActorIterator<AGun> It(GetWorld()); It; ++It)
@@ -184,10 +160,7 @@ void AMyCharacter::BeginPlay()
 		}
 	}
 
-	//if (MyInventoryWidget)
-	//{
-	//	MyInventoryWidget->ClickTop.AddUObject(this, &AMyCharacter::DragInventory);
-	//}
+
 
 	MyController = GetWorld()->GetFirstPlayerController();
 
@@ -210,33 +183,27 @@ void AMyCharacter::BeginPlay()
 	if (MyWingClass)
 	{
 
-
-		//FName WingSocket(TEXT("Wing_Socket"));
-
 		MyWing = GetWorld()->SpawnActor<AWing>(MyWingClass, GetActorLocation(), FRotator(-85.f, 80.f, 81.f));
 
-		//MyWing->SetActorRotation(FRotator(0.f, 100.f, 0.f));
+
 		AItem* Result = MyWing->EquippedItem();
 		if (Result)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Wing Failed"));
 		}
 		
-		//MyWing->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-		//	WingSocket);
-		//MyWing->SetActorRotation(FRotator(0.f, 100.f, 0.f));
 	}
 	
 
 }
 
-// Called every frame
+
 void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
 
-	if (IsWalking)
+	if (bIsWalking)
 		GetCharacterMovement()->MaxWalkSpeed = Speed * 0.5f;
 	else
 		GetCharacterMovement()->MaxWalkSpeed = Speed;
@@ -248,8 +215,6 @@ void AMyCharacter::Tick(float DeltaTime)
 	else
 		bIsFlying = false;
 
-	//if(bIsFlyingMode)
-	//	GetCharacterMovement()->MovementMode = MOVE_Walking;
 
 
 	if (Controller)
@@ -262,8 +227,6 @@ void AMyCharacter::Tick(float DeltaTime)
 	int32 CurrentHp = Stat->GetHp();
 	if (CurrentHp <= 0)
 	{
-		//auto Money = GetWorld()->SpawnActor<AMoney>(GetActorLocation(), FRotator::ZeroRotator);
-		//GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		SetActorTickEnabled(false);
 		CharacterDie.Broadcast();
@@ -280,13 +243,11 @@ void AMyCharacter::Tick(float DeltaTime)
 			bIsDragging = false;
 	}
 
-	/*AMyGameModeBase* GameModeBase = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(this));
-
-	UE_LOG(LogTemp, Warning, TEXT("Current Enemy : %d"), GameModeBase->CurrentEnemyCount);*/
+	if (MyWeapon == nullptr)
+		CurrentWeaponState = 2;
 
 }
 
-// Called to bind functionality to input
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -305,6 +266,10 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction(TEXT("OpenInventory"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenInventory);
 	PlayerInputComponent->BindAction(TEXT("FlyingMode"), EInputEvent::IE_Pressed, this, &AMyCharacter::FlyingMode);
 	PlayerInputComponent->BindAction(TEXT("OpenEquipment"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenEquipment);
+
+	PlayerInputComponent->BindAction(TEXT("SelectMainWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
+	PlayerInputComponent->BindAction(TEXT("SelectSubWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
+	PlayerInputComponent->BindAction(TEXT("SelectOtherWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
 }
 
 float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -319,10 +284,8 @@ void AMyCharacter::MoveForward(float value)
 	const FRotator Rotation = Controller->GetControlRotation();
 	const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-	// Get forward vector
 	const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	AddMovementInput(Direction, value);
-	//AddMovementInput(GetActorForwardVector(), value);
 }
 
 void AMyCharacter::MoveRight(float value)
@@ -330,38 +293,33 @@ void AMyCharacter::MoveRight(float value)
 	if (value == 0.f)
 		return;
 
-	// Find out which way is right
 	const FRotator Rotation = Controller->GetControlRotation();
 	const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-	// Get right vector
 	const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 	AddMovementInput(Direction, value);
 
-	//AddMovementInput(GetActorRightVector(), value);
 }
 
 void AMyCharacter::Turn(float rate)
 {
-	//AddControllerYawInput(rate);
 	AddControllerYawInput(rate * RotateRate * GetWorld()->GetDeltaSeconds());
 }
 
 void AMyCharacter::LookUp(float rate)
 {
-	//AddControllerPitchInput(rate);
 	AddControllerPitchInput(rate * RotateRate * GetWorld()->GetDeltaSeconds());
 }
 
 void AMyCharacter::Walk()
 {
-	IsWalking = true;
+	bIsWalking = true;
 	
 }
 
 void AMyCharacter::StopWalk()
 {
-	IsWalking = false;
+	bIsWalking = false;
 }
 
 void AMyCharacter::Jump()
@@ -395,6 +353,21 @@ void AMyCharacter::UpdateUI()
 
 void AMyCharacter::Attack()
 {
+	bIsAttacking = true;
+
+	switch (CurrentWeaponState)
+	{
+	case 2:
+		OtherAttack();
+		break;
+	default:
+		MainAttack();
+		break;
+	}
+}
+
+void AMyCharacter::MainAttack()
+{
 	if (MyWeapon)
 	{
 		MyWeapon->CurrentBulletCount--;
@@ -424,14 +397,12 @@ void AMyCharacter::Attack()
 
 		if (bHit)
 		{
-			// Draw a red line to visualize the hit in the editor
 			DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 1.0f);
 
-			// Implement your logic here
 			UE_LOG(LogTemp, Warning, TEXT("Hit: %s"), *HitResult.Actor->GetName());
 
-			//if (*HitResult.Actor->GetName() == FName("Enemy"))
-			if(HitResult.Actor.IsValid())
+
+			if (HitResult.Actor.IsValid())
 			{
 				FDamageEvent DamageEvent;
 
@@ -447,42 +418,50 @@ void AMyCharacter::Attack()
 		}
 		else
 		{
-			// Draw a green line to visualize no hit in the editor
 			DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1.0f, 0, 1.0f);
 		}
 
 
 	}
+}
 
+void AMyCharacter::OtherAttack()
+{
+	FHitResult HitResult;
+	FCollisionQueryParams Params(NAME_None, false, this);
 
+	float Range = 100.0f;
+	float Radius = 50.f;
 
-	//const FRotator SpawnRotation = GetControlRotation();
-	//// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-	////const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
-	//const FVector SpawnLocation = GetActorLocation();
+	bool bResult = GetWorld()->SweepSingleByChannel(
+		OUT HitResult,
+		GetActorLocation(),
+		GetActorLocation() + GetActorForwardVector() * Range,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel3,
+		FCollisionShape::MakeSphere(Radius),
+		Params
+	);
 
-	////Set Spawn Collision Handling Override
-	//FActorSpawnParameters ActorSpawnParams;
-	//ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+	// 디버거용 그림
+	FVector Vec = GetActorForwardVector() * Range;
+	FVector Center = GetActorLocation() + Vec * 0.5f;
+	float HalfHeight = Range * 0.5f + Radius;
+	FQuat Rotation = FRotationMatrix::MakeFromZ(Vec).ToQuat();
+	FColor DrawColor;
+	if (bResult)
+		DrawColor = FColor::Green;
+	else
+		DrawColor = FColor::Red;
 
-	//if (ProjectileClass == nullptr)
-	//	UE_LOG(LogTemp, Log, TEXT("Null ptr"));
+	DrawDebugCapsule(GetWorld(), Center, HalfHeight, Radius, Rotation, DrawColor, false, 2.f);
 
-	//// spawn the projectile at the muzzle
-	//GetWorld()->SpawnActor<ABullet>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+	if (bResult && HitResult.Actor.IsValid())
+	{
 
-
-	UE_LOG(LogTemp, Log, TEXT("Shoot"));
-	//if (BulletIndex >= MaxBulletSize)
-	//{
-	//	UE_LOG(LogTemp, Log, TEXT("Max"));
-	//	return;
-	//}
-	//UE_LOG(LogTemp, Log, TEXT("Bullet : %d"), BulletIndex);
-
-	//Magazine[BulletIndex]->SetActorTickEnabled(true);
-	//Magazine[BulletIndex]->SetDirection(this->GetActorForwardVector(), this->GetActorLocation());
-	//BulletIndex++;
+		FDamageEvent event;
+		HitResult.Actor->TakeDamage(Stat->GetPower(), event, GetController(), this);
+	}
 }
 
 void AMyCharacter::PickUpGun()
@@ -633,3 +612,46 @@ void AMyCharacter::SetAirControl(bool Flying)
 		GetCharacterMovement()->GravityScale = 1.0f;
 	}
 }
+
+void AMyCharacter::SelectWeapon(FKey Key)
+{
+
+
+	if (Key == EKeys::One)
+	{
+		CurrentWeaponState = 0;
+		ChangeCurrentWeapon(EEQUIPMENT_TYPE::MAIN);
+	}
+	else if (Key == EKeys::Two)
+	{
+		CurrentWeaponState = 1;
+		ChangeCurrentWeapon(EEQUIPMENT_TYPE::SUB);
+	}
+	else if (Key == EKeys::Three)
+	{
+		CurrentWeaponState = 2;
+		ChangeCurrentWeapon(EEQUIPMENT_TYPE::OTHER);
+	}
+
+	bIsWeaponSwapping = true;
+}
+
+void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
+{
+	AWeapon* NewWeapon = Cast<AWeapon>(MyEquipmentWidget->EquipmentSlots[EquipmentType]->CurrentItem);
+
+	if (NewWeapon != nullptr)
+	{
+		MyWeapon->SetActorHiddenInGame(true);
+		NewWeapon->SetActorHiddenInGame(false);
+		SetMyWeapon(NewWeapon);
+	}
+}
+
+void AMyCharacter::SetMyWeapon(AWeapon* CurrentWeapon)
+{
+	MyWeapon = CurrentWeapon;
+	CurrentWeaponState = CurrentWeapon->WeaponState;
+}
+
+

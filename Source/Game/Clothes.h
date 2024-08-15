@@ -17,8 +17,5 @@ class GAME_API AClothes : public AItem
 public:
 	AClothes();
 
-	
-
-public:
 
 };

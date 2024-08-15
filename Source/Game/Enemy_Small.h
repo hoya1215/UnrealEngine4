@@ -20,17 +20,8 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	//virtual void Die() override;
-
-	void StartAppear();
-	void EndAppear();
 
 public:
 	FVector StartLocation;
 	FVector EndLocation;
-	float AppearTime = 2.f;
-	float CurrentAppearTime = 0.f;
-	bool bIsAppear =false;
-
-
 };

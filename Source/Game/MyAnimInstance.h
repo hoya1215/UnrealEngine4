@@ -6,6 +6,8 @@
 #include "Animation/AnimInstance.h"
 #include "MyAnimInstance.generated.h"
 
+class AMyCharacter;
+
 /**
  * 
  */
@@ -14,8 +16,14 @@ class GAME_API UMyAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
 
+
 public:
+	virtual void NativeInitializeAnimation() override;
+
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+
+	UFUNCTION()
+		void AnimNotify_SwapEnd();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
@@ -31,5 +39,18 @@ public:
 		bool IsFlying;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
+		bool IsWeaponSwapping;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
+		bool IsAttacking;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
+	int CurrentWeaponState;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
 		int32 Hp;
+
+private:
+	UPROPERTY()
+		AMyCharacter* MyCharacter;
 };

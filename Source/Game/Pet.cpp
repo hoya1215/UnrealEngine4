@@ -15,10 +15,10 @@
 #include "PetController.h"
 #include "BehaviorTree/BehaviorTree.h"
 
-// Sets default values
+
 APet::APet()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	
 	PrimaryActorTick.bCanEverTick = true;
 
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
@@ -36,7 +36,7 @@ APet::APet()
 
 	SetActorScale3D(FVector(1.f, 1.f, 1.f));
 
-	//Trigger->SetCollisionProfileName(TEXT("Item"));
+
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pet"));
 
 
@@ -45,7 +45,7 @@ APet::APet()
 
 }
 
-// Called when the game starts or when spawned
+
 void APet::BeginPlay()
 {
 	Super::BeginPlay();
@@ -55,7 +55,7 @@ void APet::BeginPlay()
 
 }
 
-// Called every frame
+
 void APet::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

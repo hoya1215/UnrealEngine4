@@ -13,19 +13,6 @@ void AFPSHUD::DrawHUD()
 
     if (CrosshairTexture)
     {
-        //FVector2D MousePosition;
-        //GetOwningPlayerController()->GetMousePosition(MousePosition.X, MousePosition.Y);
-        //
-        //int X;
-        //int Y;
-        //GetOwningPlayerController()->GetViewportSize(X, Y);
-        //ScreenCenter.X = X;
-        //ScreenCenter.Y = Y;
-        //ScreenCenter *= 0.5f;
-        //
-        //FVector2D Position = ScreenCenter;
-        //FVector2D Delta = MousePosition - ScreenCenter;
-        //Position = ScreenCenter + (Delta * Sensitivity);
 
         // Find the center of our canvas.
         FVector2D Center(Canvas->ClipX * 0.5f, Canvas->ClipY * 0.5f);

@@ -11,10 +11,9 @@
 #include "Kismet/GameplayStatics.h"
 
 
-// Sets default values
 AItem::AItem()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	
 	PrimaryActorTick.bCanEverTick = true;
 
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("Trigger"));
@@ -22,7 +21,6 @@ AItem::AItem()
 	Trigger->SetBoxExtent(FVector(30.f, 30.f, 30.f));
 }
 
-// Called when the game starts or when spawned
 void AItem::BeginPlay()
 {
 	Super::BeginPlay();
@@ -39,12 +37,11 @@ void AItem::PostInitializeComponents()
 void AItem::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 
-	//UE_LOG(LogTemp, Warning, TEXT("Item Overlap"));
 
 	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	AMyCharacter* Character = Cast<AMyCharacter>(OtherActor);
 	APet* MyPet = Cast<APet>(OtherActor);
-	// 임시로 gun 도 들고 있을때만 나중에 enemy 로 분리
+
 	if (MyPet || Character)
 	{
 		PlayerCharacter->GetInventory()->AddToInventory(ItemType);
@@ -56,12 +53,6 @@ void AItem::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 	}
 }
 
-// Called every frame
-void AItem::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 
 AItem* AItem::EquippedItem()
 {

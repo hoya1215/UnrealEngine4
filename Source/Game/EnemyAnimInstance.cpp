@@ -47,8 +47,6 @@ void UEnemyAnimInstance::AnimNotify_AttackHit()
 	auto Pawn = TryGetPawnOwner();
 	auto Enemy = Cast<AMyEnemy>(Pawn);
 	Enemy->Attack();
-
-	//CurrentEnemy->Attack();
 }
 
 void UEnemyAnimInstance::AnimNotify_AttackEnd()

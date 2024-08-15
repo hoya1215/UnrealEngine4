@@ -9,6 +9,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Enemy_Small.h"
 #include "Enemy_Boss.h"
+#include "Gun.h"
+#include "Sword.h"
 
 AMyGameModeBase::AMyGameModeBase()
 {
@@ -61,6 +63,9 @@ AMyGameModeBase::AMyGameModeBase()
 void AMyGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	auto Gun = GetWorld()->SpawnActor<AGun>(FVector::ZeroVector, FRotator::ZeroRotator);
+	auto Sword = GetWorld()->SpawnActor<ASword>(FVector(0.f, 10.f, 200.f), FRotator::ZeroRotator);
 
 	GetWorldTimerManager().SetTimer(EnemyTimerHandle, this, &AMyGameModeBase::SpawnEnemy, SpawnInterval, true);
 }
@@ -134,10 +139,4 @@ void AMyGameModeBase::SpawnEnemy()
 
 }
 
-//void AMyGameModeBase::UpdateEnemyCount(AActor* DestroyEnemy)
-//{
-//	if (CurrentEnemyCount > 0)
-//	{
-//		CurrentEnemyCount--;
-//	}
-//}
+

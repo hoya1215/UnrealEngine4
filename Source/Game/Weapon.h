@@ -30,4 +30,7 @@ public:
 
 	UPROPERTY()
 		int CurrentBulletCount;
+
+	UPROPERTY()
+		int WeaponState;
 };

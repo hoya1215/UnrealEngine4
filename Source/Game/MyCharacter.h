@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Containers/Queue.h"
+#include "Item.h"
 #include "MyCharacter.generated.h"
 
 class AGun;
@@ -17,6 +18,7 @@ class UEquipmentWidget;
 class APet;
 class AWeapon;
 class AWing;
+
 
 DECLARE_MULTICAST_DELEGATE(FCharacterDie)
 UCLASS()
@@ -47,10 +49,14 @@ public:
 	void OpenEquipment();
 	void FlyingMode();
 	void SetAirControl(bool Flying);
+	void SelectWeapon(FKey Key);
+	void ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType);
+	void MainAttack();
+	void OtherAttack();
 
 
 	// Get Set
-	void SetMyWeapon(AWeapon* CurrentWeapon) { MyWeapon = CurrentWeapon; }
+	void SetMyWeapon(AWeapon* CurrentWeapon);
 	AWeapon* GetMyWeapon() { return MyWeapon; }
 	void SetMyWing(AWing* CurrentWing) { MyWing = CurrentWing; }
 	AWing* GetMyWing() { return MyWing; }
@@ -66,20 +72,18 @@ public:
 	FCharacterDie CharacterDie;
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 public:
+	// Camera
 	UPROPERTY()
 		class USpringArmComponent* SpringArm;
 
@@ -87,13 +91,11 @@ public:
 		class UCameraComponent* Camera;
 
 
+	
+
+
+
 	// Gun , Bullet
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat)
-		float Speed = 0;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		bool IsWalking = false;
-
 	UPROPERTY()
 		FVector MuzzleOffset;
 
@@ -115,10 +117,21 @@ public:
 	UPROPERTY()
 		bool IsZoom = false;
 
+	UPROPERTY()
+		int CurrentWeaponState = 0;
+
+	UPROPERTY()
+		bool bIsWeaponSwapping = false;
+
 	UPROPERTY(VisibleAnywhere)
 		class UMyCharacterStatComponent* Stat;
 
-	// Flying
+	// State
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat)
+		float Speed = 0;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		bool bIsWalking = false;
 
 	UPROPERTY()
 		bool bIsFlyingMode = false;
@@ -126,7 +139,8 @@ public:
 	UPROPERTY()
 		bool bIsFlying = false;
 
-
+	UPROPERTY()
+		bool bIsAttacking = false;
 
 
 private:
@@ -143,6 +157,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = Bullet)
 		int BulletIndex = 0;
+
 
 	// Inventory
 	UPROPERTY(VisibleAnywhere)

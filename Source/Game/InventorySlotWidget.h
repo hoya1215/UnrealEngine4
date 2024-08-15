@@ -17,9 +17,7 @@ class GAME_API UInventorySlotWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	//UInventorySlotWidget(const FObjectInitializer& ObjectInitializer);
-
-	//UFUNCTION(BlueprintCallable, Category = "Inventory")
+	// Util
 	void AddItem(AItem* Item);
 
 	void SetItem(UInventorySlotWidget* OtherSlot);
@@ -31,14 +29,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void SetSizeBox(float Width, float Height);
 
+
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 	virtual FReply NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
 	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& MouseEvent,
 		UDragDropOperation*& OutOperation) override;
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
-	//virtual bool NativeOnDragOver(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, 
-	//    UDragDropOperation* InOperation) override;
+
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -69,5 +67,5 @@ public:
 
 public:
 	UPROPERTY()
-	 AItem* SlotItem = nullptr;
+	 AItem* CurrentItem = nullptr;
 };

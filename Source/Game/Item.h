@@ -38,13 +38,11 @@ class GAME_API AItem : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AItem();
 
 	virtual AItem* EquippedItem();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	virtual void PostInitializeComponents() override;
@@ -57,8 +55,6 @@ private:
 			UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(VisibleAnywhere)
 		class UBoxComponent* Trigger;

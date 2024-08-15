@@ -102,7 +102,7 @@ protected:
 
 
 public:
-    TArray<UInventorySlotWidget*> SlotWidgets;
+    TArray<UInventorySlotWidget*> CurrentSlotWidgets;
     TArray<UInventorySlotWidget*> EquipmentSlotWidgets;
     TArray<UInventorySlotWidget*> ConsumptionSlotWidgets;
     TArray<UInventorySlotWidget*> ETCSlotWidgets;

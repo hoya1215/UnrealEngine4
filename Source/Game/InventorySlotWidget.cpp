@@ -16,7 +16,7 @@ void UInventorySlotWidget::AddItem(AItem* Item)
     {
         SlotTexture = Item->ItemTexture;
         SlotImage->SetBrushFromTexture(SlotTexture);
-        SlotItem = Item;
+        CurrentItem = Item;
     }
     
     Count++;
@@ -33,7 +33,7 @@ void UInventorySlotWidget::SetItem(UInventorySlotWidget* OtherSlot)
     SlotImage->SetBrushFromTexture(SlotTexture);
 
     SlotText->SetText(OtherSlot->SlotText->GetText());
-    SlotItem = OtherSlot->SlotItem;
+    CurrentItem = OtherSlot->CurrentItem;
     Count = OtherSlot->Count;
 }
 
@@ -67,16 +67,16 @@ FReply UInventorySlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
     FEventReply Reply;
     Reply.NativeReply = Super::NativeOnMouseButtonDoubleClick(InGeometry, InMouseEvent);
 
-    if (Count > 0 && SlotItem != nullptr)
+    if (Count > 0 && CurrentItem != nullptr)
     {
-        EINVENTORY_TYPE InventoryType = SlotItem->InventoryType;
+        EINVENTORY_TYPE InventoryType = CurrentItem->InventoryType;
         switch (InventoryType)
         {
         case EINVENTORY_TYPE::EQUIPMENT:
-            EquippedItem(SlotItem);
+            EquippedItem(CurrentItem);
             break;
         case EINVENTORY_TYPE::CONSUMPTION:
-            UseItem(SlotItem->ItemType);
+            UseItem(CurrentItem->ItemType);
             break;
         }
     }
@@ -116,8 +116,6 @@ bool UInventorySlotWidget::NativeOnDrop(const FGeometry& InGeometry, const FDrag
         GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, FString::Printf(TEXT("Swap From : %d , To : %d"), oper->SlotIndex, this->Index));
         
         InventoryWidget->SwapSlot(oper->SlotIndex, this->Index);
-       
-
     }
 
     return true;
@@ -125,7 +123,6 @@ bool UInventorySlotWidget::NativeOnDrop(const FGeometry& InGeometry, const FDrag
 
 void UInventorySlotWidget::UseItem(EITEM_TYPE ItemType)
 {
-    //int PrevCount = Count;
 
     switch (ItemType)
     {
@@ -137,13 +134,6 @@ void UInventorySlotWidget::UseItem(EITEM_TYPE ItemType)
         break;
     }
     }
-
-    //Count = PrevCount;
-    
-
-    //GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("Money : %d"), InventoryWidget->CurrentMoney));
-    //const FString CurrentCount = FString::Printf(TEXT("%d"), Count);
-    //SlotText->SetText(FText::FromString(CurrentCount));
 }
 
 void UInventorySlotWidget::EquippedItem(AItem* Item)

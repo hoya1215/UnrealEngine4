@@ -17,10 +17,6 @@
 
 void UEquipmentSlotWidget::PushEquipment(AItem* Item, UTexture2D* Texture)
 {
-	//UTexture2D* WingTexture = LoadObject<UTexture2D>(nullptr, TEXT("Texture2D'/Game/Custom/Resources/Wing.Wing'"));
-	//ItemTexture = WingTexture;
-
-	//SlotTexture = WingTexture;
 	if (Texture != nullptr)
 		SlotTexture = Texture;
 	else
@@ -56,7 +52,7 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 	{
 		for (int i = 0; i < PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets.Num(); ++i)
 		{
-			if (PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->SlotItem == nullptr)
+			if (PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->CurrentItem == nullptr)
 			{
 				PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->AddItem(CurrentItem);
 				break;
@@ -67,13 +63,19 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 		{
 			switch (CurrentItem->EquipmentType)
 			{
-			case EEQUIPMENT_TYPE::MAIN:
-				PlayerCharacter->GetMyWeapon()->SetActorHiddenInGame(true);
-				PlayerCharacter->SetMyWeapon(nullptr);
-				break;
 			case EEQUIPMENT_TYPE::WING:
 				PlayerCharacter->GetMyWing()->SetActorHiddenInGame(true);
 				PlayerCharacter->SetMyWing(nullptr);
+				break;
+			default:
+				if (PlayerCharacter->GetMyWeapon() != nullptr && 
+					PlayerCharacter->GetMyWeapon()->EquipmentType == CurrentItem->EquipmentType)
+				{
+					
+					PlayerCharacter->GetMyWeapon()->SetActorHiddenInGame(true);
+					PlayerCharacter->SetMyWeapon(nullptr);
+				}
+				break;
 			}
 		}
 

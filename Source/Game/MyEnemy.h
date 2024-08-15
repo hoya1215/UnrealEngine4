@@ -13,15 +13,11 @@ class GAME_API AMyEnemy : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	AMyEnemy();
-
-
 
 	// Çàµ¿
 	void Attack();
 
-	//void AttackEnd(UAnimMontage* Montage, bool interrupt);
 
 	virtual void Die();
 	// Get Set
@@ -29,12 +25,10 @@ public:
 
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 
 public:
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 

@@ -35,14 +35,6 @@ void AEnemyController::BeginPlay()
 void AEnemyController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	//AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	//GetBlackboardComponent()->SetValueAsObject(TEXT("Target"), MyCharacter);
-	// 
-	//if (bCharacterDie)
-	//	UnSetTarget();
-	//else
-	//	SetTarget();
 }
 
 void AEnemyController::OnPossess(APawn* InPawn)

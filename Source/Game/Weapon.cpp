@@ -3,6 +3,8 @@
 
 #include "Weapon.h"
 #include "Kismet/GameplayStatics.h"  
+#include "Particles/ParticleSystem.h"
+#include "Particles/ParticleSystemComponent.h"
 #include "MyCharacter.h"
 #include "EquipmentWidget.h"
 #include "EquipmentSlotWidget.h"
@@ -10,6 +12,7 @@
 AWeapon::AWeapon()
 {
 	InventoryType = EINVENTORY_TYPE::EQUIPMENT;
+
 
 	bCanMagnet = false;
 }
@@ -31,17 +34,24 @@ AItem* AWeapon::EquippedItem()
 		}
 		else
 		{
-			// ÀåÂø
-			CurrentSlot->PushEquipment(this);
+			if (PlayerCharacter->GetMyWeapon() != nullptr)
+				CurrentSlot->PushEquipment(this);
+			else
+			{
+				// ÀåÂø
+				CurrentSlot->PushEquipment(this);
 
-			// ÀåÂø
-			FName GunSocket(TEXT("middle_r_socket"));
+				// ÀåÂø
+				FName GunSocket(TEXT("middle_r_socket"));
 
-			AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-				GunSocket);
-			SetActorRotation(FRotator(0.f, 0.f, 0.f));
-			PlayerCharacter->SetMyWeapon(this);
-			SetActorHiddenInGame(false);
+				AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+					GunSocket);
+				SetActorRotation(FRotator(0.f, 0.f, 0.f));
+				PlayerCharacter->SetMyWeapon(this);
+				SetActorHiddenInGame(false);
+				PlayerCharacter->CurrentWeaponState = WeaponState;
+			}
+
 
 			return nullptr;
 		}

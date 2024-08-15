@@ -52,22 +52,13 @@ AMyEnemy::AMyEnemy()
 
 }
 
-// Called when the game starts or when spawned
 void AMyEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-
-	//UEnemyAnimInstance* Anim = Cast<UEnemyAnimInstance>(GetMesh()->GetAnimInstance());
-	//if (Anim)
-	//{
-	//	Anim->OnMontageEnded.AddDynamic(this, &AMyEnemy::AttackEnd);
-	//}
-
 	EnemyAnimInstance = Cast<UEnemyAnimInstance>(GetMesh()->GetAnimInstance());
 }
 
-// Called every frame
 void AMyEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -105,11 +96,6 @@ float AMyEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, 
 
 	return DamageAmount;
 }
-
-
-
-
-
 
 
 void AMyEnemy::Attack()
@@ -157,11 +143,6 @@ void AMyEnemy::Attack()
 
 }
 
-//void AMyEnemy::AttackEnd(UAnimMontage* Montage, bool interrupt)
-//{
-//	IsAttack = false;
-//
-//}
 
 void AMyEnemy::Die()
 {

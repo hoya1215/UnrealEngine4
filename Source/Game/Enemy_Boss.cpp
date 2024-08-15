@@ -33,20 +33,3 @@ void AEnemy_Boss::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-//void AEnemy_Boss::Die()
-//{
-//	AMyGameModeBase* GameModeBase = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(this));
-//	if (GameModeBase && GameModeBase->EnemyTypeCount[2] > 0)
-//	{
-//		GameModeBase->EnemyTypeCount[2]--;
-//	}
-//
-//	AEnemyController* AIController = Cast<AEnemyController>(GetController());
-//	if (AIController)
-//	{
-//		AIController->OnUnPossess();
-//		//AIController->Destroy();
-//	}
-//
-//	Destroy();
-//}

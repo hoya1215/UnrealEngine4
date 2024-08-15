@@ -27,7 +27,7 @@ void UInventoryWidget::NativeConstruct()
     Super::NativeConstruct();
 
     InventoryBoard->ClearChildren();
-    SlotWidgets.Empty();
+    CurrentSlotWidgets.Empty();
 
     CreateSlot();
     FillInventory(EquipmentSlotWidgets);
@@ -67,71 +67,10 @@ void UInventoryWidget::NativeOnDragDetected(const FGeometry& InGeometry, const F
 }
 
 
-
-//FReply UInventoryWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
-//{
-//    FEventReply Reply;
-//    Reply.NativeReply = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
-//
-//
-//    if (InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton)
-//    {
-//        bIsDragging = true;
-//        DragOffset = InGeometry.AbsoluteToLocal(InMouseEvent.GetScreenSpacePosition());
-//        //Reply = UWidgetBlueprintLibrary::CaptureMouse(Reply, TopSizeBox);
-//        //return Reply.NativeReply;
-//        return FReply::Handled().CaptureMouse(AsShared());
-//    }
-//
-//
-//    return Reply.NativeReply;
-//}
-//
-//FReply UInventoryWidget::NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
-//{
-//    FEventReply Reply;
-//    Reply.NativeReply = Super::NativeOnMouseMove(InGeometry, InMouseEvent);
-//
-//    if (bIsDragging)
-//    {
-//        FVector2D NewPosition = InMouseEvent.GetScreenSpacePosition() - DragOffset;
-//        SetPositionInViewport(NewPosition, false);
-//        return FReply::Handled();
-//    }
-//    return FReply::Unhandled();
-//    //return Reply.NativeReply;
-//}
-//
-//
-//FReply UInventoryWidget::NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
-//{
-//    FEventReply Reply;
-//    Reply.NativeReply = Super::NativeOnMouseButtonUp(InGeometry, InMouseEvent);
-//
-//    if (bIsDragging && InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton)
-//    {
-//        bIsDragging = false;
-//        //Reply = UWidgetBlueprintLibrary::ReleaseMouseCapture(Reply);
-//        //return Reply.NativeReply;
-//        return FReply::Handled().ReleaseMouseCapture();
-//    }
-//
-//    return Reply.NativeReply;
-//}
-
 void UInventoryWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
     Super::NativeTick(MyGeometry, InDeltaTime);
 
-    //if (bIsDragging)
-    //{
-    //    FVector2D MousePosition;
-    //    if (GetWorld()->GetFirstPlayerController()->GetMousePosition(MousePosition.X, MousePosition.Y))
-    //    {
-    //        FVector2D NewPosition = MousePosition - DragOffset;
-    //        SetPositionInViewport(NewPosition, false);
-    //    }
-    //}
 }
 
 
@@ -146,14 +85,13 @@ void UInventoryWidget::AddItemToInventory(AItem* Item)
             {
                 for (int i = 0; i < EquipmentSlotWidgets.Num(); ++i)
                 {
-                    if (EquipmentSlotWidgets[i]->SlotItem == nullptr)
+                    if (EquipmentSlotWidgets[i]->CurrentItem == nullptr)
                     {
                         EquipmentSlotWidgets[i]->AddItem(Item);
                         break;
                     }
                 }
-                //EquipmentSlotWidgets[CurrentSlotIndex_Equipment]->AddItem(Item);
-                //CurrentSlotIndex_Equipment++;
+
             }
             break;
         case EINVENTORY_TYPE::CONSUMPTION:
@@ -161,14 +99,13 @@ void UInventoryWidget::AddItemToInventory(AItem* Item)
             {
                 for (int i = 0; i < ConsumptionSlotWidgets.Num(); ++i)
                 {
-                    if (ConsumptionSlotWidgets[i]->SlotItem == nullptr)
+                    if (ConsumptionSlotWidgets[i]->CurrentItem == nullptr)
                     {
                         ConsumptionSlotWidgets[i]->AddItem(Item);
                         break;
                     }
                 }
-                //ConsumptionSlotWidgets[CurrentSlotIndex_Consumption]->AddItem(Item);
-                //CurrentSlotIndex_Consumption++;
+
             }
             break;
         case EINVENTORY_TYPE::ETC:
@@ -176,14 +113,13 @@ void UInventoryWidget::AddItemToInventory(AItem* Item)
             {
                 for (int i = 0; i < ETCSlotWidgets.Num(); ++i)
                 {
-                    if (ETCSlotWidgets[i]->SlotItem == nullptr)
+                    if (ETCSlotWidgets[i]->CurrentItem == nullptr)
                     {
                         ETCSlotWidgets[i]->AddItem(Item);
                         break;
                     }
                 }
-                //ETCSlotWidgets[CurrentSlotIndex_Etc]->AddItem(Item);
-                //CurrentSlotIndex_Etc++;
+
             }
             break;
         }
@@ -193,29 +129,12 @@ void UInventoryWidget::AddItemToInventory(AItem* Item)
 void UInventoryWidget::SwapSlot(int From, int To)
 {
     UInventorySlotWidget* Copy = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
-    Copy->SetItem(SlotWidgets[From]);
-    UTexture2D* Tex = SlotWidgets[From]->SlotTexture;
-    //SlotWidgets[From] = SlotWidgets[To];
-    //SlotWidgets[From]->Index = From;
+    Copy->SetItem(CurrentSlotWidgets[From]);
 
-        SlotWidgets[From]->SetItem(SlotWidgets[To]);
-        SlotWidgets[To]->SetItem(Copy);
 
-        //switch (InventoryState)
-        //{
-        //case 0:
-        //    EquipmentSlotWidgets[From]->SetItem(EquipmentSlotWidgets[To]);
-        //    EquipmentSlotWidgets[To]->SetItem(Copy);
-        //    break;
-        //case 1:
-        //    ConsumptionSlotWidgets[From]->SetItem(ConsumptionSlotWidgets[To]);
-        //    ConsumptionSlotWidgets[To]->SetItem(Copy);
-        //    break;
-        //case 2:
-        //    ETCSlotWidgets[From]->SetItem(ETCSlotWidgets[To]);
-        //    ETCSlotWidgets[To]->SetItem(Copy);
-        //    break;
-        //}
+    CurrentSlotWidgets[From]->SetItem(CurrentSlotWidgets[To]);
+    CurrentSlotWidgets[To]->SetItem(Copy);
+
 
 }
 
@@ -282,7 +201,7 @@ void UInventoryWidget::CreateSlot()
 void UInventoryWidget::FillInventory(TArray<UInventorySlotWidget*> Slots)
 {
     InventoryBoard->ClearChildren();
-    SlotWidgets.Empty();
+    CurrentSlotWidgets.Empty();
 
     int32 Row = 4;
     int32 Column = 4;
@@ -298,19 +217,13 @@ void UInventoryWidget::FillInventory(TArray<UInventorySlotWidget*> Slots)
         
 
             if (Index < EquipmentSlotWidgets.Num())
-            {
-                
+            {              
                 InventoryBoard->AddChildToUniformGrid(Slots[Index], i, j);
-                //SlotWidgets.Add(Slots[Index]);
-            }
-
-
-                //SlotArray.Add(NewSlot);
-            
+            } 
         }
     }
 
-    SlotWidgets = Slots;
+    CurrentSlotWidgets = Slots;
 }
 
 void UInventoryWidget::SwapInventory(EINVENTORY_TYPE InventoryType)
@@ -318,13 +231,13 @@ void UInventoryWidget::SwapInventory(EINVENTORY_TYPE InventoryType)
     switch (InventoryState)
     {
     case 0:
-        EquipmentSlotWidgets = SlotWidgets;
+        EquipmentSlotWidgets = CurrentSlotWidgets;
         break;
     case 1:
-        ConsumptionSlotWidgets = SlotWidgets;
+        ConsumptionSlotWidgets = CurrentSlotWidgets;
         break;
     case 2:
-        ETCSlotWidgets = SlotWidgets;
+        ETCSlotWidgets = CurrentSlotWidgets;
         break;
     }
 

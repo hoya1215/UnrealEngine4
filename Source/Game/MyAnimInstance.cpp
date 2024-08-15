@@ -7,22 +7,45 @@
 #include "GameFramework/Character.h"
 #include "MyCharacterStatComponent.h"
 
+void UMyAnimInstance::NativeInitializeAnimation()
+{
+	auto Pawn = TryGetPawnOwner();
+	MyCharacter = Cast<AMyCharacter>(Pawn);
+}
+
 void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
 
-	auto Pawn = TryGetPawnOwner();
-	if (IsValid(Pawn))
+	if (MyCharacter)
 	{
-		Speed = Pawn->GetVelocity().Size();
+		Speed = MyCharacter->GetVelocity().Size();
 
-		auto Character = Cast<AMyCharacter>(Pawn);
-		if (Character)
+		IsFalling = MyCharacter->GetMovementComponent()->IsFalling();
+		IsWalking = MyCharacter->bIsWalking;
+		IsFlying = MyCharacter->bIsFlying;
+		Hp = MyCharacter->Stat->GetHp();
+		CurrentWeaponState = MyCharacter->CurrentWeaponState;
+		IsWeaponSwapping = MyCharacter->bIsWeaponSwapping;
+	}
+}
+
+void UMyAnimInstance::AnimNotify_SwapEnd()
+{
+	if (MyCharacter)
+	{
+		MyCharacter->bIsWeaponSwapping = false;
+		switch (MyCharacter->CurrentWeaponState)
 		{
-			IsFalling = Character->GetMovementComponent()->IsFalling();
-			IsWalking = Character->IsWalking;
-			IsFlying = Character->bIsFlying;
-			Hp = Character->Stat->GetHp();
+		case 0:
+			MyCharacter->ChangeCurrentWeapon(EEQUIPMENT_TYPE::MAIN);
+			break;
+		case 1:
+			MyCharacter->ChangeCurrentWeapon(EEQUIPMENT_TYPE::SUB);
+			break;
+		case 2:
+			MyCharacter->ChangeCurrentWeapon(EEQUIPMENT_TYPE::OTHER);
+			break;
 		}
 	}
 }
