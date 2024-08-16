@@ -31,6 +31,7 @@ public:
 	void SearchItem();
 	void MagnetItem(AItem* Item);
 	void Stop();
+	void ReStart();
 
 	FRotator GetDefaultRotation() { return DefaultRotation; }
 	void SetDefaultRotation(FRotator NewRotation) { DefaultRotation = NewRotation; }

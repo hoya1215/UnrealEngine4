@@ -6,6 +6,8 @@
 #include "AIController.h"
 #include "PetController.generated.h"
 
+
+class UBehaviorTree;
 /**
  * 
  */
@@ -21,10 +23,13 @@ public:
 
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void OnUnPossess() override;
+
+	// Get, Set
+	UBehaviorTree* GetBehaviorTree() { return BehaviorTree; }
 	
 private:
 	UPROPERTY()
-		class UBehaviorTree* BehaviorTree;
+		UBehaviorTree* BehaviorTree;
 
 	UPROPERTY()
 		class UBlackboardData* BlackboardData;

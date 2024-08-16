@@ -21,8 +21,6 @@ public:
 public:
 	FPickUp PickUp;
 
-	UPROPERTY()
-		class UStaticMeshComponent* MyGun;
 
 	bool bContainInventory = false;
 

@@ -20,6 +20,13 @@ void EmptyLinkFunctionForGeneratedCodeMyAnimInstance() {}
 	UPackage* Z_Construct_UPackage__Script_Game();
 	GAME_API UClass* Z_Construct_UClass_AMyCharacter_NoRegister();
 // End Cross Module References
+	DEFINE_FUNCTION(UMyAnimInstance::execAnimNotify_SwordAttack)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->AnimNotify_SwordAttack();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(UMyAnimInstance::execAnimNotify_SwapEnd)
 	{
 		P_FINISH;
@@ -32,6 +39,7 @@ void EmptyLinkFunctionForGeneratedCodeMyAnimInstance() {}
 		UClass* Class = UMyAnimInstance::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
 			{ "AnimNotify_SwapEnd", &UMyAnimInstance::execAnimNotify_SwapEnd },
+			{ "AnimNotify_SwordAttack", &UMyAnimInstance::execAnimNotify_SwordAttack },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 	}
@@ -54,6 +62,28 @@ void EmptyLinkFunctionForGeneratedCodeMyAnimInstance() {}
 		if (!ReturnFunction)
 		{
 			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwapEnd_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwordAttack_Statics
+	{
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwordAttack_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "MyAnimInstance.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwordAttack_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMyAnimInstance, nullptr, "AnimNotify_SwordAttack", nullptr, nullptr, 0, nullptr, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwordAttack_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwordAttack_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwordAttack()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwordAttack_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -119,6 +149,7 @@ void EmptyLinkFunctionForGeneratedCodeMyAnimInstance() {}
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_UMyAnimInstance_Statics::FuncInfo[] = {
 		{ &Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwapEnd, "AnimNotify_SwapEnd" }, // 1798045375
+		{ &Z_Construct_UFunction_UMyAnimInstance_AnimNotify_SwordAttack, "AnimNotify_SwordAttack" }, // 1418149778
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyAnimInstance_Statics::Class_MetaDataParams[] = {
@@ -256,7 +287,7 @@ void EmptyLinkFunctionForGeneratedCodeMyAnimInstance() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMyAnimInstance, 2760195519);
+	IMPLEMENT_CLASS(UMyAnimInstance, 3302657661);
 	template<> GAME_API UClass* StaticClass<UMyAnimInstance>()
 	{
 		return UMyAnimInstance::StaticClass();

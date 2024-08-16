@@ -49,6 +49,27 @@ void UMyCharacterStatComponent::SetLevel(int32 CurrentLevel)
 	}
 }
 
+void UMyCharacterStatComponent::SetHp(int32 NewHp)
+{
+	Hp = NewHp;
+}
+
+int32 UMyCharacterStatComponent::GetMaxHp()
+{
+	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	
+	if (MyGameInstance)
+	{
+		auto StatData = MyGameInstance->GetStatData(Level);
+		if (StatData)
+		{
+			return StatData->MaxHp;
+		}
+	}
+	// ½ÇÆÐ
+	return -1;
+}
+
 void UMyCharacterStatComponent::OnAttacked(float DamageAmount)
 {
 	Hp -= DamageAmount;

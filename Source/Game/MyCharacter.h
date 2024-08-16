@@ -21,6 +21,7 @@ class AWing;
 
 
 DECLARE_MULTICAST_DELEGATE(FCharacterDie)
+DECLARE_MULTICAST_DELEGATE(FCharacterRevive)
 UCLASS()
 class GAME_API AMyCharacter : public ACharacter
 {
@@ -42,7 +43,9 @@ public:
 	virtual bool CanJumpInternal_Implementation() const override;
 
 	// Çàµ¿
+	void MouseClick();
 	void Attack();
+	void LeftMouseNonClick();
 	void PickUpGun();
 	void Zoom();
 	void OpenInventory();
@@ -52,7 +55,9 @@ public:
 	void SelectWeapon(FKey Key);
 	void ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType);
 	void MainAttack();
+	void SubAttack();
 	void OtherAttack();
+	void Revive();
 
 
 	// Get Set
@@ -70,6 +75,7 @@ public:
 	void DragInventory();
 
 	FCharacterDie CharacterDie;
+	FCharacterRevive CharacterRevive;
 
 protected:
 	virtual void BeginPlay() override;
@@ -195,5 +201,9 @@ private:
 
 	UPROPERTY()
 	APet* MyPet = nullptr;
+
+	// Timer
+	UPROPERTY()
+		FTimerHandle MouseTimerHandle;
 
 };

@@ -16,11 +16,13 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define GameCopy_Source_Game_MyAnimInstance_h_17_SPARSE_DATA
 #define GameCopy_Source_Game_MyAnimInstance_h_17_RPC_WRAPPERS \
  \
+	DECLARE_FUNCTION(execAnimNotify_SwordAttack); \
 	DECLARE_FUNCTION(execAnimNotify_SwapEnd);
 
 
 #define GameCopy_Source_Game_MyAnimInstance_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execAnimNotify_SwordAttack); \
 	DECLARE_FUNCTION(execAnimNotify_SwapEnd);
 
 

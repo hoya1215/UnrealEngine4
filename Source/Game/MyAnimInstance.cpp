@@ -27,6 +27,7 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		Hp = MyCharacter->Stat->GetHp();
 		CurrentWeaponState = MyCharacter->CurrentWeaponState;
 		IsWeaponSwapping = MyCharacter->bIsWeaponSwapping;
+		IsAttacking = MyCharacter->bIsAttacking;
 	}
 }
 
@@ -47,5 +48,14 @@ void UMyAnimInstance::AnimNotify_SwapEnd()
 			MyCharacter->ChangeCurrentWeapon(EEQUIPMENT_TYPE::OTHER);
 			break;
 		}
+	}
+}
+
+void UMyAnimInstance::AnimNotify_SwordAttack()
+{
+
+	if (MyCharacter)
+	{
+		MyCharacter->OtherAttack();
 	}
 }

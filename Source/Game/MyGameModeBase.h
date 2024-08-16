@@ -17,6 +17,7 @@ enum class EENEMY_TYPE : uint8
 
 
 class AMyEnemy;
+class AFireGun;
 /**
  * 
  */
@@ -43,6 +44,8 @@ public:
 	UPROPERTY()
 	TSubclassOf<UUserWidget> HUD_Class;
 
+
+	// Enemy
 	UPROPERTY(VisibleAnywhere)
 		TSubclassOf<AMyEnemy> EnemyClass;
 
@@ -64,5 +67,9 @@ public:
 
 	int32 CurrentEnemyCount = 0;
 	int32 MaxEnemyCount = 5;
+
+	// Weapon
+	UPROPERTY()
+		TSubclassOf<AFireGun> FireGunClass;
 	
 };

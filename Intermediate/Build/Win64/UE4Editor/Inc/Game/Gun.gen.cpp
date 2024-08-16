@@ -17,7 +17,6 @@ void EmptyLinkFunctionForGeneratedCodeGun() {}
 	GAME_API UClass* Z_Construct_UClass_AGun();
 	GAME_API UClass* Z_Construct_UClass_AWeapon();
 	UPackage* Z_Construct_UPackage__Script_Game();
-	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 // End Cross Module References
 	void AGun::StaticRegisterNativesAGun()
 	{
@@ -32,11 +31,6 @@ void EmptyLinkFunctionForGeneratedCodeGun() {}
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MyGun_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_MyGun;
-		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
 	};
@@ -50,16 +44,6 @@ void EmptyLinkFunctionForGeneratedCodeGun() {}
 		{ "ModuleRelativePath", "Gun.h" },
 	};
 #endif
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AGun_Statics::NewProp_MyGun_MetaData[] = {
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Gun.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AGun_Statics::NewProp_MyGun = { "MyGun", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AGun, MyGun), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AGun_Statics::NewProp_MyGun_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AGun_Statics::NewProp_MyGun_MetaData)) };
-	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AGun_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AGun_Statics::NewProp_MyGun,
-	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AGun_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AGun>::IsAbstract,
 	};
@@ -69,11 +53,11 @@ void EmptyLinkFunctionForGeneratedCodeGun() {}
 		&StaticCppClassTypeInfo,
 		DependentSingletons,
 		nullptr,
-		Z_Construct_UClass_AGun_Statics::PropPointers,
+		nullptr,
 		nullptr,
 		UE_ARRAY_COUNT(DependentSingletons),
 		0,
-		UE_ARRAY_COUNT(Z_Construct_UClass_AGun_Statics::PropPointers),
+		0,
 		0,
 		0x009000A4u,
 		METADATA_PARAMS(Z_Construct_UClass_AGun_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_AGun_Statics::Class_MetaDataParams))
@@ -87,7 +71,7 @@ void EmptyLinkFunctionForGeneratedCodeGun() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AGun, 1546172297);
+	IMPLEMENT_CLASS(AGun, 1473523865);
 	template<> GAME_API UClass* StaticClass<AGun>()
 	{
 		return AGun::StaticClass();

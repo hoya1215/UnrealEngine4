@@ -87,6 +87,8 @@ void AMyEnemy::Tick(float DeltaTime)
 			});
 	}
 
+	FireGunDamageTime += DeltaTime;
+
 }
 
 

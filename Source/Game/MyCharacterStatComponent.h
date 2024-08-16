@@ -23,11 +23,13 @@ protected:
 
 public:	
 	void SetLevel(int32 CurrentLevel);
+	void SetHp(int32 NewHp);
 	void OnAttacked(float DamageAmount);
 
 	int32 GetLevel() { return Level; }
 	int32 GetHp() { return Hp; }
 	int32 GetPower() { return Power; }
+	int32 GetMaxHp();
 
 private:
 	UPROPERTY(EditAnywhere, Category = Stat, Meta = (AllowPrivateAccess = true))

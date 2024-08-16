@@ -14,24 +14,24 @@ AGun::AGun()
 
 	PrimaryActorTick.bCanEverTick = true;
 
-	MyGun = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GUN"));
+	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GUN"));
 
 
 	ConstructorHelpers::FObjectFinder<UStaticMesh> SM(TEXT("StaticMesh'/Game/FPS_Weapon_Bundle/Weapons/Meshes/Ka47/SM_KA47_X.SM_KA47_X'"));
 	if (SM.Succeeded())
-		MyGun->SetStaticMesh(SM.Object);
+		StaticMesh->SetStaticMesh(SM.Object);
 
 	ConstructorHelpers::FObjectFinder<UParticleSystem> PS(TEXT("ParticleSystem'/Game/StarterContent/Particles/P_Explosion.P_Explosion'"));
 	if (PS.Succeeded())
 		Effect = PS.Object;
 
 	// Ãæµ¹
-	MyGun->SetCollisionProfileName(TEXT("Gun"));
+	StaticMesh->SetCollisionProfileName(TEXT("Gun"));
 	Trigger->SetCollisionProfileName(TEXT("Gun"));
 	Trigger->SetBoxExtent(FVector(30.f, 30.f, 30.f));
 
-	RootComponent = MyGun;
-	Trigger->SetupAttachment(MyGun);
+	RootComponent = StaticMesh;
+	Trigger->SetupAttachment(StaticMesh);
 
 	SetActorLocation(FVector(0.f, 10.f, 200.f));
 

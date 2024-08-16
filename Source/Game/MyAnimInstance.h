@@ -25,6 +25,9 @@ public:
 	UFUNCTION()
 		void AnimNotify_SwapEnd();
 
+	UFUNCTION()
+		void AnimNotify_SwordAttack();
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
 		float Speed;

@@ -261,7 +261,8 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AMyCharacter::Jump);
 	PlayerInputComponent->BindAction(TEXT("Walk"), EInputEvent::IE_Pressed, this, &AMyCharacter::Walk);
 	PlayerInputComponent->BindAction(TEXT("Walk"), EInputEvent::IE_Released, this, &AMyCharacter::StopWalk);
-	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyCharacter::Attack);
+	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyCharacter::MouseClick);
+	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Released, this, &AMyCharacter::LeftMouseNonClick);
 	//PlayerInputComponent->BindAction(TEXT("Zoom"), EInputEvent::IE_Pressed, this, &AMyCharacter::Zoom);
 	PlayerInputComponent->BindAction(TEXT("OpenInventory"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenInventory);
 	PlayerInputComponent->BindAction(TEXT("FlyingMode"), EInputEvent::IE_Pressed, this, &AMyCharacter::FlyingMode);
@@ -270,6 +271,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction(TEXT("SelectMainWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
 	PlayerInputComponent->BindAction(TEXT("SelectSubWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
 	PlayerInputComponent->BindAction(TEXT("SelectOtherWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
+	PlayerInputComponent->BindAction(TEXT("Revive"), EInputEvent::IE_Pressed, this, &AMyCharacter::Revive);
 }
 
 float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -351,19 +353,35 @@ void AMyCharacter::UpdateUI()
 	}
 }
 
+void AMyCharacter::MouseClick()
+{
+	GetWorldTimerManager().SetTimer(MouseTimerHandle, this, &AMyCharacter::Attack, 0.1f, true);
+}
+
 void AMyCharacter::Attack()
 {
-	bIsAttacking = true;
+	UE_LOG(LogTemp, Warning, TEXT("Attack Press"));
 
-	switch (CurrentWeaponState)
+	if (MyWeapon != nullptr)
 	{
-	case 2:
-		OtherAttack();
-		break;
-	default:
-		MainAttack();
-		break;
+		bIsAttacking = true;
+
+
+		switch (CurrentWeaponState)
+		{
+		case 1:
+			SubAttack();
+			break;
+		case 2:
+			break;
+		default:
+			MainAttack();
+			break;
+		}
+
+		// 검은 Anim Notify 로
 	}
+
 }
 
 void AMyCharacter::MainAttack()
@@ -423,6 +441,59 @@ void AMyCharacter::MainAttack()
 
 
 	}
+
+	bIsAttacking = false;
+}
+
+void AMyCharacter::SubAttack()
+{
+	bIsAttacking = true;
+	MyWeapon->EffectComponent->Activate();
+
+	FHitResult HitResult;
+	FCollisionQueryParams Params(NAME_None, false, this);
+
+	float Range = 100.0f;
+	float Radius = 50.f;
+
+	bool bResult = GetWorld()->SweepSingleByChannel(
+		OUT HitResult,
+		GetActorLocation(),
+		GetActorLocation() + GetActorForwardVector() * Range,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel3,
+		FCollisionShape::MakeSphere(Radius),
+		Params
+	);
+
+	// 디버거용 그림
+	FVector Vec = GetActorForwardVector() * Range;
+	FVector Center = GetActorLocation() + Vec * 0.5f;
+	float HalfHeight = Range * 0.5f + Radius;
+	FQuat Rotation = FRotationMatrix::MakeFromZ(Vec).ToQuat();
+	FColor DrawColor;
+	if (bResult)
+		DrawColor = FColor::Green;
+	else
+		DrawColor = FColor::Red;
+
+	DrawDebugCapsule(GetWorld(), Center, HalfHeight, Radius, Rotation, DrawColor, false, 2.f);
+
+	if (bResult && HitResult.Actor.IsValid())
+	{
+		// Fire Gun damage per second
+		AMyEnemy* CurrentEnemy = Cast<AMyEnemy>(HitResult.Actor);
+		if (CurrentEnemy->FireGunDamageTime > 60.f)
+		{
+			CurrentEnemy->FireGunDamageTime = 0.f;
+			FDamageEvent event;
+			HitResult.Actor->TakeDamage(Stat->GetPower(), event, GetController(), this);
+		}
+
+
+	}
+
+	bIsAttacking = false;
 }
 
 void AMyCharacter::OtherAttack()
@@ -458,9 +529,25 @@ void AMyCharacter::OtherAttack()
 
 	if (bResult && HitResult.Actor.IsValid())
 	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), MyWeapon->Effect, HitResult.Actor->GetActorLocation(), FRotator(0.f), true);
+
 
 		FDamageEvent event;
 		HitResult.Actor->TakeDamage(Stat->GetPower(), event, GetController(), this);
+	}
+
+	bIsAttacking = false;
+}
+
+void AMyCharacter::LeftMouseNonClick()
+{
+	GetWorldTimerManager().ClearTimer(MouseTimerHandle);
+
+	bIsAttacking = false;
+
+	if (MyWeapon && CurrentWeaponState == 1)
+	{
+		MyWeapon->EffectComponent->Deactivate();
 	}
 }
 
@@ -652,6 +739,16 @@ void AMyCharacter::SetMyWeapon(AWeapon* CurrentWeapon)
 {
 	MyWeapon = CurrentWeapon;
 	CurrentWeaponState = CurrentWeapon->WeaponState;
+}
+
+void AMyCharacter::Revive()
+{
+	int32 MaxHp = Stat->GetMaxHp();
+	Stat->SetHp(MaxHp);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	SetActorTickEnabled(true);
+
+	CharacterRevive.Broadcast();
 }
 
 

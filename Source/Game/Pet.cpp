@@ -52,6 +52,7 @@ void APet::BeginPlay()
 	
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	MyCharacter->CharacterDie.AddUObject(this, &APet::Stop);
+	MyCharacter->CharacterRevive.AddUObject(this, &APet::ReStart);
 
 }
 
@@ -166,5 +167,21 @@ void APet::Stop()
 		{
 			BehaviorComp->StopLogic("Stopping Behavior Tree");
 		}
+	}
+}
+
+void APet::ReStart()
+{
+	SetActorTickEnabled(true);
+	bCanAttack = true;
+	bIsAttacking = true;
+	bIsMagnet = true;
+
+
+
+	APetController* PetController = Cast<APetController>(GetController());
+	if (PetController)
+	{
+		PetController->RunBehaviorTree(PetController->GetBehaviorTree());
 	}
 }

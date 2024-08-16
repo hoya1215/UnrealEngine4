@@ -11,6 +11,8 @@
 #include "Enemy_Boss.h"
 #include "Gun.h"
 #include "Sword.h"
+#include "FireGun.h"
+#include "Particles/ParticleSystemComponent.h"
 
 AMyGameModeBase::AMyGameModeBase()
 {
@@ -58,6 +60,12 @@ AMyGameModeBase::AMyGameModeBase()
 
 
 	//EnemyTypeCount = EENEMY_TYPE::ET_ENEMY_TYPE_COUNT;
+
+	static ConstructorHelpers::FClassFinder<AFireGun> FG(TEXT("Blueprint'/Game/Custom/Blueprint/BP_FireGun.BP_FireGun_C'"));
+	if (FG.Succeeded())
+	{
+		FireGunClass = FG.Class;
+	}
 }
 
 void AMyGameModeBase::BeginPlay()
@@ -66,6 +74,8 @@ void AMyGameModeBase::BeginPlay()
 
 	auto Gun = GetWorld()->SpawnActor<AGun>(FVector::ZeroVector, FRotator::ZeroRotator);
 	auto Sword = GetWorld()->SpawnActor<ASword>(FVector(0.f, 10.f, 200.f), FRotator::ZeroRotator);
+	auto FireGun = GetWorld()->SpawnActor<AFireGun>(FireGunClass, FVector(-50.f, 10.f, 200.f), FRotator::ZeroRotator);
+	FireGun->EffectComponent->Deactivate();
 
 	GetWorldTimerManager().SetTimer(EnemyTimerHandle, this, &AMyGameModeBase::SpawnEnemy, SpawnInterval, true);
 }

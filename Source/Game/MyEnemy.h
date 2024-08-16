@@ -62,6 +62,8 @@ public:
 	UPROPERTY()
 		EENEMY_TYPE EnemyType;
 
+	float FireGunDamageTime = 60.f;
+
 private:
 	UPROPERTY()
 		class UEnemyAnimInstance* EnemyAnimInstance;

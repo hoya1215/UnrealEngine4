@@ -20,9 +20,13 @@ public:
 	virtual AItem* EquippedItem() override;
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UStaticMeshComponent* StaticMesh;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class UParticleSystemComponent* EffectComponent;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		class UParticleSystem* Effect;
 
 	UPROPERTY()

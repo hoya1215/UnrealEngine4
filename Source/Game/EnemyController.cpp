@@ -30,6 +30,7 @@ void AEnemyController::BeginPlay()
 	Super::BeginPlay();
 
 	MyCharacter->CharacterDie.AddUObject(this, &AEnemyController::UnSetTarget);
+	MyCharacter->CharacterRevive.AddUObject(this, &AEnemyController::SetTarget);
 }
 
 void AEnemyController::Tick(float DeltaTime)
@@ -79,6 +80,7 @@ void AEnemyController::RandomMove()
 
 void AEnemyController::SetTarget()
 {
+	bCharacterDie = false;
 	GetBlackboardComponent()->SetValueAsObject(TEXT("Target"), MyCharacter);
 }
 
