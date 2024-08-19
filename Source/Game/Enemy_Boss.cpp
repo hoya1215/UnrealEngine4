@@ -26,6 +26,9 @@ AEnemy_Boss::AEnemy_Boss() : AMyEnemy()
 void AEnemy_Boss::BeginPlay()
 {
 	Super::BeginPlay();
+
+	FName Name(TEXT("Enemy_Boss"));
+	SetEnemyInfo(Name);
 }
 
 void AEnemy_Boss::Tick(float DeltaTime)

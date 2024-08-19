@@ -17,7 +17,7 @@ public:
 	// Sets default values for this actor's properties
 	AGun();
 
-
+	virtual void BeginPlay() override;
 public:
 	FPickUp PickUp;
 

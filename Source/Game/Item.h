@@ -60,7 +60,7 @@ public:
 		class UBoxComponent* Trigger;
 
 	UPROPERTY(VisibleAnywhere)
-		FName Name;
+		FName ItemName;
 
 	UPROPERTY(VisibleAnywhere)
 		EINVENTORY_TYPE InventoryType;

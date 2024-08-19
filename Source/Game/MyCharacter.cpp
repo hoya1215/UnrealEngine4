@@ -101,6 +101,7 @@ AMyCharacter::AMyCharacter()
 	if (WingClass.Succeeded())
 		MyWingClass = WingClass.Class;
 
+	DefaultSpeed = GetCharacterMovement()->MaxWalkSpeed;
 
 }
 
@@ -246,6 +247,9 @@ void AMyCharacter::Tick(float DeltaTime)
 	if (MyWeapon == nullptr)
 		CurrentWeaponState = 2;
 
+
+	// Tick 이 아니고 무기 변경해줄때마다 하면 실제 속도는 변화 x -> 개선
+	ChangeSpeed();
 }
 
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -261,7 +265,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AMyCharacter::Jump);
 	PlayerInputComponent->BindAction(TEXT("Walk"), EInputEvent::IE_Pressed, this, &AMyCharacter::Walk);
 	PlayerInputComponent->BindAction(TEXT("Walk"), EInputEvent::IE_Released, this, &AMyCharacter::StopWalk);
-	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyCharacter::MouseClick);
+	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyCharacter::Attack);
 	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Released, this, &AMyCharacter::LeftMouseNonClick);
 	//PlayerInputComponent->BindAction(TEXT("Zoom"), EInputEvent::IE_Pressed, this, &AMyCharacter::Zoom);
 	PlayerInputComponent->BindAction(TEXT("OpenInventory"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenInventory);
@@ -283,6 +287,8 @@ float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEve
 
 void AMyCharacter::MoveForward(float value)
 {
+	ForwardValue = value;
+
 	const FRotator Rotation = Controller->GetControlRotation();
 	const FRotator YawRotation(0, Rotation.Yaw, 0);
 
@@ -292,6 +298,8 @@ void AMyCharacter::MoveForward(float value)
 
 void AMyCharacter::MoveRight(float value)
 {
+	SideValue = value;
+
 	if (value == 0.f)
 		return;
 
@@ -370,7 +378,8 @@ void AMyCharacter::Attack()
 		switch (CurrentWeaponState)
 		{
 		case 1:
-			SubAttack();
+			GetWorldTimerManager().SetTimer(MouseTimerHandle, this, &AMyCharacter::SubAttack, 0.1f, true);
+			//SubAttack();
 			break;
 		case 2:
 			break;
@@ -424,7 +433,7 @@ void AMyCharacter::MainAttack()
 			{
 				FDamageEvent DamageEvent;
 
-				HitResult.Actor->TakeDamage(Stat->GetPower(), DamageEvent, GetController(), this);
+				HitResult.Actor->TakeDamage(Stat->GetPower() + MyWeapon->GetWeaponInfo().Power, DamageEvent, GetController(), this);
 			}
 
 			if (MyWeapon->Effect)
@@ -483,17 +492,16 @@ void AMyCharacter::SubAttack()
 	{
 		// Fire Gun damage per second
 		AMyEnemy* CurrentEnemy = Cast<AMyEnemy>(HitResult.Actor);
-		if (CurrentEnemy->FireGunDamageTime > 60.f)
+		if (CurrentEnemy && CurrentEnemy->FireGunDamageTime > 60.f)
 		{
 			CurrentEnemy->FireGunDamageTime = 0.f;
 			FDamageEvent event;
-			HitResult.Actor->TakeDamage(Stat->GetPower(), event, GetController(), this);
+			HitResult.Actor->TakeDamage(Stat->GetPower() + MyWeapon->GetWeaponInfo().Power, event, GetController(), this);
 		}
 
 
 	}
 
-	bIsAttacking = false;
 }
 
 void AMyCharacter::OtherAttack()
@@ -533,7 +541,7 @@ void AMyCharacter::OtherAttack()
 
 
 		FDamageEvent event;
-		HitResult.Actor->TakeDamage(Stat->GetPower(), event, GetController(), this);
+		HitResult.Actor->TakeDamage(Stat->GetPower() + MyWeapon->GetWeaponInfo().Power, event, GetController(), this);
 	}
 
 	bIsAttacking = false;
@@ -541,12 +549,14 @@ void AMyCharacter::OtherAttack()
 
 void AMyCharacter::LeftMouseNonClick()
 {
-	GetWorldTimerManager().ClearTimer(MouseTimerHandle);
 
-	bIsAttacking = false;
 
 	if (MyWeapon && CurrentWeaponState == 1)
 	{
+		GetWorldTimerManager().ClearTimer(MouseTimerHandle);
+
+		bIsAttacking = false;
+
 		MyWeapon->EffectComponent->Deactivate();
 	}
 }
@@ -733,6 +743,8 @@ void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
 		NewWeapon->SetActorHiddenInGame(false);
 		SetMyWeapon(NewWeapon);
 	}
+
+	ChangeSpeed();
 }
 
 void AMyCharacter::SetMyWeapon(AWeapon* CurrentWeapon)
@@ -751,4 +763,29 @@ void AMyCharacter::Revive()
 	CharacterRevive.Broadcast();
 }
 
+void AMyCharacter::ChangeSpeed()
+{
+	// Speed
+	switch (CurrentWeaponState)
+	{
+	case 0:
+		GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
+		break;
+	case 1:
+		GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
+		break;
+	case 2:
+		if (MyWeapon != nullptr)
+		{
+			GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
+		}
+		else
+		{
+			GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed;
+		}
+		break;
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Current Speed : %f"), GetCharacterMovement()->MaxWalkSpeed);
+}
 

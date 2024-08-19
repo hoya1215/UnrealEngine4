@@ -53,6 +53,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
 		int32 Hp;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
+		int ForwardValue;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
+		int SideValue;
+
+
 private:
 	UPROPERTY()
 		AMyCharacter* MyCharacter;

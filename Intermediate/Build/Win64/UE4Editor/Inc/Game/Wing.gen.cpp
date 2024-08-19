@@ -89,7 +89,7 @@ void EmptyLinkFunctionForGeneratedCodeWing() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AWing, 2331905176);
+	IMPLEMENT_CLASS(AWing, 92291632);
 	template<> GAME_API UClass* StaticClass<AWing>()
 	{
 		return AWing::StaticClass();

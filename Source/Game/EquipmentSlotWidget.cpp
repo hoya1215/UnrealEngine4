@@ -13,6 +13,7 @@
 #include "InventorySlotWidget.h"
 #include "Weapon.h"
 #include "Wing.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 void UEquipmentSlotWidget::PushEquipment(AItem* Item, UTexture2D* Texture)
@@ -81,9 +82,11 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 
 		PullEquipment();
 
-
+		PlayerCharacter->ChangeSpeed();
 
 	}
+
+
 
 	return Reply.NativeReply;
 }

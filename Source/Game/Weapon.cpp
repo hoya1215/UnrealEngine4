@@ -61,3 +61,12 @@ AItem* AWeapon::EquippedItem()
 	return this;
 
 }
+
+void AWeapon::SetWeaponInfo(FName Name)
+{
+	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	auto WeaponData = MyGameInstance->GetWeaponData(Name);
+
+	WeaponInfo.Power = WeaponData->Power;
+	WeaponInfo.Speed = WeaponData->Speed;
+}

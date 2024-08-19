@@ -28,6 +28,8 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		CurrentWeaponState = MyCharacter->CurrentWeaponState;
 		IsWeaponSwapping = MyCharacter->bIsWeaponSwapping;
 		IsAttacking = MyCharacter->bIsAttacking;
+		ForwardValue = MyCharacter->ForwardValue;
+		SideValue = MyCharacter->SideValue;
 	}
 }
 

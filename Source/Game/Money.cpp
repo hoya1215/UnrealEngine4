@@ -22,7 +22,7 @@ AMoney::AMoney()
 
 	Value = FMath::RandRange(500, 1000);
 
-	Name = FName(TEXT("Money"));
+	ItemName = FName(TEXT("Money"));
 	ItemType = EITEM_TYPE::MONEY;
 	InventoryType = EINVENTORY_TYPE::CONSUMPTION;
 

@@ -13,10 +13,17 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GAME_MyEnemy_generated_h
 
-#define GameCopy_Source_Game_MyEnemy_h_13_SPARSE_DATA
-#define GameCopy_Source_Game_MyEnemy_h_13_RPC_WRAPPERS
-#define GameCopy_Source_Game_MyEnemy_h_13_RPC_WRAPPERS_NO_PURE_DECLS
-#define GameCopy_Source_Game_MyEnemy_h_13_INCLASS_NO_PURE_DECLS \
+#define GameCopy_Source_Game_MyEnemy_h_14_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FEnemyInfo_Statics; \
+	GAME_API static class UScriptStruct* StaticStruct();
+
+
+template<> GAME_API UScriptStruct* StaticStruct<struct FEnemyInfo>();
+
+#define GameCopy_Source_Game_MyEnemy_h_29_SPARSE_DATA
+#define GameCopy_Source_Game_MyEnemy_h_29_RPC_WRAPPERS
+#define GameCopy_Source_Game_MyEnemy_h_29_RPC_WRAPPERS_NO_PURE_DECLS
+#define GameCopy_Source_Game_MyEnemy_h_29_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAMyEnemy(); \
 	friend struct Z_Construct_UClass_AMyEnemy_Statics; \
@@ -25,7 +32,7 @@ public: \
 	DECLARE_SERIALIZER(AMyEnemy)
 
 
-#define GameCopy_Source_Game_MyEnemy_h_13_INCLASS \
+#define GameCopy_Source_Game_MyEnemy_h_29_INCLASS \
 private: \
 	static void StaticRegisterNativesAMyEnemy(); \
 	friend struct Z_Construct_UClass_AMyEnemy_Statics; \
@@ -34,7 +41,7 @@ public: \
 	DECLARE_SERIALIZER(AMyEnemy)
 
 
-#define GameCopy_Source_Game_MyEnemy_h_13_STANDARD_CONSTRUCTORS \
+#define GameCopy_Source_Game_MyEnemy_h_29_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AMyEnemy(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AMyEnemy) \
@@ -47,7 +54,7 @@ private: \
 public:
 
 
-#define GameCopy_Source_Game_MyEnemy_h_13_ENHANCED_CONSTRUCTORS \
+#define GameCopy_Source_Game_MyEnemy_h_29_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API AMyEnemy(AMyEnemy&&); \
@@ -58,31 +65,33 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AMyEnemy); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AMyEnemy)
 
 
-#define GameCopy_Source_Game_MyEnemy_h_13_PRIVATE_PROPERTY_OFFSET \
-	FORCEINLINE static uint32 __PPO__EnemyAnimInstance() { return STRUCT_OFFSET(AMyEnemy, EnemyAnimInstance); }
+#define GameCopy_Source_Game_MyEnemy_h_29_PRIVATE_PROPERTY_OFFSET \
+	FORCEINLINE static uint32 __PPO__EnemyAnimInstance() { return STRUCT_OFFSET(AMyEnemy, EnemyAnimInstance); } \
+	FORCEINLINE static uint32 __PPO__EnemyInfo() { return STRUCT_OFFSET(AMyEnemy, EnemyInfo); } \
+	FORCEINLINE static uint32 __PPO__DefaultSpeed() { return STRUCT_OFFSET(AMyEnemy, DefaultSpeed); }
 
 
-#define GameCopy_Source_Game_MyEnemy_h_10_PROLOG
-#define GameCopy_Source_Game_MyEnemy_h_13_GENERATED_BODY_LEGACY \
+#define GameCopy_Source_Game_MyEnemy_h_26_PROLOG
+#define GameCopy_Source_Game_MyEnemy_h_29_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_MyEnemy_h_13_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_MyEnemy_h_13_SPARSE_DATA \
-	GameCopy_Source_Game_MyEnemy_h_13_RPC_WRAPPERS \
-	GameCopy_Source_Game_MyEnemy_h_13_INCLASS \
-	GameCopy_Source_Game_MyEnemy_h_13_STANDARD_CONSTRUCTORS \
+	GameCopy_Source_Game_MyEnemy_h_29_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_Source_Game_MyEnemy_h_29_SPARSE_DATA \
+	GameCopy_Source_Game_MyEnemy_h_29_RPC_WRAPPERS \
+	GameCopy_Source_Game_MyEnemy_h_29_INCLASS \
+	GameCopy_Source_Game_MyEnemy_h_29_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define GameCopy_Source_Game_MyEnemy_h_13_GENERATED_BODY \
+#define GameCopy_Source_Game_MyEnemy_h_29_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_MyEnemy_h_13_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_MyEnemy_h_13_SPARSE_DATA \
-	GameCopy_Source_Game_MyEnemy_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
-	GameCopy_Source_Game_MyEnemy_h_13_INCLASS_NO_PURE_DECLS \
-	GameCopy_Source_Game_MyEnemy_h_13_ENHANCED_CONSTRUCTORS \
+	GameCopy_Source_Game_MyEnemy_h_29_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_Source_Game_MyEnemy_h_29_SPARSE_DATA \
+	GameCopy_Source_Game_MyEnemy_h_29_RPC_WRAPPERS_NO_PURE_DECLS \
+	GameCopy_Source_Game_MyEnemy_h_29_INCLASS_NO_PURE_DECLS \
+	GameCopy_Source_Game_MyEnemy_h_29_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

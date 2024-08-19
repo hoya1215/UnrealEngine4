@@ -5,7 +5,23 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "MyGameModeBase.h"
+#include "MyGameInstance.h"
 #include "MyEnemy.generated.h"
+
+USTRUCT()
+struct FEnemyInfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	int Power;
+
+	UPROPERTY()
+	int Speed;
+
+	UPROPERTY()
+	int CurrentHp;
+};
 
 UCLASS()
 class GAME_API AMyEnemy : public ACharacter
@@ -22,6 +38,8 @@ public:
 	virtual void Die();
 	// Get Set
 	int32 GetEnemyTypeIndex(EENEMY_TYPE EEnemyType);
+	FEnemyInfo GetEnemyInfo() { return EnemyInfo; }
+	void SetEnemyInfo(FName Name);
 
 
 protected:
@@ -67,6 +85,12 @@ public:
 private:
 	UPROPERTY()
 		class UEnemyAnimInstance* EnemyAnimInstance;
+
+	UPROPERTY()
+		FEnemyInfo EnemyInfo;
+
+	UPROPERTY()
+		float DefaultSpeed;
 
 
 };

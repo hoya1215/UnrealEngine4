@@ -7,6 +7,8 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "MyCharacter.h"
 #include "InventoryWidget.h"
+#include "MyGameInstance.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AGun::AGun()
@@ -44,6 +46,16 @@ AGun::AGun()
 	CurrentBulletCount = 0;
 
 	WeaponState = 0;
+
+
+}
+
+void AGun::BeginPlay()
+{
+	Super::BeginPlay();
+
+	FName Name(TEXT("Main"));
+	SetWeaponInfo(Name);
 }
 
 

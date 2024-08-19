@@ -25,6 +25,35 @@ struct FCharacterData : public FTableRowBase
 	int32 MaxHp;
 };
 
+USTRUCT()
+struct FWeaponData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Power;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Speed;
+
+};
+
+USTRUCT()
+struct FEnemyData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Power;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Speed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MaxHp;
+};
+
+class UDataTable;
 
 UCLASS()
 class GAME_API UMyGameInstance : public UGameInstance
@@ -35,9 +64,17 @@ public:
 	UMyGameInstance();
 
 	FCharacterData* GetStatData(int32 level);
+	FWeaponData* GetWeaponData(FName Name);
+	FEnemyData* GetEnemyData(FName Name);
 
 private:
 	UPROPERTY()
 		class UDataTable* MyStats;
+
+	UPROPERTY()
+		UDataTable* WeaponData;
+
+	UPROPERTY()
+		UDataTable* EnemyData;
 	
 };

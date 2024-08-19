@@ -34,6 +34,8 @@ void AEnemy_Small::BeginPlay()
 {
 	Super::BeginPlay();
 
+	FName Name(TEXT("Enemy_Small"));
+	SetEnemyInfo(Name);
 }
 
 void AEnemy_Small::Tick(float DeltaTime)

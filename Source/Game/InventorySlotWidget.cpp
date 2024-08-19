@@ -9,6 +9,8 @@
 #include "InventoryWidget.h"
 #include "Components/TextBlock.h"
 #include "Item.h"
+#include "MyCharacter.h"
+#include "Kismet/GameplayStatics.h" 
 
 void UInventorySlotWidget::AddItem(AItem* Item)
 {
@@ -151,5 +153,9 @@ void UInventorySlotWidget::EquippedItem(AItem* Item)
         this->AddItem(NewItem);
     }
 
-
+    AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+    if (MyCharacter)
+    {
+        MyCharacter->ChangeSpeed();
+    }
 }

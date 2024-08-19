@@ -4,7 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "Item.h"
+#include "MyGameInstance.h"
 #include "Weapon.generated.h"
+
+USTRUCT()
+struct FWeaponInfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+		int Power;
+
+	UPROPERTY()
+		int Speed;
+};
 
 /**
  * 
@@ -18,6 +31,9 @@ public:
 	AWeapon();
 	
 	virtual AItem* EquippedItem() override;
+
+	FWeaponInfo GetWeaponInfo() { return WeaponInfo; }
+	void SetWeaponInfo(FName Name);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -37,4 +53,7 @@ public:
 
 	UPROPERTY()
 		int WeaponState;
+
+	UPROPERTY()
+		FWeaponInfo WeaponInfo;
 };

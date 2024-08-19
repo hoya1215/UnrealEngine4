@@ -50,6 +50,7 @@ AMyEnemy::AMyEnemy()
 
 	EnemyType = EENEMY_TYPE::ET_DEFAULT;
 
+	DefaultSpeed = GetCharacterMovement()->MaxWalkSpeed;
 }
 
 void AMyEnemy::BeginPlay()
@@ -57,6 +58,10 @@ void AMyEnemy::BeginPlay()
 	Super::BeginPlay();
 
 	EnemyAnimInstance = Cast<UEnemyAnimInstance>(GetMesh()->GetAnimInstance());
+
+	FName Name(TEXT("Enemy_Default"));
+	SetEnemyInfo(Name);
+
 }
 
 void AMyEnemy::Tick(float DeltaTime)
@@ -67,7 +72,8 @@ void AMyEnemy::Tick(float DeltaTime)
 
 
 
-	int32 CurrentHp = Stat->GetHp();
+	//int32 CurrentHp = Stat->GetHp();
+	int CurrentHp = EnemyInfo.CurrentHp;
 	if (CurrentHp <= 0)
 	{
 		auto Money = GetWorld()->SpawnActor<AMoney>(GetActorLocation(), FRotator::ZeroRotator);
@@ -89,12 +95,17 @@ void AMyEnemy::Tick(float DeltaTime)
 
 	FireGunDamageTime += DeltaTime;
 
+	GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + EnemyInfo.Speed;
 }
 
 
 float AMyEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-	Stat->OnAttacked(DamageAmount);
+	EnemyInfo.CurrentHp -= DamageAmount;
+	if (EnemyInfo.CurrentHp < 0)
+		EnemyInfo.CurrentHp = 0;
+
+	//Stat->OnAttacked(DamageAmount);
 
 	return DamageAmount;
 }
@@ -138,7 +149,7 @@ void AMyEnemy::Attack()
 		UE_LOG(LogTemp, Log, TEXT("Enemy Attack"));
 
 		FDamageEvent event;
-		HitResult.Actor->TakeDamage(Stat->GetPower(), event, GetController(), this);
+		HitResult.Actor->TakeDamage(EnemyInfo.Power, event, GetController(), this);
 	}
 
 
@@ -185,6 +196,16 @@ int32 AMyEnemy::GetEnemyTypeIndex(EENEMY_TYPE EEnemyType)
 	}
 
 	return -1;
+}
+
+void AMyEnemy::SetEnemyInfo(FName Name)
+{
+	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	auto EnemyData = MyGameInstance->GetEnemyData(Name);
+	
+	EnemyInfo.Power = EnemyData->Power;
+	EnemyInfo.Speed = EnemyData->Speed;
+	EnemyInfo.CurrentHp = EnemyData->MaxHp;
 }
 
 

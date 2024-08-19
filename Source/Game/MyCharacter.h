@@ -58,6 +58,7 @@ public:
 	void SubAttack();
 	void OtherAttack();
 	void Revive();
+	void ChangeSpeed();
 
 
 	// Get Set
@@ -132,6 +133,15 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		class UMyCharacterStatComponent* Stat;
 
+	UPROPERTY()
+		float ForwardValue;
+
+	UPROPERTY()
+		float SideValue;
+
+	UPROPERTY()
+		float DefaultSpeed;
+
 	// State
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat)
 		float Speed = 0;
@@ -148,6 +158,7 @@ public:
 	UPROPERTY()
 		bool bIsAttacking = false;
 
+	
 
 private:
 
