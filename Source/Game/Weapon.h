@@ -56,4 +56,7 @@ public:
 
 	UPROPERTY()
 		FWeaponInfo WeaponInfo;
+
+	UPROPERTY()
+	class UMaterialInterface* MaterialTexture;
 };

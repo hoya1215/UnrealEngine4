@@ -91,6 +91,8 @@ AMyCharacter::AMyCharacter()
 		MyEquipmentWidgetClass = EW.Class;
 	}
 
+
+
 	
 	
 	static ConstructorHelpers::FClassFinder<APet> PC(TEXT("Blueprint'/Game/Custom/Blueprint/BP_Pet.BP_Pet_C'"));
@@ -194,6 +196,8 @@ void AMyCharacter::BeginPlay()
 		}
 		
 	}
+
+
 	
 
 }
@@ -281,6 +285,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	Stat->OnAttacked(DamageAmount);
+	HpChange.Broadcast();
 
 	return DamageAmount;
 }
@@ -398,7 +403,7 @@ void AMyCharacter::MainAttack()
 	if (MyWeapon)
 	{
 		MyWeapon->CurrentBulletCount--;
-		UpdateUI();
+		//UpdateUI();
 
 
 		auto World = GetWorld();
@@ -731,6 +736,8 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	}
 
 	bIsWeaponSwapping = true;
+
+	WeaponChange.Broadcast();
 }
 
 void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
@@ -786,6 +793,6 @@ void AMyCharacter::ChangeSpeed()
 		break;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Current Speed : %f"), GetCharacterMovement()->MaxWalkSpeed);
+	//UE_LOG(LogTemp, Warning, TEXT("Current Speed : %f"), GetCharacterMovement()->MaxWalkSpeed);
 }
 

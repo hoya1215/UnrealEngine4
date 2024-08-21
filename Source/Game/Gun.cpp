@@ -39,7 +39,7 @@ AGun::AGun()
 
 	EquipmentType = EEQUIPMENT_TYPE::MAIN;
 
-	UTexture2D* MainGunTexture = LoadObject<UTexture2D>(nullptr, TEXT("Texture2D'/Game/Custom/Resources/KA47.KA47'"));
+	UTexture2D* MainGunTexture = LoadObject<UTexture2D>(nullptr, TEXT("Texture2D'/Game/Custom/Resources/Gun.Gun'"));
 	ItemTexture = MainGunTexture;
 
 	MaxBulletCount = 5;
@@ -47,6 +47,11 @@ AGun::AGun()
 
 	WeaponState = 0;
 
+	ConstructorHelpers::FObjectFinder<UMaterialInterface> MI(TEXT("Material'/Game/Custom/Resources/Gun_Mat.Gun_Mat'"));
+	if (MI.Succeeded())
+	{
+		MaterialTexture = MI.Object;
+	}
 
 }
 

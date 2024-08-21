@@ -157,5 +157,6 @@ void UInventorySlotWidget::EquippedItem(AItem* Item)
     if (MyCharacter)
     {
         MyCharacter->ChangeSpeed();
+        MyCharacter->WeaponChange.Broadcast();
     }
 }

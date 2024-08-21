@@ -83,6 +83,7 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 		PullEquipment();
 
 		PlayerCharacter->ChangeSpeed();
+		PlayerCharacter->WeaponChange.Broadcast();
 
 	}
 

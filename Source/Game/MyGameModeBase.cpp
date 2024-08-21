@@ -50,10 +50,10 @@ AMyGameModeBase::AMyGameModeBase()
 	{
 		HUD_Class = UI_HUD.Class;
 
-		Widget = CreateWidget(GetWorld(), HUD_Class);
+		Widget = CreateWidget<UMyHUD>(GetWorld(), HUD_Class);
 		if (Widget)
 		{
-			//Widget->AddToViewport();
+			Widget->AddToViewport();
 			//Widget->RemoveFromViewport(); Á¦°Å 
 		}
 	}
@@ -71,6 +71,10 @@ AMyGameModeBase::AMyGameModeBase()
 void AMyGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	
+	Widget->SetCharacter(MyCharacter);
 
 	auto Gun = GetWorld()->SpawnActor<AGun>(FVector::ZeroVector, FRotator::ZeroRotator);
 	auto Sword = GetWorld()->SpawnActor<ASword>(FVector(0.f, 10.f, 200.f), FRotator::ZeroRotator);

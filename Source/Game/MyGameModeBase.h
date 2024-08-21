@@ -18,6 +18,7 @@ enum class EENEMY_TYPE : uint8
 
 class AMyEnemy;
 class AFireGun;
+class UMyHUD;
 /**
  * 
  */
@@ -39,10 +40,10 @@ public:
 public:
 
 	UPROPERTY()
-		UUserWidget* Widget;
+		UMyHUD* Widget;
 
 	UPROPERTY()
-	TSubclassOf<UUserWidget> HUD_Class;
+	TSubclassOf<UMyHUD> HUD_Class;
 
 
 	// Enemy

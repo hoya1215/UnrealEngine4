@@ -13,10 +13,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GAME_MyHUD_generated_h
 
-#define GameCopy_Source_Game_MyHUD_h_15_SPARSE_DATA
-#define GameCopy_Source_Game_MyHUD_h_15_RPC_WRAPPERS
-#define GameCopy_Source_Game_MyHUD_h_15_RPC_WRAPPERS_NO_PURE_DECLS
-#define GameCopy_Source_Game_MyHUD_h_15_INCLASS_NO_PURE_DECLS \
+#define GameCopy_Source_Game_MyHUD_h_20_SPARSE_DATA
+#define GameCopy_Source_Game_MyHUD_h_20_RPC_WRAPPERS
+#define GameCopy_Source_Game_MyHUD_h_20_RPC_WRAPPERS_NO_PURE_DECLS
+#define GameCopy_Source_Game_MyHUD_h_20_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUMyHUD(); \
 	friend struct Z_Construct_UClass_UMyHUD_Statics; \
@@ -25,7 +25,7 @@ public: \
 	DECLARE_SERIALIZER(UMyHUD)
 
 
-#define GameCopy_Source_Game_MyHUD_h_15_INCLASS \
+#define GameCopy_Source_Game_MyHUD_h_20_INCLASS \
 private: \
 	static void StaticRegisterNativesUMyHUD(); \
 	friend struct Z_Construct_UClass_UMyHUD_Statics; \
@@ -34,7 +34,7 @@ public: \
 	DECLARE_SERIALIZER(UMyHUD)
 
 
-#define GameCopy_Source_Game_MyHUD_h_15_STANDARD_CONSTRUCTORS \
+#define GameCopy_Source_Game_MyHUD_h_20_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UMyHUD(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UMyHUD) \
@@ -47,7 +47,7 @@ private: \
 public:
 
 
-#define GameCopy_Source_Game_MyHUD_h_15_ENHANCED_CONSTRUCTORS \
+#define GameCopy_Source_Game_MyHUD_h_20_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UMyHUD(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
 private: \
@@ -60,28 +60,31 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UMyHUD); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UMyHUD)
 
 
-#define GameCopy_Source_Game_MyHUD_h_15_PRIVATE_PROPERTY_OFFSET
-#define GameCopy_Source_Game_MyHUD_h_12_PROLOG
-#define GameCopy_Source_Game_MyHUD_h_15_GENERATED_BODY_LEGACY \
+#define GameCopy_Source_Game_MyHUD_h_20_PRIVATE_PROPERTY_OFFSET \
+	FORCEINLINE static uint32 __PPO__MyCharacter() { return STRUCT_OFFSET(UMyHUD, MyCharacter); }
+
+
+#define GameCopy_Source_Game_MyHUD_h_17_PROLOG
+#define GameCopy_Source_Game_MyHUD_h_20_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_MyHUD_h_15_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_MyHUD_h_15_SPARSE_DATA \
-	GameCopy_Source_Game_MyHUD_h_15_RPC_WRAPPERS \
-	GameCopy_Source_Game_MyHUD_h_15_INCLASS \
-	GameCopy_Source_Game_MyHUD_h_15_STANDARD_CONSTRUCTORS \
+	GameCopy_Source_Game_MyHUD_h_20_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_Source_Game_MyHUD_h_20_SPARSE_DATA \
+	GameCopy_Source_Game_MyHUD_h_20_RPC_WRAPPERS \
+	GameCopy_Source_Game_MyHUD_h_20_INCLASS \
+	GameCopy_Source_Game_MyHUD_h_20_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define GameCopy_Source_Game_MyHUD_h_15_GENERATED_BODY \
+#define GameCopy_Source_Game_MyHUD_h_20_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_MyHUD_h_15_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_MyHUD_h_15_SPARSE_DATA \
-	GameCopy_Source_Game_MyHUD_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
-	GameCopy_Source_Game_MyHUD_h_15_INCLASS_NO_PURE_DECLS \
-	GameCopy_Source_Game_MyHUD_h_15_ENHANCED_CONSTRUCTORS \
+	GameCopy_Source_Game_MyHUD_h_20_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_Source_Game_MyHUD_h_20_SPARSE_DATA \
+	GameCopy_Source_Game_MyHUD_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
+	GameCopy_Source_Game_MyHUD_h_20_INCLASS_NO_PURE_DECLS \
+	GameCopy_Source_Game_MyHUD_h_20_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

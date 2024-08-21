@@ -18,10 +18,14 @@ class UEquipmentWidget;
 class APet;
 class AWeapon;
 class AWing;
+class UMyHUD;
+
 
 
 DECLARE_MULTICAST_DELEGATE(FCharacterDie)
 DECLARE_MULTICAST_DELEGATE(FCharacterRevive)
+DECLARE_MULTICAST_DELEGATE(FHpChange)
+DECLARE_MULTICAST_DELEGATE(FWeaponChange)
 UCLASS()
 class GAME_API AMyCharacter : public ACharacter
 {
@@ -77,6 +81,8 @@ public:
 
 	FCharacterDie CharacterDie;
 	FCharacterRevive CharacterRevive;
+	FHpChange HpChange;
+	FWeaponChange WeaponChange;
 
 protected:
 	virtual void BeginPlay() override;
@@ -216,5 +222,6 @@ private:
 	// Timer
 	UPROPERTY()
 		FTimerHandle MouseTimerHandle;
+
 
 };
