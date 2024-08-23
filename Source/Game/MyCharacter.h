@@ -104,7 +104,6 @@ public:
 		class UCameraComponent* Camera;
 
 
-	
 
 
 
@@ -131,7 +130,7 @@ public:
 		bool IsZoom = false;
 
 	UPROPERTY()
-		int CurrentWeaponState = 0;
+		int CurrentWeaponState = 2;
 
 	UPROPERTY()
 		bool bIsWeaponSwapping = false;
@@ -164,7 +163,8 @@ public:
 	UPROPERTY()
 		bool bIsAttacking = false;
 
-	
+	UPROPERTY()
+		bool bCanPickUp = true;
 
 private:
 
@@ -200,6 +200,9 @@ private:
 
 	FVector2D DragOffset;
 	bool bIsDragging = false;
+
+
+
 
 	// Controller
 	UPROPERTY()

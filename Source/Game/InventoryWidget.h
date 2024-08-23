@@ -42,7 +42,7 @@ public:
     virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
     UFUNCTION(BlueprintCallable, Category = "Inventory")
-        void AddItemToInventory(AItem* Item);
+        void AddItemToInventory(FName Name);
 
     void SwapSlot(int From, int To);
     
@@ -116,5 +116,8 @@ public:
 
     bool bIsDragging = false;
     FVector2D DragOffset;
+
+    UPROPERTY()
+        class UMyGameInstance* GameInstance;
 	
 };

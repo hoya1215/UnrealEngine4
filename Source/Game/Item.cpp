@@ -44,18 +44,40 @@ void AItem::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 
 	if (MyPet || Character)
 	{
-		PlayerCharacter->GetInventory()->AddToInventory(ItemType);
-		//UTexture2D* CurrentItemTexture = PlayerCharacter->GetInventory()->GetTexture(ItemType);
-		PlayerCharacter->GetInventoryWidget()->AddItemToInventory(this);
-		SetActorEnableCollision(false);
-		SetActorHiddenInGame(true);
-		SetActorTickEnabled(false);
+		if (PlayerCharacter->bCanPickUp)
+		{
+			PlayerCharacter->GetInventoryWidget()->AddItemToInventory(ItemName);
+			SetActorEnableCollision(false);
+			SetActorHiddenInGame(true);
+			SetActorTickEnabled(false);
+
+			Destroy();
+		}
+		else
+		{
+			SetActorEnableCollision(false);
+			SetActorHiddenInGame(false);
+			SetActorTickEnabled(false);
+		}
+
 	}
+
+	//Destroy();
 }
 
 
-AItem* AItem::EquippedItem()
+FName AItem::EquippedItem()
 {
-	return this;
+	return ItemName;
+}
+
+void AItem::AttachToCharacter()
+{
+
+}
+
+void AItem::UseItem()
+{
+
 }
 

@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Engine/DataTable.h"
 #include "Item.generated.h"
+
+
 
 UENUM()
 enum class EINVENTORY_TYPE : uint8
@@ -40,7 +43,9 @@ class GAME_API AItem : public AActor
 public:	
 	AItem();
 
-	virtual AItem* EquippedItem();
+	virtual FName EquippedItem();
+	virtual void AttachToCharacter();
+	virtual void UseItem();
 
 protected:
 	virtual void BeginPlay() override;
@@ -71,8 +76,14 @@ public:
 	UPROPERTY()
 		EEQUIPMENT_TYPE EquipmentType;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		class UTexture2D* ItemTexture;
+	UPROPERTY()
+		TSubclassOf<AItem> ItemClass;
+
+	UPROPERTY()
+		FRotator RelativeRotation = FRotator(0.f, 0.f, 0.f);
+
+	////UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//TSharedPtr<class UTexture2D> ItemTexture;
 
 	bool bCanMagnet = true;
 

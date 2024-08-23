@@ -17,6 +17,9 @@ class GAME_API AMoney : public AItem
 public:
 	AMoney();
 
+	virtual void UseItem() override;
+
+	virtual void BeginPlay() override;
 public:
 	UPROPERTY()
 	class UStaticMeshComponent* Mesh;

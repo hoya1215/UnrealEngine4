@@ -4,6 +4,10 @@
 #include "Money.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
+#include "MyGameInstance.h"
+#include "MyCharacter.h"
+#include "Kismet/GameplayStatics.h" 
+#include "InventoryWidget.h"
 
 AMoney::AMoney()
 {
@@ -26,6 +30,28 @@ AMoney::AMoney()
 	ItemType = EITEM_TYPE::MONEY;
 	InventoryType = EINVENTORY_TYPE::CONSUMPTION;
 
-	UTexture2D* MoneyTexture = LoadObject<UTexture2D>(nullptr, TEXT("Texture2D'/Game/Fantastic_Village_Pack/textures/T_gold_BC.T_gold_BC'"));
-	ItemTexture = MoneyTexture;
+	//UTexture2D* MoneyTexture = LoadObject<UTexture2D>(nullptr, TEXT("Texture2D'/Game/Fantastic_Village_Pack/textures/T_gold_BC.T_gold_BC'"));
+	//ItemTexture = MakeShareable(MoneyTexture);
+
+	ItemClass = AMoney::StaticClass();
+}
+
+void AMoney::UseItem()
+{
+	AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+
+	MyCharacter->GetInventoryWidget()->CurrentMoney += FMath::RandRange(100, 300);
+
+	Destroy();
+}
+
+void AMoney::BeginPlay()
+{
+	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+	//auto List = GameInstance->ItemList.Find(ItemName);
+	//if (List == nullptr)
+	//{
+	//	GameInstance->ItemList.Add(ItemName, MakeTuple(ItemClass, 0));
+	//	GameInstance->ItemTexture.Add(ItemName, ItemTexture);
+	//}
 }

@@ -266,7 +266,7 @@ static struct FScriptStruct_Game_StaticRegisterNativesFWeaponInfo
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AWeapon, 1599585043);
+	IMPLEMENT_CLASS(AWeapon, 668939936);
 	template<> GAME_API UClass* StaticClass<AWeapon>()
 	{
 		return AWeapon::StaticClass();

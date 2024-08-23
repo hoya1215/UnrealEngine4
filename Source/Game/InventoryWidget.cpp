@@ -13,6 +13,7 @@
 #include "Components/TextBlock.h"
 #include "Item.h"
 #include "Components/Button.h"
+#include "MyGameInstance.h"
 
 UInventoryWidget::UInventoryWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -47,6 +48,7 @@ void UInventoryWidget::NativeConstruct()
         EtcButton->OnClicked.AddDynamic(this, &UInventoryWidget::ClickEtcButton);
     }
 
+    GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
 
 }
 
@@ -74,20 +76,22 @@ void UInventoryWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime
 }
 
 
-void UInventoryWidget::AddItemToInventory(AItem* Item)
+void UInventoryWidget::AddItemToInventory(FName Name)
 {
     if (InventorySlotWidgetClass)
     {
-        switch (Item->InventoryType)
+
+
+        switch (GameInstance->GetItemData(Name)->InventoryType)
         {
         case EINVENTORY_TYPE::EQUIPMENT:
             if (CurrentSlotIndex_Equipment < MaxInventorySize)
             {
                 for (int i = 0; i < EquipmentSlotWidgets.Num(); ++i)
                 {
-                    if (EquipmentSlotWidgets[i]->CurrentItem == nullptr)
+                    if (EquipmentSlotWidgets[i]->ItemName == FName("NULL"))
                     {
-                        EquipmentSlotWidgets[i]->AddItem(Item);
+                        EquipmentSlotWidgets[i]->AddItem(Name);
                         break;
                     }
                 }
@@ -97,12 +101,27 @@ void UInventoryWidget::AddItemToInventory(AItem* Item)
         case EINVENTORY_TYPE::CONSUMPTION:
             if (CurrentSlotIndex_Consumption < MaxInventorySize)
             {
+                bool bNew = true;
+
                 for (int i = 0; i < ConsumptionSlotWidgets.Num(); ++i)
                 {
-                    if (ConsumptionSlotWidgets[i]->CurrentItem == nullptr)
+                    if (ConsumptionSlotWidgets[i]->ItemName == Name)
                     {
-                        ConsumptionSlotWidgets[i]->AddItem(Item);
+                        ConsumptionSlotWidgets[i]->AddItem(Name);
+                        bNew = false;
                         break;
+                    }
+                }
+
+                if (bNew)
+                {
+                    for (int i = 0; i < ConsumptionSlotWidgets.Num(); ++i)
+                    {
+                        if (ConsumptionSlotWidgets[i]->ItemName == FName(TEXT("NULL")))
+                        {
+                            ConsumptionSlotWidgets[i]->AddItem(Name);
+                            break;
+                        }
                     }
                 }
 
@@ -115,7 +134,7 @@ void UInventoryWidget::AddItemToInventory(AItem* Item)
                 {
                     if (ETCSlotWidgets[i]->CurrentItem == nullptr)
                     {
-                        ETCSlotWidgets[i]->AddItem(Item);
+                        ETCSlotWidgets[i]->AddItem(Name);
                         break;
                     }
                 }
@@ -149,6 +168,7 @@ void UInventoryWidget::CreateSlot()
 
     DefaultSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
     DefaultSlot->SlotTexture = DefaultSlotTexture;
+    DefaultSlot->ItemName = FName(TEXT("NULL"));
 
     for (int32 i = 0; i < Row; ++i)
     {

@@ -13,7 +13,15 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GAME_MyGameInstance_generated_h
 
-#define GameCopy_Source_Game_MyGameInstance_h_44_GENERATED_BODY \
+#define GameCopy_Source_Game_MyGameInstance_h_60_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FItemData_Statics; \
+	GAME_API static class UScriptStruct* StaticStruct(); \
+	typedef FTableRowBase Super;
+
+
+template<> GAME_API UScriptStruct* StaticStruct<struct FItemData>();
+
+#define GameCopy_Source_Game_MyGameInstance_h_45_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FEnemyData_Statics; \
 	GAME_API static class UScriptStruct* StaticStruct(); \
 	typedef FTableRowBase Super;
@@ -21,7 +29,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 template<> GAME_API UScriptStruct* StaticStruct<struct FEnemyData>();
 
-#define GameCopy_Source_Game_MyGameInstance_h_31_GENERATED_BODY \
+#define GameCopy_Source_Game_MyGameInstance_h_32_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FWeaponData_Statics; \
 	GAME_API static class UScriptStruct* StaticStruct(); \
 	typedef FTableRowBase Super;
@@ -29,7 +37,7 @@ template<> GAME_API UScriptStruct* StaticStruct<struct FEnemyData>();
 
 template<> GAME_API UScriptStruct* StaticStruct<struct FWeaponData>();
 
-#define GameCopy_Source_Game_MyGameInstance_h_16_GENERATED_BODY \
+#define GameCopy_Source_Game_MyGameInstance_h_17_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FCharacterData_Statics; \
 	GAME_API static class UScriptStruct* StaticStruct(); \
 	typedef FTableRowBase Super;
@@ -37,10 +45,10 @@ template<> GAME_API UScriptStruct* StaticStruct<struct FWeaponData>();
 
 template<> GAME_API UScriptStruct* StaticStruct<struct FCharacterData>();
 
-#define GameCopy_Source_Game_MyGameInstance_h_61_SPARSE_DATA
-#define GameCopy_Source_Game_MyGameInstance_h_61_RPC_WRAPPERS
-#define GameCopy_Source_Game_MyGameInstance_h_61_RPC_WRAPPERS_NO_PURE_DECLS
-#define GameCopy_Source_Game_MyGameInstance_h_61_INCLASS_NO_PURE_DECLS \
+#define GameCopy_Source_Game_MyGameInstance_h_80_SPARSE_DATA
+#define GameCopy_Source_Game_MyGameInstance_h_80_RPC_WRAPPERS
+#define GameCopy_Source_Game_MyGameInstance_h_80_RPC_WRAPPERS_NO_PURE_DECLS
+#define GameCopy_Source_Game_MyGameInstance_h_80_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUMyGameInstance(); \
 	friend struct Z_Construct_UClass_UMyGameInstance_Statics; \
@@ -49,7 +57,7 @@ public: \
 	DECLARE_SERIALIZER(UMyGameInstance)
 
 
-#define GameCopy_Source_Game_MyGameInstance_h_61_INCLASS \
+#define GameCopy_Source_Game_MyGameInstance_h_80_INCLASS \
 private: \
 	static void StaticRegisterNativesUMyGameInstance(); \
 	friend struct Z_Construct_UClass_UMyGameInstance_Statics; \
@@ -58,7 +66,7 @@ public: \
 	DECLARE_SERIALIZER(UMyGameInstance)
 
 
-#define GameCopy_Source_Game_MyGameInstance_h_61_STANDARD_CONSTRUCTORS \
+#define GameCopy_Source_Game_MyGameInstance_h_80_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UMyGameInstance(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UMyGameInstance) \
@@ -71,7 +79,7 @@ private: \
 public:
 
 
-#define GameCopy_Source_Game_MyGameInstance_h_61_ENHANCED_CONSTRUCTORS \
+#define GameCopy_Source_Game_MyGameInstance_h_80_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UMyGameInstance(UMyGameInstance&&); \
@@ -82,33 +90,34 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UMyGameInstance); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UMyGameInstance)
 
 
-#define GameCopy_Source_Game_MyGameInstance_h_61_PRIVATE_PROPERTY_OFFSET \
+#define GameCopy_Source_Game_MyGameInstance_h_80_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__MyStats() { return STRUCT_OFFSET(UMyGameInstance, MyStats); } \
 	FORCEINLINE static uint32 __PPO__WeaponData() { return STRUCT_OFFSET(UMyGameInstance, WeaponData); } \
-	FORCEINLINE static uint32 __PPO__EnemyData() { return STRUCT_OFFSET(UMyGameInstance, EnemyData); }
+	FORCEINLINE static uint32 __PPO__EnemyData() { return STRUCT_OFFSET(UMyGameInstance, EnemyData); } \
+	FORCEINLINE static uint32 __PPO__ItemData() { return STRUCT_OFFSET(UMyGameInstance, ItemData); }
 
 
-#define GameCopy_Source_Game_MyGameInstance_h_58_PROLOG
-#define GameCopy_Source_Game_MyGameInstance_h_61_GENERATED_BODY_LEGACY \
+#define GameCopy_Source_Game_MyGameInstance_h_77_PROLOG
+#define GameCopy_Source_Game_MyGameInstance_h_80_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_MyGameInstance_h_61_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_MyGameInstance_h_61_SPARSE_DATA \
-	GameCopy_Source_Game_MyGameInstance_h_61_RPC_WRAPPERS \
-	GameCopy_Source_Game_MyGameInstance_h_61_INCLASS \
-	GameCopy_Source_Game_MyGameInstance_h_61_STANDARD_CONSTRUCTORS \
+	GameCopy_Source_Game_MyGameInstance_h_80_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_Source_Game_MyGameInstance_h_80_SPARSE_DATA \
+	GameCopy_Source_Game_MyGameInstance_h_80_RPC_WRAPPERS \
+	GameCopy_Source_Game_MyGameInstance_h_80_INCLASS \
+	GameCopy_Source_Game_MyGameInstance_h_80_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define GameCopy_Source_Game_MyGameInstance_h_61_GENERATED_BODY \
+#define GameCopy_Source_Game_MyGameInstance_h_80_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_MyGameInstance_h_61_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_MyGameInstance_h_61_SPARSE_DATA \
-	GameCopy_Source_Game_MyGameInstance_h_61_RPC_WRAPPERS_NO_PURE_DECLS \
-	GameCopy_Source_Game_MyGameInstance_h_61_INCLASS_NO_PURE_DECLS \
-	GameCopy_Source_Game_MyGameInstance_h_61_ENHANCED_CONSTRUCTORS \
+	GameCopy_Source_Game_MyGameInstance_h_80_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_Source_Game_MyGameInstance_h_80_SPARSE_DATA \
+	GameCopy_Source_Game_MyGameInstance_h_80_RPC_WRAPPERS_NO_PURE_DECLS \
+	GameCopy_Source_Game_MyGameInstance_h_80_INCLASS_NO_PURE_DECLS \
+	GameCopy_Source_Game_MyGameInstance_h_80_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

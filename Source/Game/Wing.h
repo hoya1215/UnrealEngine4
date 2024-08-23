@@ -17,8 +17,10 @@ class GAME_API AWing : public AClothes
 
 public:
 	AWing();
+
+	virtual void BeginPlay() override;
 	
-	virtual AItem* EquippedItem() override;
+	virtual FName EquippedItem() override;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

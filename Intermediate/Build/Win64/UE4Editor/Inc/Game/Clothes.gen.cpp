@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeClothes() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AClothes, 3022345194);
+	IMPLEMENT_CLASS(AClothes, 4221418410);
 	template<> GAME_API UClass* StaticClass<AClothes>()
 	{
 		return AClothes::StaticClass();

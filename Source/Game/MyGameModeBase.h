@@ -67,7 +67,7 @@ public:
 
 
 	int32 CurrentEnemyCount = 0;
-	int32 MaxEnemyCount = 5;
+	int32 MaxEnemyCount = 0;
 
 	// Weapon
 	UPROPERTY()

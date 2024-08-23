@@ -30,7 +30,9 @@ class GAME_API AWeapon : public AItem
 public:
 	AWeapon();
 	
-	virtual AItem* EquippedItem() override;
+	virtual FName EquippedItem() override;
+	virtual void AttachToCharacter() override;
+	//virtual AItem* EquippedItem() override;
 
 	FWeaponInfo GetWeaponInfo() { return WeaponInfo; }
 	void SetWeaponInfo(FName Name);

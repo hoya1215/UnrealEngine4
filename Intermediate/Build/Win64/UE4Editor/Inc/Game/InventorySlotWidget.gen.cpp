@@ -17,13 +17,13 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 	GAME_API UClass* Z_Construct_UClass_UInventorySlotWidget();
 	UMG_API UClass* Z_Construct_UClass_UUserWidget();
 	UPackage* Z_Construct_UPackage__Script_Game();
+	GAME_API UClass* Z_Construct_UClass_UMyGameInstance_NoRegister();
 	GAME_API UClass* Z_Construct_UClass_AItem_NoRegister();
 	GAME_API UClass* Z_Construct_UClass_UInventoryWidget_NoRegister();
 	UMG_API UClass* Z_Construct_UClass_USizeBox_NoRegister();
 	UMG_API UClass* Z_Construct_UClass_UTextBlock_NoRegister();
 	UMG_API UClass* Z_Construct_UClass_UImage_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
-	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 // End Cross Module References
 	DEFINE_FUNCTION(UInventorySlotWidget::execSetSizeBox)
 	{
@@ -90,6 +90,14 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_GameInstance_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_GameInstance;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemName_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FNamePropertyParams NewProp_ItemName;
+#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentItem_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentItem;
@@ -121,10 +129,6 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotTexture_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotTexture;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_DragVisualClass_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FClassPropertyParams NewProp_DragVisualClass;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -143,6 +147,18 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		{ "ModuleRelativePath", "InventorySlotWidget.h" },
 	};
 #endif
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance_MetaData[] = {
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance = { "GameInstance", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, GameInstance), Z_Construct_UClass_UMyGameInstance_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName_MetaData[] = {
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FNamePropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName = { "ItemName", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, ItemName), METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem_MetaData[] = {
 		{ "ModuleRelativePath", "InventorySlotWidget.h" },
@@ -198,14 +214,9 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 	};
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture = { "SlotTexture", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, SlotTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_DragVisualClass_MetaData[] = {
-		{ "Category", "InventorySlotWidget" },
-		{ "ModuleRelativePath", "InventorySlotWidget.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_DragVisualClass = { "DragVisualClass", nullptr, (EPropertyFlags)0x0014000000010015, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, DragVisualClass), Z_Construct_UClass_UInventorySlotWidget_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_DragVisualClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_DragVisualClass_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UInventorySlotWidget_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count,
@@ -214,7 +225,6 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotImage,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_DragVisualClass,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UInventorySlotWidget_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UInventorySlotWidget>::IsAbstract,
@@ -243,7 +253,7 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UInventorySlotWidget, 2997620414);
+	IMPLEMENT_CLASS(UInventorySlotWidget, 2309030234);
 	template<> GAME_API UClass* StaticClass<UInventorySlotWidget>()
 	{
 		return UInventorySlotWidget::StaticClass();

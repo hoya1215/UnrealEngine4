@@ -14,32 +14,42 @@
 #include "Weapon.h"
 #include "Wing.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "MyGameInstance.h"
 
 
-void UEquipmentSlotWidget::PushEquipment(AItem* Item, UTexture2D* Texture)
+void UEquipmentSlotWidget::NativeConstruct()
 {
-	if (Texture != nullptr)
-		SlotTexture = Texture;
-	else
-		SlotTexture = Item->ItemTexture;
+	Super::NativeConstruct();
+
+	GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+}
+
+void UEquipmentSlotWidget::PushEquipment(FName Name)
+{
+	auto ItemData = GameInstance->GetItemData(Name);
+
+	SlotTexture = ItemData->ItemIcon.LoadSynchronous();
+
 	SlotImage->SetBrushFromTexture(SlotTexture);
-	CurrentItem = Item;
+	ItemName = Name;
 }
 
 void UEquipmentSlotWidget::PullEquipment()
 {
 	SlotTexture = DefaultSlotTexture;
-	SlotImage->SetBrushFromTexture(SlotTexture);
-	CurrentItem = nullptr;
+	SlotImage->SetBrushFromTexture(DefaultSlotTexture);
+	ItemName = FName(TEXT("NULL"));
 }
 
-AItem* UEquipmentSlotWidget::SwapEquipment(AItem* NewItem)
+FName UEquipmentSlotWidget::SwapEquipment(FName NewName)
 {
-	AItem* PulledItem = CurrentItem;
+	FName PulledName = ItemName;
+	ItemName = NewName;
+	//AItem* PulledItem = CurrentItem;
 	PullEquipment();
-	PushEquipment(NewItem);
+	PushEquipment(NewName);
 
-	return PulledItem;
+	return PulledName;
 }
 
 FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
@@ -49,36 +59,52 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 
 	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
-	if (PlayerCharacter && CurrentItem)
+	if (PlayerCharacter && ItemName != FName(TEXT("NULL")))
 	{
 		for (int i = 0; i < PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets.Num(); ++i)
 		{
-			if (PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->CurrentItem == nullptr)
+			if (PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->ItemName == FName(TEXT("NULL")))
 			{
-				PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->AddItem(CurrentItem);
+				PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->AddItem(ItemName);
 				break;
 			}
 		}
 
-		if (CurrentItem->InventoryType == EINVENTORY_TYPE::EQUIPMENT)
+		//if (CurrentItem->InventoryType == EINVENTORY_TYPE::EQUIPMENT)
+		//{
+		if (ItemName == FName(TEXT("Wing")))
 		{
-			switch (CurrentItem->EquipmentType)
+			PlayerCharacter->GetMyWing()->SetActorHiddenInGame(true);
+			PlayerCharacter->SetMyWing(nullptr);
+		}
+		else
+		{
+			if (PlayerCharacter->GetMyWeapon() != nullptr &&
+				PlayerCharacter->GetMyWeapon()->ItemName == ItemName)
 			{
-			case EEQUIPMENT_TYPE::WING:
-				PlayerCharacter->GetMyWing()->SetActorHiddenInGame(true);
-				PlayerCharacter->SetMyWing(nullptr);
-				break;
-			default:
-				if (PlayerCharacter->GetMyWeapon() != nullptr && 
-					PlayerCharacter->GetMyWeapon()->EquipmentType == CurrentItem->EquipmentType)
-				{
-					
-					PlayerCharacter->GetMyWeapon()->SetActorHiddenInGame(true);
-					PlayerCharacter->SetMyWeapon(nullptr);
-				}
-				break;
+				PlayerCharacter->GetMyWeapon()->Destroy();
+
+				PlayerCharacter->SetMyWeapon(nullptr);
 			}
 		}
+
+			//switch (ItemName)
+			//{
+			//case EEQUIPMENT_TYPE::WING:
+			//	PlayerCharacter->GetMyWing()->SetActorHiddenInGame(true);
+			//	PlayerCharacter->SetMyWing(nullptr);
+			//	break;
+			//default:
+			//	if (PlayerCharacter->GetMyWeapon() != nullptr && 
+			//		PlayerCharacter->GetMyWeapon()->EquipmentType == CurrentItem->EquipmentType)
+			//	{
+			//		
+			//		PlayerCharacter->GetMyWeapon()->SetActorHiddenInGame(true);
+			//		PlayerCharacter->SetMyWeapon(nullptr);
+			//	}
+			//	break;
+			//}
+		//}
 
 		PullEquipment();
 

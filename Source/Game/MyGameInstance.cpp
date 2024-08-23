@@ -16,6 +16,10 @@ UMyGameInstance::UMyGameInstance()
 	static ConstructorHelpers::FObjectFinder<UDataTable> ED(TEXT("DataTable'/Game/Custom/Data/DT_Enemy.DT_Enemy'"));
 	if (ED.Succeeded())
 		EnemyData = ED.Object;
+
+	static ConstructorHelpers::FObjectFinder<UDataTable> ID(TEXT("DataTable'/Game/Custom/Data/DT_Item.DT_Item'"));
+	if (ID.Succeeded())
+		ItemData = ID.Object;
 }
 
 FCharacterData* UMyGameInstance::GetStatData(int32 level)
@@ -35,4 +39,9 @@ FWeaponData* UMyGameInstance::GetWeaponData(FName Name)
 FEnemyData* UMyGameInstance::GetEnemyData(FName Name)
 {
 	return EnemyData->FindRow<FEnemyData>(Name, TEXT(""));
+}
+
+FItemData* UMyGameInstance::GetItemData(FName Name)
+{
+	return ItemData->FindRow<FItemData>(Name, TEXT(""));
 }

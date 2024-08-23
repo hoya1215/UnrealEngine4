@@ -99,7 +99,7 @@ void EmptyLinkFunctionForGeneratedCodeMoney() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AMoney, 853431935);
+	IMPLEMENT_CLASS(AMoney, 3467817010);
 	template<> GAME_API UClass* StaticClass<AMoney>()
 	{
 		return AMoney::StaticClass();

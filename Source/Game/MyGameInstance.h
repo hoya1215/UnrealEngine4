@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "Engine/DataTable.h"
+#include "Item.h"
 #include "MyGameInstance.generated.h"
 
 /**
@@ -53,6 +54,24 @@ struct FEnemyData : public FTableRowBase
 	int32 MaxHp;
 };
 
+USTRUCT()
+struct FItemData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		EINVENTORY_TYPE InventoryType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		EEQUIPMENT_TYPE EquipmentType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	TSubclassOf<AItem> ItemClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	TSoftObjectPtr<UTexture2D> ItemIcon;
+};
+
 class UDataTable;
 
 UCLASS()
@@ -66,6 +85,7 @@ public:
 	FCharacterData* GetStatData(int32 level);
 	FWeaponData* GetWeaponData(FName Name);
 	FEnemyData* GetEnemyData(FName Name);
+	FItemData* GetItemData(FName Name);
 
 private:
 	UPROPERTY()
@@ -76,5 +96,13 @@ private:
 
 	UPROPERTY()
 		UDataTable* EnemyData;
+
+	UPROPERTY()
+		UDataTable* ItemData;
+
+public:
+	// ItemList
+	TMap < FName, TTuple<TSubclassOf<AItem>, int>> ItemList;
+	TMap<FName, TSharedPtr<class UTexture2D>> ItemTexture;
 	
 };

@@ -76,6 +76,7 @@ void AMyGameModeBase::BeginPlay()
 	
 	Widget->SetCharacter(MyCharacter);
 
+
 	auto Gun = GetWorld()->SpawnActor<AGun>(FVector::ZeroVector, FRotator::ZeroRotator);
 	auto Sword = GetWorld()->SpawnActor<ASword>(FVector(0.f, 10.f, 200.f), FRotator::ZeroRotator);
 	auto FireGun = GetWorld()->SpawnActor<AFireGun>(FireGunClass, FVector(-50.f, 10.f, 200.f), FRotator::ZeroRotator);

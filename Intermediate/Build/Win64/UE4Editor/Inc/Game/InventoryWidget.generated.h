@@ -8,7 +8,6 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-class AItem;
 #ifdef GAME_InventoryWidget_generated_h
 #error "InventoryWidget.generated.h already included, missing '#pragma once' in InventoryWidget.h"
 #endif

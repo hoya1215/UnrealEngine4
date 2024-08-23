@@ -6,6 +6,8 @@
 #include "MyCharacter.h"
 #include "EquipmentWidget.h"
 #include "EquipmentSlotWidget.h"
+#include "MyGameInstance.h"
+
 
 AWing::AWing()
 {
@@ -17,34 +19,47 @@ AWing::AWing()
 	RootComponent = StaticMesh;
 	EquipmentType = EEQUIPMENT_TYPE::WING;
 
+	//UTexture2D* WingTexture = LoadObject<UTexture2D>(nullptr, TEXT("Texture2D'/Game/Custom/Resources/Wing.Wing'"));
+	//ItemTexture = MakeShareable(WingTexture);
 
 
+	ItemName = FName(TEXT("Wing"));
+	ItemClass = AWing::StaticClass();
 	//SetActorRotation(FRotator(-85.f, 85.f, 81.f));
 }
 
-AItem* AWing::EquippedItem()
+void AWing::BeginPlay()
+{
+	Super::BeginPlay();
+
+	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+	//auto List = GameInstance->ItemList.Find(ItemName);
+	//if (List == nullptr)
+	//{
+	//	GameInstance->ItemList.Add(ItemName, MakeTuple(ItemClass, 0));
+	//	GameInstance->ItemTexture.Add(ItemName, ItemTexture);
+	//}
+}
+
+FName AWing::EquippedItem()
 {
 	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
 	if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
 	{
 		UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
-		if (CurrentSlot == nullptr)
-			return this;
 
-		if (CurrentSlot->CurrentItem)
+
+		if (CurrentSlot->ItemName != FName(TEXT("NULL")))
 		{
 			// ±³Ã¼
-			return CurrentSlot->SwapEquipment(this);
+			return CurrentSlot->SwapEquipment(ItemName);
 		}
 		else
 		{
-			UTexture2D* WingTexture = LoadObject<UTexture2D>(nullptr, TEXT("Texture2D'/Game/Custom/Resources/Wing.Wing'"));
-			ItemTexture = WingTexture;
-
 
 			// ÀåÂø
-			CurrentSlot->PushEquipment(this);
+			CurrentSlot->PushEquipment(ItemName);
 
 			// ÀåÂø
 			FName WingSocket(TEXT("Wing_Socket"));
@@ -56,10 +71,9 @@ AItem* AWing::EquippedItem()
 			PlayerCharacter->SetMyWing(this);
 			SetActorHiddenInGame(false);
 
-			return nullptr;
+			return FName(TEXT("NULL"));
 		}
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Equipped Failed !"));
-	return this;
+	return FName(TEXT("NULL"));
 }

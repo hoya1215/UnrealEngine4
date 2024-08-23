@@ -17,7 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeInventoryWidget() {}
 	GAME_API UClass* Z_Construct_UClass_UInventoryWidget();
 	UMG_API UClass* Z_Construct_UClass_UUserWidget();
 	UPackage* Z_Construct_UPackage__Script_Game();
-	GAME_API UClass* Z_Construct_UClass_AItem_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_UMyGameInstance_NoRegister();
 	UMG_API UClass* Z_Construct_UClass_UButton_NoRegister();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	GAME_API UClass* Z_Construct_UClass_UInventorySlotWidget_NoRegister();
@@ -48,10 +48,10 @@ void EmptyLinkFunctionForGeneratedCodeInventoryWidget() {}
 	}
 	DEFINE_FUNCTION(UInventoryWidget::execAddItemToInventory)
 	{
-		P_GET_OBJECT(AItem,Z_Param_Item);
+		P_GET_PROPERTY(FNameProperty,Z_Param_Name);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		P_THIS->AddItemToInventory(Z_Param_Item);
+		P_THIS->AddItemToInventory(Z_Param_Name);
 		P_NATIVE_END;
 	}
 	void UInventoryWidget::StaticRegisterNativesUInventoryWidget()
@@ -69,18 +69,18 @@ void EmptyLinkFunctionForGeneratedCodeInventoryWidget() {}
 	{
 		struct InventoryWidget_eventAddItemToInventory_Parms
 		{
-			AItem* Item;
+			FName Name;
 		};
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Item;
+		static const UE4CodeGen_Private::FNamePropertyParams NewProp_Name;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UE4CodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UInventoryWidget_AddItemToInventory_Statics::NewProp_Item = { "Item", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(InventoryWidget_eventAddItemToInventory_Parms, Item), Z_Construct_UClass_AItem_NoRegister, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FNamePropertyParams Z_Construct_UFunction_UInventoryWidget_AddItemToInventory_Statics::NewProp_Name = { "Name", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(InventoryWidget_eventAddItemToInventory_Parms, Name), METADATA_PARAMS(nullptr, 0) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInventoryWidget_AddItemToInventory_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventoryWidget_AddItemToInventory_Statics::NewProp_Item,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventoryWidget_AddItemToInventory_Statics::NewProp_Name,
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInventoryWidget_AddItemToInventory_Statics::Function_MetaDataParams[] = {
@@ -176,6 +176,10 @@ void EmptyLinkFunctionForGeneratedCodeInventoryWidget() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_GameInstance_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_GameInstance;
+#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EtcButton_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_EtcButton;
@@ -224,7 +228,7 @@ void EmptyLinkFunctionForGeneratedCodeInventoryWidget() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_Game,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_UInventoryWidget_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UInventoryWidget_AddItemToInventory, "AddItemToInventory" }, // 343792526
+		{ &Z_Construct_UFunction_UInventoryWidget_AddItemToInventory, "AddItemToInventory" }, // 1232440577
 		{ &Z_Construct_UFunction_UInventoryWidget_ClickConsumptionButton, "ClickConsumptionButton" }, // 2914130504
 		{ &Z_Construct_UFunction_UInventoryWidget_ClickEquipmentButton, "ClickEquipmentButton" }, // 3292781517
 		{ &Z_Construct_UFunction_UInventoryWidget_ClickEtcButton, "ClickEtcButton" }, // 2675635457
@@ -236,6 +240,12 @@ void EmptyLinkFunctionForGeneratedCodeInventoryWidget() {}
 		{ "ObjectInitializerConstructorDeclared", "" },
 	};
 #endif
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventoryWidget_Statics::NewProp_GameInstance_MetaData[] = {
+		{ "ModuleRelativePath", "InventoryWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventoryWidget_Statics::NewProp_GameInstance = { "GameInstance", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventoryWidget, GameInstance), Z_Construct_UClass_UMyGameInstance_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventoryWidget_Statics::NewProp_GameInstance_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventoryWidget_Statics::NewProp_GameInstance_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventoryWidget_Statics::NewProp_EtcButton_MetaData[] = {
 		{ "BindWidget", "" },
@@ -312,6 +322,7 @@ void EmptyLinkFunctionForGeneratedCodeInventoryWidget() {}
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventoryWidget_Statics::NewProp_DefaultSlotTexture = { "DefaultSlotTexture", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventoryWidget, DefaultSlotTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventoryWidget_Statics::NewProp_DefaultSlotTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventoryWidget_Statics::NewProp_DefaultSlotTexture_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UInventoryWidget_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventoryWidget_Statics::NewProp_GameInstance,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventoryWidget_Statics::NewProp_EtcButton,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventoryWidget_Statics::NewProp_ConsumptionButton,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventoryWidget_Statics::NewProp_EquipmentButton,
@@ -350,7 +361,7 @@ void EmptyLinkFunctionForGeneratedCodeInventoryWidget() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UInventoryWidget, 3229203580);
+	IMPLEMENT_CLASS(UInventoryWidget, 4044759505);
 	template<> GAME_API UClass* StaticClass<UInventoryWidget>()
 	{
 		return UInventoryWidget::StaticClass();

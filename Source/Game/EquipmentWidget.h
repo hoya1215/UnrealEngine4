@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Item.h"
+#include "EquipmentSlotWidget.h"
 #include "EquipmentWidget.generated.h"
 
 
@@ -12,7 +13,6 @@ class UImage;
 class UUniformGridPanel;
 class USizeBox;
 class UButton;
-class UEquipmentSlotWidget;
 
 /**
  * 

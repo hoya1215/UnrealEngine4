@@ -9,6 +9,7 @@
 #include "InventoryWidget.h"
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "MyGameInstance.h"
 
 // Sets default values
 AGun::AGun()
@@ -36,11 +37,12 @@ AGun::AGun()
 	Trigger->SetupAttachment(StaticMesh);
 
 	SetActorLocation(FVector(0.f, 10.f, 200.f));
+	RelativeRotation = FRotator(5.f, -29.f, 6.5f);
 
 	EquipmentType = EEQUIPMENT_TYPE::MAIN;
 
-	UTexture2D* MainGunTexture = LoadObject<UTexture2D>(nullptr, TEXT("Texture2D'/Game/Custom/Resources/Gun.Gun'"));
-	ItemTexture = MainGunTexture;
+	//UTexture2D* MainGunTexture = LoadObject<UTexture2D>(nullptr, TEXT("Texture2D'/Game/Custom/Resources/Gun.Gun'"));
+	//ItemTexture = MakeShareable(MainGunTexture);
 
 	MaxBulletCount = 5;
 	CurrentBulletCount = 0;
@@ -53,6 +55,9 @@ AGun::AGun()
 		MaterialTexture = MI.Object;
 	}
 
+	ItemName = FName(TEXT("MainGun"));
+	ItemClass = AGun::StaticClass();
+
 }
 
 void AGun::BeginPlay()
@@ -61,6 +66,14 @@ void AGun::BeginPlay()
 
 	FName Name(TEXT("Main"));
 	SetWeaponInfo(Name);
+
+	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+	//auto List = GameInstance->ItemList.Find(ItemName);
+	//if (List == nullptr)
+	//{
+	//	GameInstance->ItemList.Add(ItemName, MakeTuple(ItemClass, 0));
+	//	GameInstance->ItemTexture.Add(ItemName, ItemTexture);
+	//}
 }
 
 

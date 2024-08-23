@@ -7,6 +7,11 @@
 #include "EquipmentSlotWidget.generated.h"
 
 class AItem;
+class UTexture2D;
+
+
+
+
 /**
  * 
  */
@@ -16,23 +21,30 @@ class GAME_API UEquipmentSlotWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+	virtual void NativeConstruct() override;
 
-	void PushEquipment(AItem* Item, UTexture2D* Texture = nullptr);
+	void PushEquipment(FName Name);
 	void PullEquipment();
-	AItem* SwapEquipment(AItem* NewItem);
+	FName SwapEquipment(FName NewName);
 
 	virtual FReply NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Texture")
-		class UTexture2D* DefaultSlotTexture;
+	UTexture2D* DefaultSlotTexture;
 
 	UPROPERTY()
-		class UTexture2D* SlotTexture;
+	UTexture2D*  SlotTexture;
 
 	UPROPERTY(meta = (BindWidget))
 		class UImage* SlotImage;
 
 	UPROPERTY()
 		AItem* CurrentItem;
+
+	UPROPERTY()
+		FName ItemName {TEXT("NULL") };
+
+	UPROPERTY()
+		class UMyGameInstance* GameInstance;
 };

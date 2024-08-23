@@ -17,49 +17,69 @@ AWeapon::AWeapon()
 	bCanMagnet = false;
 }
 
-AItem* AWeapon::EquippedItem()
+FName AWeapon::EquippedItem()
 {
 	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
 	if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
 	{
 		UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
-		if (CurrentSlot == nullptr)
-			return this;
 
-		if (CurrentSlot->CurrentItem)
+
+		if (CurrentSlot->ItemName != FName(TEXT("NULL")))
 		{
 			// ±³Ã¼
-			return CurrentSlot->SwapEquipment(this);
+			// ±âÁ¸¿¡ ÀÖ´ø °Í destroy
+			return CurrentSlot->SwapEquipment(ItemName);
 		}
 		else
 		{
 			if (PlayerCharacter->GetMyWeapon() != nullptr)
-				CurrentSlot->PushEquipment(this);
+			{
+				CurrentSlot->PushEquipment(ItemName);
+				return FName(TEXT("Destroy"));
+				//Destroy();
+			}
 			else
 			{
 				// ÀåÂø
-				CurrentSlot->PushEquipment(this);
+				CurrentSlot->PushEquipment(ItemName);
 
-				// ÀåÂø
-				FName GunSocket(TEXT("middle_r_socket"));
-
-				AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-					GunSocket);
-				SetActorRotation(FRotator(0.f, 0.f, 0.f));
-				PlayerCharacter->SetMyWeapon(this);
-				SetActorHiddenInGame(false);
-				PlayerCharacter->CurrentWeaponState = WeaponState;
+				AttachToCharacter();
+				//// ÀåÂø
+				//FName GunSocket(TEXT("middle_r_socket"));
+				//
+				//AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+				//	GunSocket);
+				//SetActorRotation(FRotator(0.f, 0.f, 0.f));
+				//PlayerCharacter->SetMyWeapon(this);
+				//SetActorHiddenInGame(false);
+				//PlayerCharacter->CurrentWeaponState = WeaponState;
 			}
 
 
-			return nullptr;
+			return FName(TEXT("NULL"));
 		}
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Equipped Failed !"));
-	return this;
+	return FName(TEXT("NULL"));
 
+}
+
+void AWeapon::AttachToCharacter()
+{
+	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+
+	// ÀåÂø
+	FName GunSocket(TEXT("middle_r_socket"));
+
+	AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+		GunSocket);
+	SetActorRelativeRotation(RelativeRotation);
+	//SetActorRelativeRotation(FRotator(0.f, 0.f, 0.f));
+	PlayerCharacter->SetMyWeapon(this);
+	SetActorHiddenInGame(false);
+	PlayerCharacter->CurrentWeaponState = WeaponState;
 }
 
 void AWeapon::SetWeaponInfo(FName Name)

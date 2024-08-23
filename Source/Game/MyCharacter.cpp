@@ -189,11 +189,7 @@ void AMyCharacter::BeginPlay()
 		MyWing = GetWorld()->SpawnActor<AWing>(MyWingClass, GetActorLocation(), FRotator(-85.f, 80.f, 81.f));
 
 
-		AItem* Result = MyWing->EquippedItem();
-		if (Result)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Wing Failed"));
-		}
+		MyWing->EquippedItem();
 		
 	}
 
@@ -248,11 +244,22 @@ void AMyCharacter::Tick(float DeltaTime)
 			bIsDragging = false;
 	}
 
-	if (MyWeapon == nullptr)
-		CurrentWeaponState = 2;
+	//if (MyWeapon == nullptr)
+	//	CurrentWeaponState = 2;
+	//else
+	//{
+	//	// 장착
+	//	FName GunSocket(TEXT("middle_r_socket"));
+
+	//	MyWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+	//		GunSocket);
+	//	SetActorRotation(FRotator(0.f, 0.f, 0.f));
+	//}
 
 
 	// Tick 이 아니고 무기 변경해줄때마다 하면 실제 속도는 변화 x -> 개선
+	if (MyWeapon == nullptr)
+		CurrentWeaponState = 2;
 	ChangeSpeed();
 }
 
@@ -461,6 +468,9 @@ void AMyCharacter::MainAttack()
 
 void AMyCharacter::SubAttack()
 {
+	if (!MyWeapon)
+		return;
+
 	bIsAttacking = true;
 	MyWeapon->EffectComponent->Activate();
 
@@ -511,6 +521,9 @@ void AMyCharacter::SubAttack()
 
 void AMyCharacter::OtherAttack()
 {
+	if (!MyWeapon)
+		return;
+
 	FHitResult HitResult;
 	FCollisionQueryParams Params(NAME_None, false, this);
 
@@ -721,43 +734,73 @@ void AMyCharacter::SelectWeapon(FKey Key)
 
 	if (Key == EKeys::One)
 	{
+		
+		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::MAIN]->ItemName;
+		if (Name == FName(TEXT("NULL")) || CurrentWeaponState == 0)
+			return;
 		CurrentWeaponState = 0;
-		ChangeCurrentWeapon(EEQUIPMENT_TYPE::MAIN);
+		//ChangeCurrentWeapon(EEQUIPMENT_TYPE::MAIN);
 	}
 	else if (Key == EKeys::Two)
 	{
+		
+		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::SUB]->ItemName;
+		if (Name == FName(TEXT("NULL")) || CurrentWeaponState == 1)
+			return;
 		CurrentWeaponState = 1;
-		ChangeCurrentWeapon(EEQUIPMENT_TYPE::SUB);
+		//ChangeCurrentWeapon(EEQUIPMENT_TYPE::SUB);
 	}
 	else if (Key == EKeys::Three)
 	{
+		
+		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::OTHER]->ItemName;
+		if (Name == FName(TEXT("NULL")) || CurrentWeaponState == 2)
+			return;
 		CurrentWeaponState = 2;
-		ChangeCurrentWeapon(EEQUIPMENT_TYPE::OTHER);
+		//ChangeCurrentWeapon(EEQUIPMENT_TYPE::OTHER);
 	}
 
 	bIsWeaponSwapping = true;
 
-	WeaponChange.Broadcast();
+	//WeaponChange.Broadcast();
 }
 
 void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
 {
-	AWeapon* NewWeapon = Cast<AWeapon>(MyEquipmentWidget->EquipmentSlots[EquipmentType]->CurrentItem);
+	FName Name = MyEquipmentWidget->EquipmentSlots[EquipmentType]->ItemName;
 
-	if (NewWeapon != nullptr)
+	if (Name != FName(TEXT("NULL")))
 	{
-		MyWeapon->SetActorHiddenInGame(true);
-		NewWeapon->SetActorHiddenInGame(false);
-		SetMyWeapon(NewWeapon);
+		UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetGameInstance());
+		auto ItemData = GameInstance->GetItemData(Name);
+
+		bCanPickUp = false;
+		auto NewWeapon = GetWorld()->SpawnActor<AWeapon>(ItemData->ItemClass);
+
+		MyWeapon->Destroy();
+		MyWeapon = nullptr;
+		NewWeapon->AttachToCharacter();
+
+		bCanPickUp = true;
+
+		WeaponChange.Broadcast();
+		ChangeSpeed();
+
+		//MyWeapon->SetActorHiddenInGame(true);
+		//NewWeapon->SetActorHiddenInGame(false);
+		//SetMyWeapon(NewWeapon);
 	}
 
-	ChangeSpeed();
+	
 }
 
 void AMyCharacter::SetMyWeapon(AWeapon* CurrentWeapon)
 {
 	MyWeapon = CurrentWeapon;
-	CurrentWeaponState = CurrentWeapon->WeaponState;
+	if (MyWeapon)
+		CurrentWeaponState = CurrentWeapon->WeaponState;
+	else
+		CurrentWeaponState = 2;
 }
 
 void AMyCharacter::Revive()
@@ -766,6 +809,8 @@ void AMyCharacter::Revive()
 	Stat->SetHp(MaxHp);
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	SetActorTickEnabled(true);
+	GetCharacterMovement()->MaxWalkSpeed = MyWeapon != nullptr ? DefaultSpeed + MyWeapon->WeaponInfo.Speed
+		: DefaultSpeed;
 
 	CharacterRevive.Broadcast();
 }

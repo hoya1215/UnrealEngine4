@@ -7,7 +7,7 @@
 #include "Item.h"
 #include "InventorySlotWidget.generated.h"
 
-
+class UTexture2D;
 /**
  * 
  */
@@ -17,14 +17,17 @@ class GAME_API UInventorySlotWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
+	virtual void NativeConstruct() override;
+
 	// Util
-	void AddItem(AItem* Item);
+	void AddItem(FName Name);
 
 	void SetItem(UInventorySlotWidget* OtherSlot);
 
-	void UseItem(EITEM_TYPE ItemType);
+	//void UseItem(EITEM_TYPE ItemType);
 
-	void EquippedItem(AItem* Item);
+	//void EquippedItem(AItem* Item);
+	void EquippedItem(FName ItemName);
 
 	UFUNCTION(BlueprintCallable)
 		void SetSizeBox(float Width, float Height);
@@ -39,11 +42,11 @@ public:
 
 
 public:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 		TSubclassOf<UInventorySlotWidget> DragVisualClass;
 
 	UPROPERTY()
-		class UTexture2D* SlotTexture;
+	UTexture2D* SlotTexture;
 
 	UPROPERTY(meta = (BindWidget))
 		class UImage* SlotImage;
@@ -68,4 +71,12 @@ public:
 public:
 	UPROPERTY()
 	 AItem* CurrentItem = nullptr;
+
+	UPROPERTY()
+		FName ItemName {
+		TEXT("NULL")
+	};
+
+	UPROPERTY()
+		class UMyGameInstance* GameInstance;
 };

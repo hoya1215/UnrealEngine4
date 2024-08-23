@@ -71,7 +71,7 @@ void EmptyLinkFunctionForGeneratedCodeGun() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AGun, 3745797678);
+	IMPLEMENT_CLASS(AGun, 1581387251);
 	template<> GAME_API UClass* StaticClass<AGun>()
 	{
 		return AGun::StaticClass();

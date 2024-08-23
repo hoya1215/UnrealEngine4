@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeSword() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ASword, 935528451);
+	IMPLEMENT_CLASS(ASword, 307609722);
 	template<> GAME_API UClass* StaticClass<ASword>()
 	{
 		return ASword::StaticClass();
