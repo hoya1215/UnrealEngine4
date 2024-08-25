@@ -7,6 +7,8 @@
 #include "MyGameInstance.h"
 #include "Weapon.generated.h"
 
+class USoundCue;
+
 USTRUCT()
 struct FWeaponInfo
 {
@@ -18,6 +20,7 @@ struct FWeaponInfo
 	UPROPERTY()
 		int Speed;
 };
+
 
 /**
  * 
@@ -61,4 +64,7 @@ public:
 
 	UPROPERTY()
 	class UMaterialInterface* MaterialTexture;
+
+	UPROPERTY()
+		USoundCue* AttackSound;
 };

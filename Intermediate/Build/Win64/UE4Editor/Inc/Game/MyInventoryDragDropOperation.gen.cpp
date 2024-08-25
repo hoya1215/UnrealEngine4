@@ -88,7 +88,7 @@ void EmptyLinkFunctionForGeneratedCodeMyInventoryDragDropOperation() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMyInventoryDragDropOperation, 188115990);
+	IMPLEMENT_CLASS(UMyInventoryDragDropOperation, 1501563902);
 	template<> GAME_API UClass* StaticClass<UMyInventoryDragDropOperation>()
 	{
 		return UMyInventoryDragDropOperation::StaticClass();

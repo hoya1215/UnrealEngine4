@@ -19,6 +19,7 @@ enum class EENEMY_TYPE : uint8
 class AMyEnemy;
 class AFireGun;
 class UMyHUD;
+class USoundCue;
 /**
  * 
  */
@@ -72,5 +73,9 @@ public:
 	// Weapon
 	UPROPERTY()
 		TSubclassOf<AFireGun> FireGunClass;
+
+private:
+	UPROPERTY()
+		USoundCue* BackGroundMusic;
 	
 };

@@ -184,10 +184,11 @@ void UInventorySlotWidget::EquippedItem(FName Name)
         else if (PulledName == FName(TEXT("Destroy")))
         {
             Item->Destroy();
+            this->SetItem(InventoryWidget->DefaultSlot);
         }
         else
         {
-            //Count = 0;
+            Count = 0;
             this->AddItem(PulledName);
         }
 

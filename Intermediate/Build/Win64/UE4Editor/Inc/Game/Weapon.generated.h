@@ -13,17 +13,17 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GAME_Weapon_generated_h
 
-#define GameCopy_Source_Game_Weapon_h_13_GENERATED_BODY \
+#define GameCopy_4_27_Source_Game_Weapon_h_15_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FWeaponInfo_Statics; \
 	GAME_API static class UScriptStruct* StaticStruct();
 
 
 template<> GAME_API UScriptStruct* StaticStruct<struct FWeaponInfo>();
 
-#define GameCopy_Source_Game_Weapon_h_28_SPARSE_DATA
-#define GameCopy_Source_Game_Weapon_h_28_RPC_WRAPPERS
-#define GameCopy_Source_Game_Weapon_h_28_RPC_WRAPPERS_NO_PURE_DECLS
-#define GameCopy_Source_Game_Weapon_h_28_INCLASS_NO_PURE_DECLS \
+#define GameCopy_4_27_Source_Game_Weapon_h_31_SPARSE_DATA
+#define GameCopy_4_27_Source_Game_Weapon_h_31_RPC_WRAPPERS
+#define GameCopy_4_27_Source_Game_Weapon_h_31_RPC_WRAPPERS_NO_PURE_DECLS
+#define GameCopy_4_27_Source_Game_Weapon_h_31_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAWeapon(); \
 	friend struct Z_Construct_UClass_AWeapon_Statics; \
@@ -32,7 +32,7 @@ public: \
 	DECLARE_SERIALIZER(AWeapon)
 
 
-#define GameCopy_Source_Game_Weapon_h_28_INCLASS \
+#define GameCopy_4_27_Source_Game_Weapon_h_31_INCLASS \
 private: \
 	static void StaticRegisterNativesAWeapon(); \
 	friend struct Z_Construct_UClass_AWeapon_Statics; \
@@ -41,12 +41,12 @@ public: \
 	DECLARE_SERIALIZER(AWeapon)
 
 
-#define GameCopy_Source_Game_Weapon_h_28_STANDARD_CONSTRUCTORS \
+#define GameCopy_4_27_Source_Game_Weapon_h_31_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AWeapon(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AWeapon) \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, AWeapon); \
-DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AWeapon); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AWeapon); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API AWeapon(AWeapon&&); \
@@ -54,39 +54,39 @@ private: \
 public:
 
 
-#define GameCopy_Source_Game_Weapon_h_28_ENHANCED_CONSTRUCTORS \
+#define GameCopy_4_27_Source_Game_Weapon_h_31_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API AWeapon(AWeapon&&); \
 	NO_API AWeapon(const AWeapon&); \
 public: \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, AWeapon); \
-DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AWeapon); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AWeapon); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AWeapon)
 
 
-#define GameCopy_Source_Game_Weapon_h_28_PRIVATE_PROPERTY_OFFSET
-#define GameCopy_Source_Game_Weapon_h_25_PROLOG
-#define GameCopy_Source_Game_Weapon_h_28_GENERATED_BODY_LEGACY \
+#define GameCopy_4_27_Source_Game_Weapon_h_31_PRIVATE_PROPERTY_OFFSET
+#define GameCopy_4_27_Source_Game_Weapon_h_28_PROLOG
+#define GameCopy_4_27_Source_Game_Weapon_h_31_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_Weapon_h_28_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_Weapon_h_28_SPARSE_DATA \
-	GameCopy_Source_Game_Weapon_h_28_RPC_WRAPPERS \
-	GameCopy_Source_Game_Weapon_h_28_INCLASS \
-	GameCopy_Source_Game_Weapon_h_28_STANDARD_CONSTRUCTORS \
+	GameCopy_4_27_Source_Game_Weapon_h_31_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_4_27_Source_Game_Weapon_h_31_SPARSE_DATA \
+	GameCopy_4_27_Source_Game_Weapon_h_31_RPC_WRAPPERS \
+	GameCopy_4_27_Source_Game_Weapon_h_31_INCLASS \
+	GameCopy_4_27_Source_Game_Weapon_h_31_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define GameCopy_Source_Game_Weapon_h_28_GENERATED_BODY \
+#define GameCopy_4_27_Source_Game_Weapon_h_31_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_Weapon_h_28_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_Weapon_h_28_SPARSE_DATA \
-	GameCopy_Source_Game_Weapon_h_28_RPC_WRAPPERS_NO_PURE_DECLS \
-	GameCopy_Source_Game_Weapon_h_28_INCLASS_NO_PURE_DECLS \
-	GameCopy_Source_Game_Weapon_h_28_ENHANCED_CONSTRUCTORS \
+	GameCopy_4_27_Source_Game_Weapon_h_31_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_4_27_Source_Game_Weapon_h_31_SPARSE_DATA \
+	GameCopy_4_27_Source_Game_Weapon_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
+	GameCopy_4_27_Source_Game_Weapon_h_31_INCLASS_NO_PURE_DECLS \
+	GameCopy_4_27_Source_Game_Weapon_h_31_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -94,7 +94,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GAME_API UClass* StaticClass<class AWeapon>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID GameCopy_Source_Game_Weapon_h
+#define CURRENT_FILE_ID GameCopy_4_27_Source_Game_Weapon_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

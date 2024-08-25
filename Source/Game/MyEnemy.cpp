@@ -25,6 +25,8 @@
 #include "InventoryWidget.h"
 #include "EnemyController.h"
 #include "EnemyAnimInstance.h"
+#include "Util.h"
+#include "Sound/SoundCue.h"
 
 // Sets default values
 AMyEnemy::AMyEnemy()
@@ -51,6 +53,9 @@ AMyEnemy::AMyEnemy()
 	EnemyType = EENEMY_TYPE::ET_DEFAULT;
 
 	DefaultSpeed = GetCharacterMovement()->MaxWalkSpeed;
+
+	DieSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/voice_male_b_death_high_07_Cue.voice_male_b_death_high_07_Cue'"));
+
 }
 
 void AMyEnemy::BeginPlay()
@@ -76,6 +81,8 @@ void AMyEnemy::Tick(float DeltaTime)
 	int CurrentHp = EnemyInfo.CurrentHp;
 	if (CurrentHp <= 0)
 	{
+		Util::PlaySound(this, DieSound, GetActorLocation());
+
 		auto Money = GetWorld()->SpawnActor<AMoney>(GetActorLocation(), FRotator::ZeroRotator);
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);

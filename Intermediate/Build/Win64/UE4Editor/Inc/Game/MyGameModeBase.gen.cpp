@@ -18,12 +18,13 @@ void EmptyLinkFunctionForGeneratedCodeMyGameModeBase() {}
 	GAME_API UClass* Z_Construct_UClass_AMyGameModeBase_NoRegister();
 	GAME_API UClass* Z_Construct_UClass_AMyGameModeBase();
 	ENGINE_API UClass* Z_Construct_UClass_AGameModeBase();
-	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
-	GAME_API UClass* Z_Construct_UClass_AFireGun_NoRegister();
-	GAME_API UClass* Z_Construct_UClass_AEnemy_Boss_NoRegister();
-	GAME_API UClass* Z_Construct_UClass_AEnemy_Small_NoRegister();
-	GAME_API UClass* Z_Construct_UClass_AMyEnemy_NoRegister();
 	GAME_API UClass* Z_Construct_UClass_UMyHUD_NoRegister();
+	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
+	GAME_API UClass* Z_Construct_UClass_AMyEnemy_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_AEnemy_Small_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_AEnemy_Boss_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_AFireGun_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_USoundCue_NoRegister();
 // End Cross Module References
 	static UEnum* EENEMY_TYPE_StaticEnum()
 	{
@@ -39,7 +40,7 @@ void EmptyLinkFunctionForGeneratedCodeMyGameModeBase() {}
 		return EENEMY_TYPE_StaticEnum();
 	}
 	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EENEMY_TYPE(EENEMY_TYPE_StaticEnum, TEXT("/Script/Game"), TEXT("EENEMY_TYPE"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Game_EENEMY_TYPE_Hash() { return 2105004782U; }
+	uint32 Get_Z_Construct_UEnum_Game_EENEMY_TYPE_Hash() { return 1115531320U; }
 	UEnum* Z_Construct_UEnum_Game_EENEMY_TYPE()
 	{
 #if WITH_HOT_RELOAD
@@ -74,6 +75,7 @@ void EmptyLinkFunctionForGeneratedCodeMyGameModeBase() {}
 				Enumerators,
 				UE_ARRAY_COUNT(Enumerators),
 				RF_Public|RF_Transient|RF_MarkAsNative,
+				EEnumFlags::None,
 				UE4CodeGen_Private::EDynamicType::NotDynamic,
 				(uint8)UEnum::ECppForm::EnumClass,
 				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
@@ -96,29 +98,33 @@ void EmptyLinkFunctionForGeneratedCodeMyGameModeBase() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FireGunClass_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Widget_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FClassPropertyParams NewProp_FireGunClass;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EnemyBossClass_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FClassPropertyParams NewProp_EnemyBossClass;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EnemySmallClass_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FClassPropertyParams NewProp_EnemySmallClass;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EnemyClass_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FClassPropertyParams NewProp_EnemyClass;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Widget;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_HUD_Class_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FClassPropertyParams NewProp_HUD_Class;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Widget_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EnemyClass_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Widget;
+		static const UE4CodeGen_Private::FClassPropertyParams NewProp_EnemyClass;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EnemySmallClass_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FClassPropertyParams NewProp_EnemySmallClass;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EnemyBossClass_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FClassPropertyParams NewProp_EnemyBossClass;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FireGunClass_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FClassPropertyParams NewProp_FireGunClass;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BackGroundMusic_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_BackGroundMusic;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -137,27 +143,18 @@ void EmptyLinkFunctionForGeneratedCodeMyGameModeBase() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass_MetaData[] = {
-		{ "Comment", "// Weapon\n" },
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_Widget_MetaData[] = {
+		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyGameModeBase.h" },
-		{ "ToolTip", "Weapon" },
 	};
 #endif
-	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass = { "FireGunClass", nullptr, (EPropertyFlags)0x0014000000000000, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, FireGunClass), Z_Construct_UClass_AFireGun_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_Widget = { "Widget", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, Widget), Z_Construct_UClass_UMyHUD_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_Widget_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_Widget_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass_MetaData[] = {
-		{ "Category", "MyGameModeBase" },
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class_MetaData[] = {
 		{ "ModuleRelativePath", "MyGameModeBase.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass = { "EnemyBossClass", nullptr, (EPropertyFlags)0x0014000000020001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, EnemyBossClass), Z_Construct_UClass_AEnemy_Boss_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass_MetaData[] = {
-		{ "Category", "MyGameModeBase" },
-		{ "ModuleRelativePath", "MyGameModeBase.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass = { "EnemySmallClass", nullptr, (EPropertyFlags)0x0014000000020001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, EnemySmallClass), Z_Construct_UClass_AEnemy_Small_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass_MetaData)) };
+	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class = { "HUD_Class", nullptr, (EPropertyFlags)0x0014000000000000, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, HUD_Class), Z_Construct_UClass_UMyHUD_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyClass_MetaData[] = {
 		{ "Category", "MyGameModeBase" },
@@ -168,25 +165,41 @@ void EmptyLinkFunctionForGeneratedCodeMyGameModeBase() {}
 #endif
 	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyClass = { "EnemyClass", nullptr, (EPropertyFlags)0x0014000000020001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, EnemyClass), Z_Construct_UClass_AMyEnemy_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyClass_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass_MetaData[] = {
+		{ "Category", "MyGameModeBase" },
 		{ "ModuleRelativePath", "MyGameModeBase.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class = { "HUD_Class", nullptr, (EPropertyFlags)0x0014000000000000, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, HUD_Class), Z_Construct_UClass_UMyHUD_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class_MetaData)) };
+	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass = { "EnemySmallClass", nullptr, (EPropertyFlags)0x0014000000020001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, EnemySmallClass), Z_Construct_UClass_AEnemy_Small_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_Widget_MetaData[] = {
-		{ "EditInline", "true" },
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass_MetaData[] = {
+		{ "Category", "MyGameModeBase" },
 		{ "ModuleRelativePath", "MyGameModeBase.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_Widget = { "Widget", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, Widget), Z_Construct_UClass_UMyHUD_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_Widget_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_Widget_MetaData)) };
+	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass = { "EnemyBossClass", nullptr, (EPropertyFlags)0x0014000000020001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, EnemyBossClass), Z_Construct_UClass_AEnemy_Boss_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass_MetaData[] = {
+		{ "Comment", "// Weapon\n" },
+		{ "ModuleRelativePath", "MyGameModeBase.h" },
+		{ "ToolTip", "Weapon" },
+	};
+#endif
+	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass = { "FireGunClass", nullptr, (EPropertyFlags)0x0014000000000000, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, FireGunClass), Z_Construct_UClass_AFireGun_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_BackGroundMusic_MetaData[] = {
+		{ "ModuleRelativePath", "MyGameModeBase.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_BackGroundMusic = { "BackGroundMusic", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyGameModeBase, BackGroundMusic), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_BackGroundMusic_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_BackGroundMusic_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyGameModeBase_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyClass,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_Widget,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_HUD_Class,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyClass,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemySmallClass,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_EnemyBossClass,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_FireGunClass,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyGameModeBase_Statics::NewProp_BackGroundMusic,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AMyGameModeBase_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AMyGameModeBase>::IsAbstract,
@@ -215,7 +228,7 @@ void EmptyLinkFunctionForGeneratedCodeMyGameModeBase() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AMyGameModeBase, 2394996170);
+	IMPLEMENT_CLASS(AMyGameModeBase, 4087580359);
 	template<> GAME_API UClass* StaticClass<AMyGameModeBase>()
 	{
 		return AMyGameModeBase::StaticClass();

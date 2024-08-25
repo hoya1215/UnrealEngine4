@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeBTService_CheckPicking() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UBTService_CheckPicking, 3378575871);
+	IMPLEMENT_CLASS(UBTService_CheckPicking, 3911841360);
 	template<> GAME_API UClass* StaticClass<UBTService_CheckPicking>()
 	{
 		return UBTService_CheckPicking::StaticClass();

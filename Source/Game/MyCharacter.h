@@ -19,7 +19,25 @@ class APet;
 class AWeapon;
 class AWing;
 class UMyHUD;
+class USoundCue;
 
+USTRUCT()
+struct FSounds
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	USoundCue* DieSound;
+
+	UPROPERTY()
+	USoundCue* JumpSound;
+
+	UPROPERTY()
+	USoundCue* MoveSound;
+
+	UPROPERTY()
+	USoundCue* AttackSound;
+};
 
 
 DECLARE_MULTICAST_DELEGATE(FCharacterDie)
@@ -165,6 +183,10 @@ public:
 
 	UPROPERTY()
 		bool bCanPickUp = true;
+
+	// Sound
+	UPROPERTY()
+		FSounds Sounds;
 
 private:
 

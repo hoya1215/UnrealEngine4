@@ -10,6 +10,7 @@
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "MyGameInstance.h"
+#include "Sound/SoundCue.h"
 
 // Sets default values
 AGun::AGun()
@@ -57,6 +58,8 @@ AGun::AGun()
 
 	ItemName = FName(TEXT("MainGun"));
 	ItemClass = AGun::StaticClass();
+
+	AttackSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/Explosion_Cue.Explosion_Cue'"));
 
 }
 

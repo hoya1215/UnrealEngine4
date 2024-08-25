@@ -14,20 +14,20 @@ enum class EITEM_TYPE : uint8;
 #endif
 #define GAME_InventoryComponent_generated_h
 
-#define GameCopy_Source_Game_InventoryComponent_h_15_SPARSE_DATA
-#define GameCopy_Source_Game_InventoryComponent_h_15_RPC_WRAPPERS \
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_SPARSE_DATA
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execRemoveFromInventory); \
 	DECLARE_FUNCTION(execAddToInventory);
 
 
-#define GameCopy_Source_Game_InventoryComponent_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execRemoveFromInventory); \
 	DECLARE_FUNCTION(execAddToInventory);
 
 
-#define GameCopy_Source_Game_InventoryComponent_h_15_INCLASS_NO_PURE_DECLS \
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUInventoryComponent(); \
 	friend struct Z_Construct_UClass_UInventoryComponent_Statics; \
@@ -36,7 +36,7 @@ public: \
 	DECLARE_SERIALIZER(UInventoryComponent)
 
 
-#define GameCopy_Source_Game_InventoryComponent_h_15_INCLASS \
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_INCLASS \
 private: \
 	static void StaticRegisterNativesUInventoryComponent(); \
 	friend struct Z_Construct_UClass_UInventoryComponent_Statics; \
@@ -45,12 +45,12 @@ public: \
 	DECLARE_SERIALIZER(UInventoryComponent)
 
 
-#define GameCopy_Source_Game_InventoryComponent_h_15_STANDARD_CONSTRUCTORS \
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UInventoryComponent(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UInventoryComponent) \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UInventoryComponent); \
-DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UInventoryComponent); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UInventoryComponent); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UInventoryComponent(UInventoryComponent&&); \
@@ -58,39 +58,39 @@ private: \
 public:
 
 
-#define GameCopy_Source_Game_InventoryComponent_h_15_ENHANCED_CONSTRUCTORS \
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UInventoryComponent(UInventoryComponent&&); \
 	NO_API UInventoryComponent(const UInventoryComponent&); \
 public: \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UInventoryComponent); \
-DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UInventoryComponent); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UInventoryComponent); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UInventoryComponent)
 
 
-#define GameCopy_Source_Game_InventoryComponent_h_15_PRIVATE_PROPERTY_OFFSET
-#define GameCopy_Source_Game_InventoryComponent_h_12_PROLOG
-#define GameCopy_Source_Game_InventoryComponent_h_15_GENERATED_BODY_LEGACY \
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_PRIVATE_PROPERTY_OFFSET
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_12_PROLOG
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_InventoryComponent_h_15_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_InventoryComponent_h_15_SPARSE_DATA \
-	GameCopy_Source_Game_InventoryComponent_h_15_RPC_WRAPPERS \
-	GameCopy_Source_Game_InventoryComponent_h_15_INCLASS \
-	GameCopy_Source_Game_InventoryComponent_h_15_STANDARD_CONSTRUCTORS \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_SPARSE_DATA \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_RPC_WRAPPERS \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_INCLASS \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define GameCopy_Source_Game_InventoryComponent_h_15_GENERATED_BODY \
+#define GameCopy_4_27_Source_Game_InventoryComponent_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_InventoryComponent_h_15_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_InventoryComponent_h_15_SPARSE_DATA \
-	GameCopy_Source_Game_InventoryComponent_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
-	GameCopy_Source_Game_InventoryComponent_h_15_INCLASS_NO_PURE_DECLS \
-	GameCopy_Source_Game_InventoryComponent_h_15_ENHANCED_CONSTRUCTORS \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_SPARSE_DATA \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_INCLASS_NO_PURE_DECLS \
+	GameCopy_4_27_Source_Game_InventoryComponent_h_15_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -98,7 +98,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GAME_API UClass* StaticClass<class UInventoryComponent>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID GameCopy_Source_Game_InventoryComponent_h
+#define CURRENT_FILE_ID GameCopy_4_27_Source_Game_InventoryComponent_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

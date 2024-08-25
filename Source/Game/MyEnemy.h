@@ -8,6 +8,8 @@
 #include "MyGameInstance.h"
 #include "MyEnemy.generated.h"
 
+class USoundCue;
+
 USTRUCT()
 struct FEnemyInfo
 {
@@ -81,6 +83,13 @@ public:
 		EENEMY_TYPE EnemyType;
 
 	float FireGunDamageTime = 60.f;
+
+	// Sound
+	UPROPERTY()
+		USoundCue* AttackSound;
+
+	UPROPERTY()
+		USoundCue* DieSound;
 
 private:
 	UPROPERTY()

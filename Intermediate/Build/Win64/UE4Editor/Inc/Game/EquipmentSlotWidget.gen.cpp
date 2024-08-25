@@ -17,10 +17,10 @@ void EmptyLinkFunctionForGeneratedCodeEquipmentSlotWidget() {}
 	GAME_API UClass* Z_Construct_UClass_UEquipmentSlotWidget();
 	UMG_API UClass* Z_Construct_UClass_UUserWidget();
 	UPackage* Z_Construct_UPackage__Script_Game();
-	GAME_API UClass* Z_Construct_UClass_UMyGameInstance_NoRegister();
-	GAME_API UClass* Z_Construct_UClass_AItem_NoRegister();
-	UMG_API UClass* Z_Construct_UClass_UImage_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
+	UMG_API UClass* Z_Construct_UClass_UImage_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_AItem_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_UMyGameInstance_NoRegister();
 // End Cross Module References
 	void UEquipmentSlotWidget::StaticRegisterNativesUEquipmentSlotWidget()
 	{
@@ -36,29 +36,29 @@ void EmptyLinkFunctionForGeneratedCodeEquipmentSlotWidget() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_GameInstance_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_DefaultSlotTexture_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_GameInstance;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemName_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FNamePropertyParams NewProp_ItemName;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentItem_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentItem;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotImage_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotImage;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_DefaultSlotTexture;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotTexture_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotTexture;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_DefaultSlotTexture_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotImage_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_DefaultSlotTexture;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotImage;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentItem_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentItem;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemName_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FNamePropertyParams NewProp_ItemName;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_GameInstance_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_GameInstance;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -75,23 +75,18 @@ void EmptyLinkFunctionForGeneratedCodeEquipmentSlotWidget() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_DefaultSlotTexture_MetaData[] = {
+		{ "Category", "Texture" },
 		{ "ModuleRelativePath", "EquipmentSlotWidget.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance = { "GameInstance", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, GameInstance), Z_Construct_UClass_UMyGameInstance_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_DefaultSlotTexture = { "DefaultSlotTexture", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, DefaultSlotTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_DefaultSlotTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_DefaultSlotTexture_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture_MetaData[] = {
 		{ "ModuleRelativePath", "EquipmentSlotWidget.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FNamePropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName = { "ItemName", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, ItemName), METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem_MetaData[] = {
-		{ "ModuleRelativePath", "EquipmentSlotWidget.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem = { "CurrentItem", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, CurrentItem), Z_Construct_UClass_AItem_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture = { "SlotTexture", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, SlotTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotImage_MetaData[] = {
 		{ "BindWidget", "" },
@@ -101,25 +96,30 @@ void EmptyLinkFunctionForGeneratedCodeEquipmentSlotWidget() {}
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotImage = { "SlotImage", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, SlotImage), Z_Construct_UClass_UImage_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotImage_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotImage_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem_MetaData[] = {
 		{ "ModuleRelativePath", "EquipmentSlotWidget.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture = { "SlotTexture", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, SlotTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem = { "CurrentItem", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, CurrentItem), Z_Construct_UClass_AItem_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_DefaultSlotTexture_MetaData[] = {
-		{ "Category", "Texture" },
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName_MetaData[] = {
 		{ "ModuleRelativePath", "EquipmentSlotWidget.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_DefaultSlotTexture = { "DefaultSlotTexture", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, DefaultSlotTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_DefaultSlotTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_DefaultSlotTexture_MetaData)) };
+	const UE4CodeGen_Private::FNamePropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName = { "ItemName", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, ItemName), METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance_MetaData[] = {
+		{ "ModuleRelativePath", "EquipmentSlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance = { "GameInstance", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UEquipmentSlotWidget, GameInstance), Z_Construct_UClass_UMyGameInstance_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UEquipmentSlotWidget_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotImage,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_DefaultSlotTexture,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotTexture,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_SlotImage,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_CurrentItem,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_ItemName,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEquipmentSlotWidget_Statics::NewProp_GameInstance,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UEquipmentSlotWidget_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UEquipmentSlotWidget>::IsAbstract,
@@ -148,7 +148,7 @@ void EmptyLinkFunctionForGeneratedCodeEquipmentSlotWidget() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UEquipmentSlotWidget, 1220827064);
+	IMPLEMENT_CLASS(UEquipmentSlotWidget, 3684065707);
 	template<> GAME_API UClass* StaticClass<UEquipmentSlotWidget>()
 	{
 		return UEquipmentSlotWidget::StaticClass();

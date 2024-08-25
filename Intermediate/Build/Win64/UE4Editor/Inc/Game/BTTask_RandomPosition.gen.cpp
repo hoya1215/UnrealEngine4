@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeBTTask_RandomPosition() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UBTTask_RandomPosition, 1251829745);
+	IMPLEMENT_CLASS(UBTTask_RandomPosition, 1411900699);
 	template<> GAME_API UClass* StaticClass<UBTTask_RandomPosition>()
 	{
 		return UBTTask_RandomPosition::StaticClass();

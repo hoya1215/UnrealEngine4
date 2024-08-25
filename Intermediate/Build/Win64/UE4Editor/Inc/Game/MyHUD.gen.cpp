@@ -17,11 +17,11 @@ void EmptyLinkFunctionForGeneratedCodeMyHUD() {}
 	GAME_API UClass* Z_Construct_UClass_UMyHUD();
 	UMG_API UClass* Z_Construct_UClass_UUserWidget();
 	UPackage* Z_Construct_UPackage__Script_Game();
-	GAME_API UClass* Z_Construct_UClass_AMyCharacter_NoRegister();
-	ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
-	UMG_API UClass* Z_Construct_UClass_UImage_NoRegister();
-	UMG_API UClass* Z_Construct_UClass_UProgressBar_NoRegister();
 	UMG_API UClass* Z_Construct_UClass_UTextBlock_NoRegister();
+	UMG_API UClass* Z_Construct_UClass_UProgressBar_NoRegister();
+	UMG_API UClass* Z_Construct_UClass_UImage_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_AMyCharacter_NoRegister();
 // End Cross Module References
 	void UMyHUD::StaticRegisterNativesUMyHUD()
 	{
@@ -37,29 +37,29 @@ void EmptyLinkFunctionForGeneratedCodeMyHUD() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MyCharacter_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BulletText_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_MyCharacter;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_DefaultTexture_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_DefaultTexture;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentWeapon_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentWeapon;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Hp_Bar_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Hp_Bar;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_BulletText;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_HpText_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_HpText;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BulletText_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Hp_Bar_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_BulletText;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Hp_Bar;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentWeapon_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentWeapon;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_DefaultTexture_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_DefaultTexture;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MyCharacter_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_MyCharacter;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -76,33 +76,13 @@ void EmptyLinkFunctionForGeneratedCodeMyHUD() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter_MetaData[] = {
-		{ "ModuleRelativePath", "MyHUD.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter = { "MyCharacter", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, MyCharacter), Z_Construct_UClass_AMyCharacter_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture_MetaData[] = {
-		{ "ModuleRelativePath", "MyHUD.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture = { "DefaultTexture", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, DefaultTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_BulletText_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyHUD.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon = { "CurrentWeapon", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, CurrentWeapon), Z_Construct_UClass_UImage_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar_MetaData[] = {
-		{ "BindWidget", "" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "MyHUD.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar = { "Hp_Bar", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, Hp_Bar), Z_Construct_UClass_UProgressBar_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_BulletText = { "BulletText", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, BulletText), Z_Construct_UClass_UTextBlock_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_BulletText_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_BulletText_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_HpText_MetaData[] = {
 		{ "BindWidget", "" },
@@ -112,20 +92,40 @@ void EmptyLinkFunctionForGeneratedCodeMyHUD() {}
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_HpText = { "HpText", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, HpText), Z_Construct_UClass_UTextBlock_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_HpText_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_HpText_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_BulletText_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar_MetaData[] = {
 		{ "BindWidget", "" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyHUD.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_BulletText = { "BulletText", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, BulletText), Z_Construct_UClass_UTextBlock_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_BulletText_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_BulletText_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar = { "Hp_Bar", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, Hp_Bar), Z_Construct_UClass_UProgressBar_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon_MetaData[] = {
+		{ "BindWidget", "" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyHUD.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon = { "CurrentWeapon", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, CurrentWeapon), Z_Construct_UClass_UImage_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture_MetaData[] = {
+		{ "ModuleRelativePath", "MyHUD.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture = { "DefaultTexture", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, DefaultTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter_MetaData[] = {
+		{ "ModuleRelativePath", "MyHUD.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter = { "MyCharacter", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyHUD, MyCharacter), Z_Construct_UClass_AMyCharacter_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UMyHUD_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_HpText,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_BulletText,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_HpText,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_Hp_Bar,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_CurrentWeapon,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_DefaultTexture,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyHUD_Statics::NewProp_MyCharacter,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UMyHUD_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UMyHUD>::IsAbstract,
@@ -154,7 +154,7 @@ void EmptyLinkFunctionForGeneratedCodeMyHUD() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMyHUD, 1630567892);
+	IMPLEMENT_CLASS(UMyHUD, 843062038);
 	template<> GAME_API UClass* StaticClass<UMyHUD>()
 	{
 		return UMyHUD::StaticClass();

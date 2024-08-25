@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeBTService_CheckAttacking() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UBTService_CheckAttacking, 3322778769);
+	IMPLEMENT_CLASS(UBTService_CheckAttacking, 2086828355);
 	template<> GAME_API UClass* StaticClass<UBTService_CheckAttacking>()
 	{
 		return UBTService_CheckAttacking::StaticClass();

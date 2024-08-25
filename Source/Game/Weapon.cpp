@@ -25,15 +25,16 @@ FName AWeapon::EquippedItem()
 	{
 		UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
 
-
+		// 같은 슬롯에 아이템이 있을경우
 		if (CurrentSlot->ItemName != FName(TEXT("NULL")))
 		{
 			// 교체
 			// 기존에 있던 것 destroy
 			return CurrentSlot->SwapEquipment(ItemName);
 		}
-		else
+		else // 다른 슬롯
 		{
+			// 현재 무기 있는 경우
 			if (PlayerCharacter->GetMyWeapon() != nullptr)
 			{
 				CurrentSlot->PushEquipment(ItemName);
@@ -72,9 +73,18 @@ void AWeapon::AttachToCharacter()
 
 	// 장착
 	FName GunSocket(TEXT("middle_r_socket"));
+	FName GunSocket_r(TEXT("middle_r_03"));
 
-	AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-		GunSocket);
+	if (WeaponState == 1)
+	{
+		AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+			GunSocket_r);
+	}
+	else
+	{
+		AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+			GunSocket);
+	}
 	SetActorRelativeRotation(RelativeRotation);
 	//SetActorRelativeRotation(FRotator(0.f, 0.f, 0.f));
 	PlayerCharacter->SetMyWeapon(this);

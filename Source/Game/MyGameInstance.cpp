@@ -2,6 +2,7 @@
 
 
 #include "MyGameInstance.h"
+#include "Sound/SoundManager.h"
 
 UMyGameInstance::UMyGameInstance()
 {
@@ -20,6 +21,15 @@ UMyGameInstance::UMyGameInstance()
 	static ConstructorHelpers::FObjectFinder<UDataTable> ID(TEXT("DataTable'/Game/Custom/Data/DT_Item.DT_Item'"));
 	if (ID.Succeeded())
 		ItemData = ID.Object;
+
+
+}
+
+void UMyGameInstance::Init()
+{
+	Super::Init();
+
+	SoundManager = NewObject<USoundManager>();
 }
 
 FCharacterData* UMyGameInstance::GetStatData(int32 level)

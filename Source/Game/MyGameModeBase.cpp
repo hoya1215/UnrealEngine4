@@ -13,6 +13,9 @@
 #include "Sword.h"
 #include "FireGun.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Sound/SoundManager.h"
+#include "Util.h"
+#include "Sound/SoundCue.h"
 
 AMyGameModeBase::AMyGameModeBase()
 {
@@ -66,6 +69,8 @@ AMyGameModeBase::AMyGameModeBase()
 	{
 		FireGunClass = FG.Class;
 	}
+
+	BackGroundMusic = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/Starter_Music_Cue.Starter_Music_Cue'"));
 }
 
 void AMyGameModeBase::BeginPlay()
@@ -77,12 +82,18 @@ void AMyGameModeBase::BeginPlay()
 	Widget->SetCharacter(MyCharacter);
 
 
-	auto Gun = GetWorld()->SpawnActor<AGun>(FVector::ZeroVector, FRotator::ZeroRotator);
-	auto Sword = GetWorld()->SpawnActor<ASword>(FVector(0.f, 10.f, 200.f), FRotator::ZeroRotator);
-	auto FireGun = GetWorld()->SpawnActor<AFireGun>(FireGunClass, FVector(-50.f, 10.f, 200.f), FRotator::ZeroRotator);
+	auto Gun = GetWorld()->SpawnActor<AGun>(MyCharacter->GetActorLocation() + FVector(100.f, 0.f, 0.f), FRotator::ZeroRotator);
+	auto Sword = GetWorld()->SpawnActor<ASword>(MyCharacter->GetActorLocation() + FVector(100.f, 0.f, 0.f), FRotator::ZeroRotator);
+	auto FireGun = GetWorld()->SpawnActor<AFireGun>(FireGunClass, MyCharacter->GetActorLocation() + FVector(100.f, 0.f, 0.f), FRotator::ZeroRotator);
 	FireGun->EffectComponent->Deactivate();
 
 	GetWorldTimerManager().SetTimer(EnemyTimerHandle, this, &AMyGameModeBase::SpawnEnemy, SpawnInterval, true);
+
+	// Sound
+	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetGameInstance());
+	//GameInstance->GetSoundManager()->PlayBackGroundMusic();
+	Util::PlaySound(this, BackGroundMusic, FVector::ZeroVector);
+
 }
 
 void AMyGameModeBase::SpawnEnemy()

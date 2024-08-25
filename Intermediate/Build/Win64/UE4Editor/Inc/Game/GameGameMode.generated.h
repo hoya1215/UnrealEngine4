@@ -13,10 +13,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GAME_GameGameMode_generated_h
 
-#define GameCopy_Source_Game_GameGameMode_h_12_SPARSE_DATA
-#define GameCopy_Source_Game_GameGameMode_h_12_RPC_WRAPPERS
-#define GameCopy_Source_Game_GameGameMode_h_12_RPC_WRAPPERS_NO_PURE_DECLS
-#define GameCopy_Source_Game_GameGameMode_h_12_INCLASS_NO_PURE_DECLS \
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_SPARSE_DATA
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_RPC_WRAPPERS
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_RPC_WRAPPERS_NO_PURE_DECLS
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAGameGameMode(); \
 	friend struct Z_Construct_UClass_AGameGameMode_Statics; \
@@ -25,7 +25,7 @@ public: \
 	DECLARE_SERIALIZER(AGameGameMode)
 
 
-#define GameCopy_Source_Game_GameGameMode_h_12_INCLASS \
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_INCLASS \
 private: \
 	static void StaticRegisterNativesAGameGameMode(); \
 	friend struct Z_Construct_UClass_AGameGameMode_Statics; \
@@ -34,12 +34,12 @@ public: \
 	DECLARE_SERIALIZER(AGameGameMode)
 
 
-#define GameCopy_Source_Game_GameGameMode_h_12_STANDARD_CONSTRUCTORS \
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	GAME_API AGameGameMode(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AGameGameMode) \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(GAME_API, AGameGameMode); \
-DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AGameGameMode); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AGameGameMode); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	GAME_API AGameGameMode(AGameGameMode&&); \
@@ -47,39 +47,39 @@ private: \
 public:
 
 
-#define GameCopy_Source_Game_GameGameMode_h_12_ENHANCED_CONSTRUCTORS \
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	GAME_API AGameGameMode(AGameGameMode&&); \
 	GAME_API AGameGameMode(const AGameGameMode&); \
 public: \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(GAME_API, AGameGameMode); \
-DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AGameGameMode); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AGameGameMode); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AGameGameMode)
 
 
-#define GameCopy_Source_Game_GameGameMode_h_12_PRIVATE_PROPERTY_OFFSET
-#define GameCopy_Source_Game_GameGameMode_h_9_PROLOG
-#define GameCopy_Source_Game_GameGameMode_h_12_GENERATED_BODY_LEGACY \
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_PRIVATE_PROPERTY_OFFSET
+#define GameCopy_4_27_Source_Game_GameGameMode_h_9_PROLOG
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_GameGameMode_h_12_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_GameGameMode_h_12_SPARSE_DATA \
-	GameCopy_Source_Game_GameGameMode_h_12_RPC_WRAPPERS \
-	GameCopy_Source_Game_GameGameMode_h_12_INCLASS \
-	GameCopy_Source_Game_GameGameMode_h_12_STANDARD_CONSTRUCTORS \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_SPARSE_DATA \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_RPC_WRAPPERS \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_INCLASS \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define GameCopy_Source_Game_GameGameMode_h_12_GENERATED_BODY \
+#define GameCopy_4_27_Source_Game_GameGameMode_h_12_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_Source_Game_GameGameMode_h_12_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_Source_Game_GameGameMode_h_12_SPARSE_DATA \
-	GameCopy_Source_Game_GameGameMode_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
-	GameCopy_Source_Game_GameGameMode_h_12_INCLASS_NO_PURE_DECLS \
-	GameCopy_Source_Game_GameGameMode_h_12_ENHANCED_CONSTRUCTORS \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_SPARSE_DATA \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_INCLASS_NO_PURE_DECLS \
+	GameCopy_4_27_Source_Game_GameGameMode_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -87,7 +87,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GAME_API UClass* StaticClass<class AGameGameMode>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID GameCopy_Source_Game_GameGameMode_h
+#define CURRENT_FILE_ID GameCopy_4_27_Source_Game_GameGameMode_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

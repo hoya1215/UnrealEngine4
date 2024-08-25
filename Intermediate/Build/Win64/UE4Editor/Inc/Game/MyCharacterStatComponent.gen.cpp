@@ -32,17 +32,17 @@ void EmptyLinkFunctionForGeneratedCodeMyCharacterStatComponent() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Power_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Level_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Power;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Level;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Hp_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Hp;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Level_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Power_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Level;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Power;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -60,13 +60,13 @@ void EmptyLinkFunctionForGeneratedCodeMyCharacterStatComponent() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Level_MetaData[] = {
 		{ "AllowPrivateAccess", "TRUE" },
 		{ "Category", "Stat" },
 		{ "ModuleRelativePath", "MyCharacterStatComponent.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power = { "Power", nullptr, (EPropertyFlags)0x0040000000000001, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyCharacterStatComponent, Power), METADATA_PARAMS(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Level = { "Level", nullptr, (EPropertyFlags)0x0040000000000001, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyCharacterStatComponent, Level), METADATA_PARAMS(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Level_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Level_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Hp_MetaData[] = {
 		{ "AllowPrivateAccess", "TRUE" },
@@ -76,17 +76,17 @@ void EmptyLinkFunctionForGeneratedCodeMyCharacterStatComponent() {}
 #endif
 	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Hp = { "Hp", nullptr, (EPropertyFlags)0x0040000000000001, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyCharacterStatComponent, Hp), METADATA_PARAMS(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Hp_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Hp_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Level_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power_MetaData[] = {
 		{ "AllowPrivateAccess", "TRUE" },
 		{ "Category", "Stat" },
 		{ "ModuleRelativePath", "MyCharacterStatComponent.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Level = { "Level", nullptr, (EPropertyFlags)0x0040000000000001, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyCharacterStatComponent, Level), METADATA_PARAMS(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Level_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Level_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power = { "Power", nullptr, (EPropertyFlags)0x0040000000000001, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyCharacterStatComponent, Power), METADATA_PARAMS(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UMyCharacterStatComponent_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Hp,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Level,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Hp,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyCharacterStatComponent_Statics::NewProp_Power,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UMyCharacterStatComponent_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UMyCharacterStatComponent>::IsAbstract,
@@ -115,7 +115,7 @@ void EmptyLinkFunctionForGeneratedCodeMyCharacterStatComponent() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMyCharacterStatComponent, 1819992669);
+	IMPLEMENT_CLASS(UMyCharacterStatComponent, 1151685814);
 	template<> GAME_API UClass* StaticClass<UMyCharacterStatComponent>()
 	{
 		return UMyCharacterStatComponent::StaticClass();

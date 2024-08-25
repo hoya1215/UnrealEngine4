@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeBTTask_EnemyAttack() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UBTTask_EnemyAttack, 2903633345);
+	IMPLEMENT_CLASS(UBTTask_EnemyAttack, 3562169483);
 	template<> GAME_API UClass* StaticClass<UBTTask_EnemyAttack>()
 	{
 		return UBTTask_EnemyAttack::StaticClass();

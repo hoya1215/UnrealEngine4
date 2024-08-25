@@ -27,6 +27,8 @@
 #include "Pet.h"
 #include "Wing.h"
 #include "EquipmentSlotWidget.h"
+#include "Sound/SoundCue.h"
+#include "Util.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -104,6 +106,10 @@ AMyCharacter::AMyCharacter()
 		MyWingClass = WingClass.Class;
 
 	DefaultSpeed = GetCharacterMovement()->MaxWalkSpeed;
+
+	// Sound
+	Sounds.DieSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/voice_male_d_death_06_Cue.voice_male_d_death_06_Cue'"));
+	Sounds.JumpSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/voice_male_c_effort_short_jump_01_Cue.voice_male_c_effort_short_jump_01_Cue'"));
 
 }
 
@@ -231,7 +237,8 @@ void AMyCharacter::Tick(float DeltaTime)
 		GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		SetActorTickEnabled(false);
 		CharacterDie.Broadcast();
-
+		Util::PlaySound(this, Sounds.DieSound, GetActorLocation());
+		//UGameplayStatics::PlaySoundAtLocation(this, DieSound, GetActorLocation());
 	}
 
 	if (bIsDragging)
@@ -347,6 +354,11 @@ void AMyCharacter::StopWalk()
 void AMyCharacter::Jump()
 {
 	Super::Jump();
+
+	if (!GetMovementComponent()->IsFalling())
+	{
+		Util::PlaySound(this, Sounds.JumpSound, GetActorLocation());
+	}
 }
 
 bool AMyCharacter::CanJumpInternal_Implementation() const
@@ -380,7 +392,6 @@ void AMyCharacter::MouseClick()
 
 void AMyCharacter::Attack()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Attack Press"));
 
 	if (MyWeapon != nullptr)
 	{
@@ -401,6 +412,11 @@ void AMyCharacter::Attack()
 		}
 
 		// °ËÀº Anim Notify ·Î
+	}
+
+	if (Sounds.AttackSound)
+	{
+		Util::PlaySound(this, Sounds.AttackSound, GetActorLocation());
 	}
 
 }
@@ -798,9 +814,17 @@ void AMyCharacter::SetMyWeapon(AWeapon* CurrentWeapon)
 {
 	MyWeapon = CurrentWeapon;
 	if (MyWeapon)
-		CurrentWeaponState = CurrentWeapon->WeaponState;
+	{
+		CurrentWeaponState = MyWeapon->WeaponState;
+		Sounds.AttackSound = MyWeapon->AttackSound;
+	}
 	else
+	{
 		CurrentWeaponState = 2;
+		Sounds.AttackSound = nullptr;
+	}
+
+
 }
 
 void AMyCharacter::Revive()

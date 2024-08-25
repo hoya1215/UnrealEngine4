@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeBTDecorator_SearchAttackRange() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UBTDecorator_SearchAttackRange, 3536462277);
+	IMPLEMENT_CLASS(UBTDecorator_SearchAttackRange, 2275576587);
 	template<> GAME_API UClass* StaticClass<UBTDecorator_SearchAttackRange>()
 	{
 		return UBTDecorator_SearchAttackRange::StaticClass();

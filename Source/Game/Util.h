@@ -4,6 +4,9 @@
 
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"
+#include "MyCharacter.h"
+#include "Engine/World.h"
 #include "CoreMinimal.h"
 
 /**
@@ -20,5 +23,17 @@ public:
 		{
 			MeshComponent->SetEnableGravity(gravity);
 		}
+	}
+
+	static void PlaySound(const UObject* Object, USoundBase* Sound, FVector Location)
+	{
+		UGameplayStatics::PlaySoundAtLocation(Object, Sound, Location);
+	}
+
+	static AMyCharacter* GetMyCharacter(UWorld* World)
+	{
+		AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(World, 0));
+
+		return MyCharacter;
 	}
 };

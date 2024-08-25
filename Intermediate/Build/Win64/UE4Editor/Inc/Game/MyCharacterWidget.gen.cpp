@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeMyCharacterWidget() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMyCharacterWidget, 3630599625);
+	IMPLEMENT_CLASS(UMyCharacterWidget, 2361152470);
 	template<> GAME_API UClass* StaticClass<UMyCharacterWidget>()
 	{
 		return UMyCharacterWidget::StaticClass();

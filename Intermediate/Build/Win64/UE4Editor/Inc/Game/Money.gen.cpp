@@ -33,13 +33,13 @@ void EmptyLinkFunctionForGeneratedCodeMoney() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Value_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Value;
-#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Mesh_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Mesh;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Value_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Value;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -56,21 +56,21 @@ void EmptyLinkFunctionForGeneratedCodeMoney() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMoney_Statics::NewProp_Value_MetaData[] = {
-		{ "ModuleRelativePath", "Money.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_AMoney_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMoney, Value), METADATA_PARAMS(Z_Construct_UClass_AMoney_Statics::NewProp_Value_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMoney_Statics::NewProp_Value_MetaData)) };
-#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMoney_Statics::NewProp_Mesh_MetaData[] = {
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Money.h" },
 	};
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMoney_Statics::NewProp_Mesh = { "Mesh", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMoney, Mesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMoney_Statics::NewProp_Mesh_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMoney_Statics::NewProp_Mesh_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMoney_Statics::NewProp_Value_MetaData[] = {
+		{ "ModuleRelativePath", "Money.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_AMoney_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMoney, Value), METADATA_PARAMS(Z_Construct_UClass_AMoney_Statics::NewProp_Value_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMoney_Statics::NewProp_Value_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMoney_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMoney_Statics::NewProp_Value,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMoney_Statics::NewProp_Mesh,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMoney_Statics::NewProp_Value,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AMoney_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AMoney>::IsAbstract,
@@ -99,7 +99,7 @@ void EmptyLinkFunctionForGeneratedCodeMoney() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AMoney, 3467817010);
+	IMPLEMENT_CLASS(AMoney, 1589458387);
 	template<> GAME_API UClass* StaticClass<AMoney>()
 	{
 		return AMoney::StaticClass();

@@ -73,7 +73,7 @@ void EmptyLinkFunctionForGeneratedCodeEnemy_BossController() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AEnemy_BossController, 739389486);
+	IMPLEMENT_CLASS(AEnemy_BossController, 615572887);
 	template<> GAME_API UClass* StaticClass<AEnemy_BossController>()
 	{
 		return AEnemy_BossController::StaticClass();

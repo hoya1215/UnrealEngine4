@@ -86,7 +86,7 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotDrag() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UInventorySlotDrag, 1333533908);
+	IMPLEMENT_CLASS(UInventorySlotDrag, 1717102002);
 	template<> GAME_API UClass* StaticClass<UInventorySlotDrag>()
 	{
 		return UInventorySlotDrag::StaticClass();

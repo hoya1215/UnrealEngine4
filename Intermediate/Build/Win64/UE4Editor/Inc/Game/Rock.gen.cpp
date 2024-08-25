@@ -17,8 +17,8 @@ void EmptyLinkFunctionForGeneratedCodeRock() {}
 	GAME_API UClass* Z_Construct_UClass_ARock();
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 	UPackage* Z_Construct_UPackage__Script_Game();
-	ENGINE_API UClass* Z_Construct_UClass_UBoxComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UBoxComponent_NoRegister();
 // End Cross Module References
 	void ARock::StaticRegisterNativesARock()
 	{
@@ -34,13 +34,13 @@ void EmptyLinkFunctionForGeneratedCodeRock() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Trigger_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Trigger;
-#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_RockMesh_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_RockMesh;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Trigger_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Trigger;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -56,14 +56,6 @@ void EmptyLinkFunctionForGeneratedCodeRock() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARock_Statics::NewProp_Trigger_MetaData[] = {
-		{ "Category", "Rock" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Rock.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARock_Statics::NewProp_Trigger = { "Trigger", nullptr, (EPropertyFlags)0x00100000000a0009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARock, Trigger), Z_Construct_UClass_UBoxComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARock_Statics::NewProp_Trigger_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARock_Statics::NewProp_Trigger_MetaData)) };
-#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARock_Statics::NewProp_RockMesh_MetaData[] = {
 		{ "Category", "Rock" },
 		{ "EditInline", "true" },
@@ -71,9 +63,17 @@ void EmptyLinkFunctionForGeneratedCodeRock() {}
 	};
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARock_Statics::NewProp_RockMesh = { "RockMesh", nullptr, (EPropertyFlags)0x0010000000080009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARock, RockMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARock_Statics::NewProp_RockMesh_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARock_Statics::NewProp_RockMesh_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARock_Statics::NewProp_Trigger_MetaData[] = {
+		{ "Category", "Rock" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Rock.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARock_Statics::NewProp_Trigger = { "Trigger", nullptr, (EPropertyFlags)0x00100000000a0009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARock, Trigger), Z_Construct_UClass_UBoxComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARock_Statics::NewProp_Trigger_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARock_Statics::NewProp_Trigger_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ARock_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARock_Statics::NewProp_Trigger,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARock_Statics::NewProp_RockMesh,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARock_Statics::NewProp_Trigger,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ARock_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ARock>::IsAbstract,
@@ -102,7 +102,7 @@ void EmptyLinkFunctionForGeneratedCodeRock() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ARock, 3276391023);
+	IMPLEMENT_CLASS(ARock, 3170367748);
 	template<> GAME_API UClass* StaticClass<ARock>()
 	{
 		return ARock::StaticClass();

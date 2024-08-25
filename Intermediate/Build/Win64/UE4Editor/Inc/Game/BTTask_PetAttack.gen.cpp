@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeBTTask_PetAttack() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UBTTask_PetAttack, 3761353831);
+	IMPLEMENT_CLASS(UBTTask_PetAttack, 20445708);
 	template<> GAME_API UClass* StaticClass<UBTTask_PetAttack>()
 	{
 		return UBTTask_PetAttack::StaticClass();

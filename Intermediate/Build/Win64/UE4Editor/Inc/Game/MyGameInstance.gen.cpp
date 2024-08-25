@@ -16,11 +16,11 @@ void EmptyLinkFunctionForGeneratedCodeMyGameInstance() {}
 	GAME_API UScriptStruct* Z_Construct_UScriptStruct_FItemData();
 	UPackage* Z_Construct_UPackage__Script_Game();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTableRowBase();
-	ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
+	GAME_API UEnum* Z_Construct_UEnum_Game_EINVENTORY_TYPE();
+	GAME_API UEnum* Z_Construct_UEnum_Game_EEQUIPMENT_TYPE();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	GAME_API UClass* Z_Construct_UClass_AItem_NoRegister();
-	GAME_API UEnum* Z_Construct_UEnum_Game_EEQUIPMENT_TYPE();
-	GAME_API UEnum* Z_Construct_UEnum_Game_EINVENTORY_TYPE();
+	ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
 	GAME_API UScriptStruct* Z_Construct_UScriptStruct_FEnemyData();
 	GAME_API UScriptStruct* Z_Construct_UScriptStruct_FWeaponData();
 	GAME_API UScriptStruct* Z_Construct_UScriptStruct_FCharacterData();
@@ -28,7 +28,11 @@ void EmptyLinkFunctionForGeneratedCodeMyGameInstance() {}
 	GAME_API UClass* Z_Construct_UClass_UMyGameInstance();
 	ENGINE_API UClass* Z_Construct_UClass_UGameInstance();
 	ENGINE_API UClass* Z_Construct_UClass_UDataTable_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_USoundManager_NoRegister();
 // End Cross Module References
+
+static_assert(std::is_polymorphic<FItemData>() == std::is_polymorphic<FTableRowBase>(), "USTRUCT FItemData cannot be polymorphic unless super FTableRowBase is polymorphic");
+
 class UScriptStruct* FItemData::StaticStruct()
 {
 	static class UScriptStruct* Singleton = NULL;
@@ -48,7 +52,7 @@ static struct FScriptStruct_Game_StaticRegisterNativesFItemData
 {
 	FScriptStruct_Game_StaticRegisterNativesFItemData()
 	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("ItemData")),new UScriptStruct::TCppStructOps<FItemData>);
+		UScriptStruct::DeferCppStructOps<FItemData>(FName(TEXT("ItemData")));
 	}
 } ScriptStruct_Game_StaticRegisterNativesFItemData;
 	struct Z_Construct_UScriptStruct_FItemData_Statics
@@ -57,24 +61,24 @@ static struct FScriptStruct_Game_StaticRegisterNativesFItemData
 		static const UE4CodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
 #endif
 		static void* NewStructOps();
+		static const UE4CodeGen_Private::FBytePropertyParams NewProp_InventoryType_Underlying;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemIcon_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_InventoryType_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FSoftObjectPropertyParams NewProp_ItemIcon;
+		static const UE4CodeGen_Private::FEnumPropertyParams NewProp_InventoryType;
+		static const UE4CodeGen_Private::FBytePropertyParams NewProp_EquipmentType_Underlying;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EquipmentType_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FEnumPropertyParams NewProp_EquipmentType;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemClass_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FClassPropertyParams NewProp_ItemClass;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EquipmentType_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemIcon_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FEnumPropertyParams NewProp_EquipmentType;
-		static const UE4CodeGen_Private::FBytePropertyParams NewProp_EquipmentType_Underlying;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_InventoryType_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FEnumPropertyParams NewProp_InventoryType;
-		static const UE4CodeGen_Private::FBytePropertyParams NewProp_InventoryType_Underlying;
+		static const UE4CodeGen_Private::FSoftObjectPropertyParams NewProp_ItemIcon;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UE4CodeGen_Private::FStructParams ReturnStructParams;
 	};
@@ -87,13 +91,22 @@ static struct FScriptStruct_Game_StaticRegisterNativesFItemData
 	{
 		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FItemData>();
 	}
+	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType_MetaData[] = {
 		{ "Category", "Item" },
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FSoftObjectPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon = { "ItemIcon", nullptr, (EPropertyFlags)0x0014000000000005, UE4CodeGen_Private::EPropertyGenFlags::SoftObject, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FItemData, ItemIcon), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon_MetaData)) };
+	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType = { "InventoryType", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FItemData, InventoryType), Z_Construct_UEnum_Game_EINVENTORY_TYPE, METADATA_PARAMS(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType_MetaData)) };
+	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_MetaData[] = {
+		{ "Category", "Item" },
+		{ "ModuleRelativePath", "MyGameInstance.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType = { "EquipmentType", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FItemData, EquipmentType), Z_Construct_UEnum_Game_EEQUIPMENT_TYPE, METADATA_PARAMS(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemClass_MetaData[] = {
 		{ "Category", "Item" },
@@ -102,28 +115,19 @@ static struct FScriptStruct_Game_StaticRegisterNativesFItemData
 #endif
 	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemClass = { "ItemClass", nullptr, (EPropertyFlags)0x0014000000000005, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FItemData, ItemClass), Z_Construct_UClass_AItem_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemClass_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon_MetaData[] = {
 		{ "Category", "Item" },
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType = { "EquipmentType", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FItemData, EquipmentType), Z_Construct_UEnum_Game_EEQUIPMENT_TYPE, METADATA_PARAMS(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_MetaData)) };
-	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType_MetaData[] = {
-		{ "Category", "Item" },
-		{ "ModuleRelativePath", "MyGameInstance.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType = { "InventoryType", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FItemData, InventoryType), Z_Construct_UEnum_Game_EINVENTORY_TYPE, METADATA_PARAMS(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType_MetaData)) };
-	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FSoftObjectPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon = { "ItemIcon", nullptr, (EPropertyFlags)0x0014000000000005, UE4CodeGen_Private::EPropertyGenFlags::SoftObject, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FItemData, ItemIcon), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FItemData_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemClass,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_Underlying,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType_Underlying,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_InventoryType,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType_Underlying,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_EquipmentType,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemClass,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemIcon,
 	};
 	const UE4CodeGen_Private::FStructParams Z_Construct_UScriptStruct_FItemData_Statics::ReturnStructParams = {
 		(UObject* (*)())Z_Construct_UPackage__Script_Game,
@@ -153,7 +157,10 @@ static struct FScriptStruct_Game_StaticRegisterNativesFItemData
 		}
 		return ReturnStruct;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FItemData_Hash() { return 516983126U; }
+	uint32 Get_Z_Construct_UScriptStruct_FItemData_Hash() { return 2770207097U; }
+
+static_assert(std::is_polymorphic<FEnemyData>() == std::is_polymorphic<FTableRowBase>(), "USTRUCT FEnemyData cannot be polymorphic unless super FTableRowBase is polymorphic");
+
 class UScriptStruct* FEnemyData::StaticStruct()
 {
 	static class UScriptStruct* Singleton = NULL;
@@ -173,7 +180,7 @@ static struct FScriptStruct_Game_StaticRegisterNativesFEnemyData
 {
 	FScriptStruct_Game_StaticRegisterNativesFEnemyData()
 	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("EnemyData")),new UScriptStruct::TCppStructOps<FEnemyData>);
+		UScriptStruct::DeferCppStructOps<FEnemyData>(FName(TEXT("EnemyData")));
 	}
 } ScriptStruct_Game_StaticRegisterNativesFEnemyData;
 	struct Z_Construct_UScriptStruct_FEnemyData_Statics
@@ -183,17 +190,17 @@ static struct FScriptStruct_Game_StaticRegisterNativesFEnemyData
 #endif
 		static void* NewStructOps();
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MaxHp_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Power_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FIntPropertyParams NewProp_MaxHp;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Power;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Speed_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Speed;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Power_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MaxHp_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Power;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_MaxHp;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UE4CodeGen_Private::FStructParams ReturnStructParams;
 	};
@@ -207,12 +214,12 @@ static struct FScriptStruct_Game_StaticRegisterNativesFEnemyData
 		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FEnemyData>();
 	}
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Power_MetaData[] = {
 		{ "Category", "EnemyData" },
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp = { "MaxHp", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FEnemyData, MaxHp), METADATA_PARAMS(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Power = { "Power", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FEnemyData, Power), METADATA_PARAMS(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Power_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Power_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Speed_MetaData[] = {
 		{ "Category", "EnemyData" },
@@ -221,16 +228,16 @@ static struct FScriptStruct_Game_StaticRegisterNativesFEnemyData
 #endif
 	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Speed = { "Speed", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FEnemyData, Speed), METADATA_PARAMS(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Speed_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Speed_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Power_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp_MetaData[] = {
 		{ "Category", "EnemyData" },
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Power = { "Power", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FEnemyData, Power), METADATA_PARAMS(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Power_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Power_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp = { "MaxHp", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FEnemyData, MaxHp), METADATA_PARAMS(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FEnemyData_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Speed,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Power,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_Speed,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FEnemyData_Statics::NewProp_MaxHp,
 	};
 	const UE4CodeGen_Private::FStructParams Z_Construct_UScriptStruct_FEnemyData_Statics::ReturnStructParams = {
 		(UObject* (*)())Z_Construct_UPackage__Script_Game,
@@ -260,7 +267,10 @@ static struct FScriptStruct_Game_StaticRegisterNativesFEnemyData
 		}
 		return ReturnStruct;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FEnemyData_Hash() { return 25517890U; }
+	uint32 Get_Z_Construct_UScriptStruct_FEnemyData_Hash() { return 2710816609U; }
+
+static_assert(std::is_polymorphic<FWeaponData>() == std::is_polymorphic<FTableRowBase>(), "USTRUCT FWeaponData cannot be polymorphic unless super FTableRowBase is polymorphic");
+
 class UScriptStruct* FWeaponData::StaticStruct()
 {
 	static class UScriptStruct* Singleton = NULL;
@@ -280,7 +290,7 @@ static struct FScriptStruct_Game_StaticRegisterNativesFWeaponData
 {
 	FScriptStruct_Game_StaticRegisterNativesFWeaponData()
 	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("WeaponData")),new UScriptStruct::TCppStructOps<FWeaponData>);
+		UScriptStruct::DeferCppStructOps<FWeaponData>(FName(TEXT("WeaponData")));
 	}
 } ScriptStruct_Game_StaticRegisterNativesFWeaponData;
 	struct Z_Construct_UScriptStruct_FWeaponData_Statics
@@ -290,13 +300,13 @@ static struct FScriptStruct_Game_StaticRegisterNativesFWeaponData
 #endif
 		static void* NewStructOps();
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Speed_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Speed;
-#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Power_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Power;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Speed_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Speed;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UE4CodeGen_Private::FStructParams ReturnStructParams;
 	};
@@ -310,22 +320,22 @@ static struct FScriptStruct_Game_StaticRegisterNativesFWeaponData
 		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FWeaponData>();
 	}
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed_MetaData[] = {
-		{ "Category", "WeaponData" },
-		{ "ModuleRelativePath", "MyGameInstance.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed = { "Speed", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FWeaponData, Speed), METADATA_PARAMS(Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed_MetaData)) };
-#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Power_MetaData[] = {
 		{ "Category", "WeaponData" },
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 #endif
 	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Power = { "Power", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FWeaponData, Power), METADATA_PARAMS(Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Power_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Power_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed_MetaData[] = {
+		{ "Category", "WeaponData" },
+		{ "ModuleRelativePath", "MyGameInstance.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed = { "Speed", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FWeaponData, Speed), METADATA_PARAMS(Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWeaponData_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Power,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponData_Statics::NewProp_Speed,
 	};
 	const UE4CodeGen_Private::FStructParams Z_Construct_UScriptStruct_FWeaponData_Statics::ReturnStructParams = {
 		(UObject* (*)())Z_Construct_UPackage__Script_Game,
@@ -355,7 +365,10 @@ static struct FScriptStruct_Game_StaticRegisterNativesFWeaponData
 		}
 		return ReturnStruct;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FWeaponData_Hash() { return 3483328068U; }
+	uint32 Get_Z_Construct_UScriptStruct_FWeaponData_Hash() { return 2243219126U; }
+
+static_assert(std::is_polymorphic<FCharacterData>() == std::is_polymorphic<FTableRowBase>(), "USTRUCT FCharacterData cannot be polymorphic unless super FTableRowBase is polymorphic");
+
 class UScriptStruct* FCharacterData::StaticStruct()
 {
 	static class UScriptStruct* Singleton = NULL;
@@ -375,7 +388,7 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 {
 	FScriptStruct_Game_StaticRegisterNativesFCharacterData()
 	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("CharacterData")),new UScriptStruct::TCppStructOps<FCharacterData>);
+		UScriptStruct::DeferCppStructOps<FCharacterData>(FName(TEXT("CharacterData")));
 	}
 } ScriptStruct_Game_StaticRegisterNativesFCharacterData;
 	struct Z_Construct_UScriptStruct_FCharacterData_Statics
@@ -385,17 +398,17 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 #endif
 		static void* NewStructOps();
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MaxHp_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Level_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FIntPropertyParams NewProp_MaxHp;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Level;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Power_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Power;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Level_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MaxHp_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FIntPropertyParams NewProp_Level;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_MaxHp;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UE4CodeGen_Private::FStructParams ReturnStructParams;
 	};
@@ -410,12 +423,12 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FCharacterData>();
 	}
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Level_MetaData[] = {
 		{ "Category", "CharacterData" },
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp = { "MaxHp", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FCharacterData, MaxHp), METADATA_PARAMS(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Level = { "Level", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FCharacterData, Level), METADATA_PARAMS(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Level_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Level_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Power_MetaData[] = {
 		{ "Category", "CharacterData" },
@@ -424,16 +437,16 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 #endif
 	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Power = { "Power", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FCharacterData, Power), METADATA_PARAMS(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Power_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Power_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Level_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp_MetaData[] = {
 		{ "Category", "CharacterData" },
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Level = { "Level", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FCharacterData, Level), METADATA_PARAMS(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Level_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Level_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp = { "MaxHp", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FCharacterData, MaxHp), METADATA_PARAMS(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FCharacterData_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Power,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Level,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_Power,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCharacterData_Statics::NewProp_MaxHp,
 	};
 	const UE4CodeGen_Private::FStructParams Z_Construct_UScriptStruct_FCharacterData_Statics::ReturnStructParams = {
 		(UObject* (*)())Z_Construct_UPackage__Script_Game,
@@ -463,7 +476,7 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 		}
 		return ReturnStruct;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FCharacterData_Hash() { return 536922651U; }
+	uint32 Get_Z_Construct_UScriptStruct_FCharacterData_Hash() { return 1106630392U; }
 	void UMyGameInstance::StaticRegisterNativesUMyGameInstance()
 	{
 	}
@@ -478,21 +491,25 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemData_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MyStats_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_ItemData;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EnemyData_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_EnemyData;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_MyStats;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_WeaponData_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_WeaponData;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MyStats_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_EnemyData_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_MyStats;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_EnemyData;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemData_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_ItemData;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SoundManager_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SoundManager;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -508,17 +525,11 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyGameInstance_Statics::NewProp_MyStats_MetaData[] = {
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData = { "ItemData", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyGameInstance, ItemData), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData_MetaData[] = {
-		{ "ModuleRelativePath", "MyGameInstance.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData = { "EnemyData", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyGameInstance, EnemyData), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp_MyStats = { "MyStats", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyGameInstance, MyStats), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_MyStats_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_MyStats_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyGameInstance_Statics::NewProp_WeaponData_MetaData[] = {
 		{ "ModuleRelativePath", "MyGameInstance.h" },
@@ -526,16 +537,31 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp_WeaponData = { "WeaponData", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyGameInstance, WeaponData), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_WeaponData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_WeaponData_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyGameInstance_Statics::NewProp_MyStats_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData_MetaData[] = {
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp_MyStats = { "MyStats", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyGameInstance, MyStats), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_MyStats_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_MyStats_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData = { "EnemyData", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyGameInstance, EnemyData), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData_MetaData[] = {
+		{ "ModuleRelativePath", "MyGameInstance.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData = { "ItemData", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyGameInstance, ItemData), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMyGameInstance_Statics::NewProp_SoundManager_MetaData[] = {
+		{ "Comment", "// Sound\n" },
+		{ "ModuleRelativePath", "MyGameInstance.h" },
+		{ "ToolTip", "Sound" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp_SoundManager = { "SoundManager", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UMyGameInstance, SoundManager), Z_Construct_UClass_USoundManager_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_SoundManager_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::NewProp_SoundManager_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UMyGameInstance_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp_WeaponData,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp_MyStats,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp_WeaponData,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp_EnemyData,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp_ItemData,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp_SoundManager,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UMyGameInstance_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UMyGameInstance>::IsAbstract,
@@ -552,7 +578,7 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 		0,
 		UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::PropPointers),
 		0,
-		0x001000A8u,
+		0x009000A8u,
 		METADATA_PARAMS(Z_Construct_UClass_UMyGameInstance_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::Class_MetaDataParams))
 	};
 	UClass* Z_Construct_UClass_UMyGameInstance()
@@ -564,7 +590,7 @@ static struct FScriptStruct_Game_StaticRegisterNativesFCharacterData
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMyGameInstance, 56296455);
+	IMPLEMENT_CLASS(UMyGameInstance, 3263555687);
 	template<> GAME_API UClass* StaticClass<UMyGameInstance>()
 	{
 		return UMyGameInstance::StaticClass();

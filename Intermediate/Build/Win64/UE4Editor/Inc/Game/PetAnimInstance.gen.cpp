@@ -99,14 +99,14 @@ void EmptyLinkFunctionForGeneratedCodePetAnimInstance() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MyPet_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_MyPet;
-#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_bIsAttacking_MetaData[];
 #endif
 		static void NewProp_bIsAttacking_SetBit(void* Obj);
 		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_bIsAttacking;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MyPet_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_MyPet;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -128,12 +128,6 @@ void EmptyLinkFunctionForGeneratedCodePetAnimInstance() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet_MetaData[] = {
-		{ "ModuleRelativePath", "PetAnimInstance.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet = { "MyPet", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UPetAnimInstance, MyPet), Z_Construct_UClass_APet_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet_MetaData)) };
-#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_bIsAttacking_MetaData[] = {
 		{ "AllowPrivateAccess", "TRUE" },
 		{ "Category", "Stat" },
@@ -145,9 +139,15 @@ void EmptyLinkFunctionForGeneratedCodePetAnimInstance() {}
 		((UPetAnimInstance*)Obj)->bIsAttacking = 1;
 	}
 	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_bIsAttacking = { "bIsAttacking", nullptr, (EPropertyFlags)0x0010000000000015, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(UPetAnimInstance), &Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_bIsAttacking_SetBit, METADATA_PARAMS(Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_bIsAttacking_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_bIsAttacking_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet_MetaData[] = {
+		{ "ModuleRelativePath", "PetAnimInstance.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet = { "MyPet", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UPetAnimInstance, MyPet), Z_Construct_UClass_APet_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPetAnimInstance_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_bIsAttacking,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPetAnimInstance_Statics::NewProp_MyPet,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UPetAnimInstance_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UPetAnimInstance>::IsAbstract,
@@ -176,7 +176,7 @@ void EmptyLinkFunctionForGeneratedCodePetAnimInstance() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UPetAnimInstance, 3658525171);
+	IMPLEMENT_CLASS(UPetAnimInstance, 2991983189);
 	template<> GAME_API UClass* StaticClass<UPetAnimInstance>()
 	{
 		return UPetAnimInstance::StaticClass();

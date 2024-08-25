@@ -17,13 +17,13 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 	GAME_API UClass* Z_Construct_UClass_UInventorySlotWidget();
 	UMG_API UClass* Z_Construct_UClass_UUserWidget();
 	UPackage* Z_Construct_UPackage__Script_Game();
-	GAME_API UClass* Z_Construct_UClass_UMyGameInstance_NoRegister();
-	GAME_API UClass* Z_Construct_UClass_AItem_NoRegister();
-	GAME_API UClass* Z_Construct_UClass_UInventoryWidget_NoRegister();
-	UMG_API UClass* Z_Construct_UClass_USizeBox_NoRegister();
-	UMG_API UClass* Z_Construct_UClass_UTextBlock_NoRegister();
-	UMG_API UClass* Z_Construct_UClass_UImage_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
+	UMG_API UClass* Z_Construct_UClass_UImage_NoRegister();
+	UMG_API UClass* Z_Construct_UClass_UTextBlock_NoRegister();
+	UMG_API UClass* Z_Construct_UClass_USizeBox_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_UInventoryWidget_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_AItem_NoRegister();
+	GAME_API UClass* Z_Construct_UClass_UMyGameInstance_NoRegister();
 // End Cross Module References
 	DEFINE_FUNCTION(UInventorySlotWidget::execSetSizeBox)
 	{
@@ -49,19 +49,19 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 			float Width;
 			float Height;
 		};
-		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Height;
 		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Width;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Height;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UE4CodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox_Statics::NewProp_Height = { "Height", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(InventorySlotWidget_eventSetSizeBox_Parms, Height), METADATA_PARAMS(nullptr, 0) };
 	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox_Statics::NewProp_Width = { "Width", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(InventorySlotWidget_eventSetSizeBox_Parms, Width), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox_Statics::NewProp_Height = { "Height", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(InventorySlotWidget_eventSetSizeBox_Parms, Height), METADATA_PARAMS(nullptr, 0) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox_Statics::NewProp_Height,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox_Statics::NewProp_Width,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox_Statics::NewProp_Height,
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox_Statics::Function_MetaDataParams[] = {
@@ -90,45 +90,45 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_GameInstance_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotTexture_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_GameInstance;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemName_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FNamePropertyParams NewProp_ItemName;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentItem_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentItem;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_InventoryWidget_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_InventoryWidget;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Count_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_Count;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Index_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_Index;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotSizeBox_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotSizeBox;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotText_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotText;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotTexture;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotImage_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotImage;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotTexture_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotText_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotTexture;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotText;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SlotSizeBox_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SlotSizeBox;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Index_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_Index;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Count_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_Count;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_InventoryWidget_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_InventoryWidget;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentItem_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentItem;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ItemName_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FNamePropertyParams NewProp_ItemName;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_GameInstance_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_GameInstance;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -138,7 +138,7 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_Game,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_UInventorySlotWidget_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox, "SetSizeBox" }, // 3091771251
+		{ &Z_Construct_UFunction_UInventorySlotWidget_SetSizeBox, "SetSizeBox" }, // 3693941432
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::Class_MetaDataParams[] = {
@@ -148,58 +148,11 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture_MetaData[] = {
 		{ "ModuleRelativePath", "InventorySlotWidget.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance = { "GameInstance", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, GameInstance), Z_Construct_UClass_UMyGameInstance_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName_MetaData[] = {
-		{ "ModuleRelativePath", "InventorySlotWidget.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FNamePropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName = { "ItemName", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, ItemName), METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem_MetaData[] = {
-		{ "ModuleRelativePath", "InventorySlotWidget.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem = { "CurrentItem", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, CurrentItem), Z_Construct_UClass_AItem_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget_MetaData[] = {
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "InventorySlotWidget.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget = { "InventoryWidget", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, InventoryWidget), Z_Construct_UClass_UInventoryWidget_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count_MetaData[] = {
-		{ "ModuleRelativePath", "InventorySlotWidget.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count = { "Count", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, Count), METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index_MetaData[] = {
-		{ "ModuleRelativePath", "InventorySlotWidget.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index = { "Index", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, Index), METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox_MetaData[] = {
-		{ "BindWidget", "" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "InventorySlotWidget.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox = { "SlotSizeBox", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, SlotSizeBox), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText_MetaData[] = {
-		{ "BindWidget", "" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "InventorySlotWidget.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText = { "SlotText", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, SlotText), Z_Construct_UClass_UTextBlock_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture = { "SlotTexture", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, SlotTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotImage_MetaData[] = {
 		{ "BindWidget", "" },
@@ -209,22 +162,69 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotImage = { "SlotImage", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, SlotImage), Z_Construct_UClass_UImage_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotImage_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotImage_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText_MetaData[] = {
+		{ "BindWidget", "" },
+		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "InventorySlotWidget.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture = { "SlotTexture", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, SlotTexture), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText = { "SlotText", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, SlotText), Z_Construct_UClass_UTextBlock_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox_MetaData[] = {
+		{ "BindWidget", "" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox = { "SlotSizeBox", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, SlotSizeBox), Z_Construct_UClass_USizeBox_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index_MetaData[] = {
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index = { "Index", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, Index), METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count_MetaData[] = {
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count = { "Count", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, Count), METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget_MetaData[] = {
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget = { "InventoryWidget", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, InventoryWidget), Z_Construct_UClass_UInventoryWidget_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem_MetaData[] = {
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem = { "CurrentItem", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, CurrentItem), Z_Construct_UClass_AItem_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName_MetaData[] = {
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FNamePropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName = { "ItemName", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, ItemName), METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance_MetaData[] = {
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance = { "GameInstance", nullptr, (EPropertyFlags)0x0010000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, GameInstance), Z_Construct_UClass_UMyGameInstance_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UInventorySlotWidget_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotImage,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotTexture,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotImage,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotText,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_SlotSizeBox,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UInventorySlotWidget_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UInventorySlotWidget>::IsAbstract,
@@ -253,7 +253,7 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UInventorySlotWidget, 2309030234);
+	IMPLEMENT_CLASS(UInventorySlotWidget, 4075300645);
 	template<> GAME_API UClass* StaticClass<UInventorySlotWidget>()
 	{
 		return UInventorySlotWidget::StaticClass();

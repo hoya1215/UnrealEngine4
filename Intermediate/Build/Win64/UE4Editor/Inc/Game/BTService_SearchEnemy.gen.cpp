@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeBTService_SearchEnemy() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UBTService_SearchEnemy, 2375865979);
+	IMPLEMENT_CLASS(UBTService_SearchEnemy, 3365756911);
 	template<> GAME_API UClass* StaticClass<UBTService_SearchEnemy>()
 	{
 		return UBTService_SearchEnemy::StaticClass();

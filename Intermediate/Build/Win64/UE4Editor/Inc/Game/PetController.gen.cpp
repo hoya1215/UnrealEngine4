@@ -17,8 +17,8 @@ void EmptyLinkFunctionForGeneratedCodePetController() {}
 	GAME_API UClass* Z_Construct_UClass_APetController();
 	AIMODULE_API UClass* Z_Construct_UClass_AAIController();
 	UPackage* Z_Construct_UPackage__Script_Game();
-	AIMODULE_API UClass* Z_Construct_UClass_UBlackboardData_NoRegister();
 	AIMODULE_API UClass* Z_Construct_UClass_UBehaviorTree_NoRegister();
+	AIMODULE_API UClass* Z_Construct_UClass_UBlackboardData_NoRegister();
 // End Cross Module References
 	void APetController::StaticRegisterNativesAPetController()
 	{
@@ -34,13 +34,13 @@ void EmptyLinkFunctionForGeneratedCodePetController() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BlackboardData_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_BlackboardData;
-#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BehaviorTree_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_BehaviorTree;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BlackboardData_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_BlackboardData;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -58,20 +58,20 @@ void EmptyLinkFunctionForGeneratedCodePetController() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData_MetaData[] = {
-		{ "ModuleRelativePath", "PetController.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData = { "BlackboardData", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APetController, BlackboardData), Z_Construct_UClass_UBlackboardData_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData_MetaData)) };
-#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APetController_Statics::NewProp_BehaviorTree_MetaData[] = {
 		{ "ModuleRelativePath", "PetController.h" },
 	};
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APetController_Statics::NewProp_BehaviorTree = { "BehaviorTree", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APetController, BehaviorTree), Z_Construct_UClass_UBehaviorTree_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APetController_Statics::NewProp_BehaviorTree_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APetController_Statics::NewProp_BehaviorTree_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData_MetaData[] = {
+		{ "ModuleRelativePath", "PetController.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData = { "BlackboardData", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APetController, BlackboardData), Z_Construct_UClass_UBlackboardData_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_APetController_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APetController_Statics::NewProp_BehaviorTree,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APetController_Statics::NewProp_BlackboardData,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_APetController_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<APetController>::IsAbstract,
@@ -100,7 +100,7 @@ void EmptyLinkFunctionForGeneratedCodePetController() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(APetController, 376342467);
+	IMPLEMENT_CLASS(APetController, 4247957306);
 	template<> GAME_API UClass* StaticClass<APetController>()
 	{
 		return APetController::StaticClass();

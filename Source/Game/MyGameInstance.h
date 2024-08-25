@@ -8,6 +8,7 @@
 #include "Item.h"
 #include "MyGameInstance.generated.h"
 
+class USoundManager;
 /**
  * 
  */
@@ -82,10 +83,13 @@ class GAME_API UMyGameInstance : public UGameInstance
 public:
 	UMyGameInstance();
 
+	virtual void Init() override;
+
 	FCharacterData* GetStatData(int32 level);
 	FWeaponData* GetWeaponData(FName Name);
 	FEnemyData* GetEnemyData(FName Name);
 	FItemData* GetItemData(FName Name);
+	USoundManager* GetSoundManager() { return SoundManager; }
 
 private:
 	UPROPERTY()
@@ -99,6 +103,10 @@ private:
 
 	UPROPERTY()
 		UDataTable* ItemData;
+
+	// Sound
+	UPROPERTY()
+		USoundManager* SoundManager;
 
 public:
 	// ItemList
