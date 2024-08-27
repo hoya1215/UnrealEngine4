@@ -87,7 +87,7 @@ void AMyGameModeBase::BeginPlay()
 	auto FireGun = GetWorld()->SpawnActor<AFireGun>(FireGunClass, MyCharacter->GetActorLocation() + FVector(100.f, 0.f, 0.f), FRotator::ZeroRotator);
 	FireGun->EffectComponent->Deactivate();
 
-	GetWorldTimerManager().SetTimer(EnemyTimerHandle, this, &AMyGameModeBase::SpawnEnemy, SpawnInterval, true);
+	//GetWorldTimerManager().SetTimer(EnemyTimerHandle, this, &AMyGameModeBase::SpawnEnemy, SpawnInterval, true);
 
 	// Sound
 	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetGameInstance());

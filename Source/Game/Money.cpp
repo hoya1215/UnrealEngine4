@@ -8,6 +8,7 @@
 #include "MyCharacter.h"
 #include "Kismet/GameplayStatics.h" 
 #include "InventoryWidget.h"
+#include "Components/TextBlock.h"
 
 AMoney::AMoney()
 {
@@ -40,13 +41,18 @@ void AMoney::UseItem()
 {
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
-	MyCharacter->GetInventoryWidget()->CurrentMoney += FMath::RandRange(100, 300);
+	int32 MoneyAmount = FMath::RandRange(100, 300);
+	MyCharacter->GetInventoryWidget()->CurrentMoney += MoneyAmount;
+
+	const FString MoneyText = FString::Printf(TEXT("%d"), MoneyAmount);
+	MyCharacter->GetInventoryWidget()->MoneyAmount->SetText(FText::FromString(MoneyText));
 
 	Destroy();
 }
 
 void AMoney::BeginPlay()
 {
+	Super::BeginPlay();
 	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
 	//auto List = GameInstance->ItemList.Find(ItemName);
 	//if (List == nullptr)

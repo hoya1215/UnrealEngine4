@@ -27,6 +27,8 @@
 #include "EnemyAnimInstance.h"
 #include "Util.h"
 #include "Sound/SoundCue.h"
+#include "MyGameInstance.h"
+#include "EnemyEvent.h"
 
 // Sets default values
 AMyEnemy::AMyEnemy()
@@ -55,6 +57,7 @@ AMyEnemy::AMyEnemy()
 	DefaultSpeed = GetCharacterMovement()->MaxWalkSpeed;
 
 	DieSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/voice_male_b_death_high_07_Cue.voice_male_b_death_high_07_Cue'"));
+
 
 }
 
@@ -171,11 +174,32 @@ void AMyEnemy::Die()
 	if (EnemyTypeIndex == -1)
 		return;
 
-	AMyGameModeBase* GameModeBase = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(this));
-	if (GameModeBase && GameModeBase->EnemyTypeCount[EnemyTypeIndex] > 0)
+	TArray<AActor*> EnemyEvents;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnemyEvent::StaticClass(), EnemyEvents);
+
+	for (auto Event : EnemyEvents)
 	{
-		GameModeBase->EnemyTypeCount[EnemyTypeIndex]--;
+		AEnemyEvent* EnemyEvent = Cast<AEnemyEvent>(Event);
+
+		if (EnemyEvent)
+		{
+
+			if (EnemyEvent->EnemyTypeCount[EnemyTypeIndex] > 0)
+			{
+
+
+				EnemyEvent->EnemyTypeCount[EnemyTypeIndex]--;
+				EnemyEvent->CurrentEnemyCount--;
+			}
+		}
+		break;
 	}
+
+	//AMyGameModeBase* GameModeBase = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(this));
+	//if (GameModeBase && GameModeBase->EnemyTypeCount[EnemyTypeIndex] > 0)
+	//{
+	//	GameModeBase->EnemyTypeCount[EnemyTypeIndex]--;
+	//}
 
 	AEnemyController* AIController = Cast<AEnemyController>(GetController());
 	if (AIController)

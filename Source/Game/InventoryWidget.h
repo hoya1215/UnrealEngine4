@@ -12,6 +12,7 @@ class UInventorySlotWidget;
 class UUniformGridPanel;
 class USizeBox;
 class UButton;
+class UTextBlock;
 
 /**
  * 
@@ -44,11 +45,13 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Inventory")
         void AddItemToInventory(FName Name);
 
+    void Init();
+
     void SwapSlot(int From, int To);
     
     void CreateSlot();
 
-    void FillInventory(TArray<UInventorySlotWidget*> Slots);
+    void FillInventory(TArray < UInventorySlotWidget*> before, TArray<UInventorySlotWidget*> after);
     void SwapInventory(EINVENTORY_TYPE InventoryType);
 
     UFUNCTION()
@@ -72,18 +75,21 @@ public:
     UPROPERTY()
         int32 CurrentMoney;
 
+    UPROPERTY(meta = (BindWidget))
+        UTextBlock* MoneyAmount;
+
 protected:
     
 
-    UPROPERTY(meta = (BindWidget))
-        UUniformGridPanel* InventoryBoard;
+    //UPROPERTY(meta = (BindWidget))
+    //    UUniformGridPanel* InventoryBoard;
 
 
-    UPROPERTY(meta = (BindWidget))
-        USizeBox* TopSizeBox;
+    //UPROPERTY(meta = (BindWidget))
+    //    USizeBox* TopSizeBox;
 
-    UPROPERTY(meta = (BindWidget))
-    USizeBox* InventorySizeBox;
+    //UPROPERTY(meta = (BindWidget))
+    //USizeBox* InventorySizeBox;
 
     UPROPERTY(EditDefaultsOnly, Category = "UI")
         TSubclassOf<UInventorySlotWidget> InventorySlotWidgetClass;
@@ -97,6 +103,31 @@ protected:
     UPROPERTY(meta = (BindWidget))
         UButton* EtcButton;
 
+    // Slots
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot0;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot1;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot2;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot3;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot4;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot5;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot6;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot7;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot8;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot9;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot10;
+    UPROPERTY(meta = (BindWidget))
+        UInventorySlotWidget* Slot11;
 
 
 
@@ -110,7 +141,7 @@ public:
     int32 CurrentSlotIndex_Equipment = 0;
     int32 CurrentSlotIndex_Consumption = 0;
     int32 CurrentSlotIndex_Etc = 0;
-    int32 MaxInventorySize = 16;
+    int32 MaxInventorySize = 12;
 
     int32 InventoryState = 0; // 0 : Equipment  , 1 : Consumption ,  2 : Etc
 

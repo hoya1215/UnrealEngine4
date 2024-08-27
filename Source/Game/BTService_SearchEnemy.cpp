@@ -57,7 +57,7 @@ void UBTService_SearchEnemy::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* 
 				{
 					OwnerComp.GetBlackboardComponent()->SetValueAsObject(FName(TEXT("Target")), Enemy);
 
-					DrawDebugSphere(World, Center, SearchRadius, 16, FColor::Green, false, 0.2f);
+					//DrawDebugSphere(World, Center, SearchRadius, 16, FColor::Green, false, 0.2f);
 					Pet->EnemyLocation = Enemy->GetActorLocation();
 					FVector Direction = (Pet->GetActorLocation() - Enemy->GetActorLocation()).GetSafeNormal();
 					FRotator NewRotation = FRotationMatrix::MakeFromX(Direction).Rotator();
@@ -77,6 +77,6 @@ void UBTService_SearchEnemy::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* 
 		}
 
 		Pet->bIsAttacking = false;
-		DrawDebugSphere(World, Center, SearchRadius, 16, FColor::Red, false, 0.2f);
+		//DrawDebugSphere(World, Center, SearchRadius, 16, FColor::Red, false, 0.2f);
 	}
 }

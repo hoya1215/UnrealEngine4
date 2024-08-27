@@ -22,6 +22,7 @@ void UEquipmentSlotWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+
 }
 
 void UEquipmentSlotWidget::PushEquipment(FName Name)
@@ -85,6 +86,9 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 				PlayerCharacter->GetMyWeapon()->Destroy();
 
 				PlayerCharacter->SetMyWeapon(nullptr);
+
+				// 다음 무기 있으면 장착 
+
 			}
 		}
 

@@ -19,9 +19,10 @@ void UInventorySlotWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
+    
     GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
-
 }
+
 
 void UInventorySlotWidget::AddItem(FName Name)
 {
@@ -29,15 +30,33 @@ void UInventorySlotWidget::AddItem(FName Name)
 
     if (Count == 0)
     {
-        auto ItemData = GameInstance->GetItemData(Name);
-        UTexture2D* Texture = ItemData->ItemIcon.LoadSynchronous();
-        SlotTexture = Texture;
-        SlotImage->SetBrushFromTexture(SlotTexture);
+        FItemData* ItemData = nullptr;
+
+        if (GameInstance)
+            ItemData = GameInstance->GetItemData(Name);
+        else
+            UE_LOG(LogTemp, Warning, TEXT("No GameInstsance"));
+        
+        if (ItemData)
+        {
+            UTexture2D* Texture = ItemData->ItemIcon.LoadSynchronous();
+            SlotTexture = Texture;
+            SlotImage->SetBrushFromTexture(SlotTexture);
+        }
+        else
+            UE_LOG(LogTemp, Warning, TEXT("ItemDAta Null"));
+
+        if (CurrentSlot != nullptr)
+        {
+            CurrentSlot->SlotTexture = this->SlotTexture;
+            CurrentSlot->SlotImage->SetBrushFromTexture(CurrentSlot->SlotTexture);
+            CurrentSlot->ItemName = Name;
+        }
+
         ItemName = Name;
     }
     
     Count++;
-    UE_LOG(LogTemp, Warning, TEXT("%d"), Count);
 
 
     const FString CurrentCount = FString::Printf(TEXT("%d"), Count);
@@ -52,6 +71,14 @@ void UInventorySlotWidget::SetItem(UInventorySlotWidget* OtherSlot)
     SlotText->SetText(OtherSlot->SlotText->GetText());
     ItemName = OtherSlot->ItemName;
     Count = OtherSlot->Count;
+
+    if (CurrentSlot != nullptr)
+    {
+        CurrentSlot->SlotTexture = this->SlotTexture;
+        CurrentSlot->SlotImage->SetBrushFromTexture(CurrentSlot->SlotTexture);
+        CurrentSlot->ItemName = this->ItemName;
+        CurrentSlot->Count = this->Count;
+    }
 }
 
 
@@ -101,7 +128,7 @@ FReply UInventorySlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
             {
                 auto Item = GetWorld()->SpawnActor<AItem>(ItemData->ItemClass);
                 Item->UseItem();
-                this->SetItem(InventoryWidget->DefaultSlot);
+                InventoryWidget->ConsumptionSlotWidgets[this->Index]->SetItem(InventoryWidget->DefaultSlot);
                 Count--;
             }
 
@@ -179,17 +206,17 @@ void UInventorySlotWidget::EquippedItem(FName Name)
         FName PulledName = Item->EquippedItem();
         if (PulledName == FName(TEXT("NULL")))
         {
-            this->SetItem(InventoryWidget->DefaultSlot);
+            InventoryWidget->EquipmentSlotWidgets[this->Index]->SetItem(InventoryWidget->DefaultSlot);
         }
         else if (PulledName == FName(TEXT("Destroy")))
         {
             Item->Destroy();
-            this->SetItem(InventoryWidget->DefaultSlot);
+            InventoryWidget->EquipmentSlotWidgets[this->Index]->SetItem(InventoryWidget->DefaultSlot);
         }
         else
         {
             Count = 0;
-            this->AddItem(PulledName);
+            InventoryWidget->EquipmentSlotWidgets[this->Index]->AddItem(PulledName);
         }
 
 

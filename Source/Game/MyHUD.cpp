@@ -19,7 +19,6 @@ void UMyHUD::NativeConstruct()
 
 	if (MyCharacter)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("My HUD :: Native Construct !!!!!!!"));
 
 		FString Hp = FString::Printf(TEXT("Hp : %d"), MyCharacter->Stat->GetMaxHp());
 

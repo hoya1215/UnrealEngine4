@@ -131,7 +131,7 @@ void APet::SearchItem()
 void APet::MagnetItem(AItem* Item)
 {
 	FVector Direction = (GetActorLocation() - Item->GetActorLocation()).GetSafeNormal();
-	FVector NewLocation = Item->GetActorLocation() + Direction;
+	FVector NewLocation = Item->GetActorLocation() + Direction * 2.0;
 	//UE_LOG(LogTemp, Warning, TEXT("Item Direction X : %f, Y : %f, Z : %f"), Direction.X, Direction.Y, Direction.Z);
 	Item->SetActorLocation(NewLocation);
 }

@@ -13,8 +13,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define GAME_InventoryWidget_generated_h
 
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_SPARSE_DATA
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_RPC_WRAPPERS \
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_SPARSE_DATA
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execClickEtcButton); \
 	DECLARE_FUNCTION(execClickConsumptionButton); \
@@ -22,7 +22,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	DECLARE_FUNCTION(execAddItemToInventory);
 
 
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execClickEtcButton); \
 	DECLARE_FUNCTION(execClickConsumptionButton); \
@@ -30,7 +30,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	DECLARE_FUNCTION(execAddItemToInventory);
 
 
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_INCLASS_NO_PURE_DECLS \
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUInventoryWidget(); \
 	friend struct Z_Construct_UClass_UInventoryWidget_Statics; \
@@ -39,7 +39,7 @@ public: \
 	DECLARE_SERIALIZER(UInventoryWidget)
 
 
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_INCLASS \
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_INCLASS \
 private: \
 	static void StaticRegisterNativesUInventoryWidget(); \
 	friend struct Z_Construct_UClass_UInventoryWidget_Statics; \
@@ -48,7 +48,7 @@ public: \
 	DECLARE_SERIALIZER(UInventoryWidget)
 
 
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_STANDARD_CONSTRUCTORS \
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UInventoryWidget(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UInventoryWidget) \
@@ -61,7 +61,7 @@ private: \
 public:
 
 
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_ENHANCED_CONSTRUCTORS \
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UInventoryWidget(UInventoryWidget&&); \
@@ -72,37 +72,46 @@ public: \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UInventoryWidget)
 
 
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_PRIVATE_PROPERTY_OFFSET \
-	FORCEINLINE static uint32 __PPO__InventoryBoard() { return STRUCT_OFFSET(UInventoryWidget, InventoryBoard); } \
-	FORCEINLINE static uint32 __PPO__TopSizeBox() { return STRUCT_OFFSET(UInventoryWidget, TopSizeBox); } \
-	FORCEINLINE static uint32 __PPO__InventorySizeBox() { return STRUCT_OFFSET(UInventoryWidget, InventorySizeBox); } \
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__InventorySlotWidgetClass() { return STRUCT_OFFSET(UInventoryWidget, InventorySlotWidgetClass); } \
 	FORCEINLINE static uint32 __PPO__EquipmentButton() { return STRUCT_OFFSET(UInventoryWidget, EquipmentButton); } \
 	FORCEINLINE static uint32 __PPO__ConsumptionButton() { return STRUCT_OFFSET(UInventoryWidget, ConsumptionButton); } \
-	FORCEINLINE static uint32 __PPO__EtcButton() { return STRUCT_OFFSET(UInventoryWidget, EtcButton); }
+	FORCEINLINE static uint32 __PPO__EtcButton() { return STRUCT_OFFSET(UInventoryWidget, EtcButton); } \
+	FORCEINLINE static uint32 __PPO__Slot0() { return STRUCT_OFFSET(UInventoryWidget, Slot0); } \
+	FORCEINLINE static uint32 __PPO__Slot1() { return STRUCT_OFFSET(UInventoryWidget, Slot1); } \
+	FORCEINLINE static uint32 __PPO__Slot2() { return STRUCT_OFFSET(UInventoryWidget, Slot2); } \
+	FORCEINLINE static uint32 __PPO__Slot3() { return STRUCT_OFFSET(UInventoryWidget, Slot3); } \
+	FORCEINLINE static uint32 __PPO__Slot4() { return STRUCT_OFFSET(UInventoryWidget, Slot4); } \
+	FORCEINLINE static uint32 __PPO__Slot5() { return STRUCT_OFFSET(UInventoryWidget, Slot5); } \
+	FORCEINLINE static uint32 __PPO__Slot6() { return STRUCT_OFFSET(UInventoryWidget, Slot6); } \
+	FORCEINLINE static uint32 __PPO__Slot7() { return STRUCT_OFFSET(UInventoryWidget, Slot7); } \
+	FORCEINLINE static uint32 __PPO__Slot8() { return STRUCT_OFFSET(UInventoryWidget, Slot8); } \
+	FORCEINLINE static uint32 __PPO__Slot9() { return STRUCT_OFFSET(UInventoryWidget, Slot9); } \
+	FORCEINLINE static uint32 __PPO__Slot10() { return STRUCT_OFFSET(UInventoryWidget, Slot10); } \
+	FORCEINLINE static uint32 __PPO__Slot11() { return STRUCT_OFFSET(UInventoryWidget, Slot11); }
 
 
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_20_PROLOG
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_GENERATED_BODY_LEGACY \
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_21_PROLOG
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_SPARSE_DATA \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_RPC_WRAPPERS \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_INCLASS \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_STANDARD_CONSTRUCTORS \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_SPARSE_DATA \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_RPC_WRAPPERS \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_INCLASS \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define GameCopy_4_27_Source_Game_InventoryWidget_h_23_GENERATED_BODY \
+#define GameCopy_4_27_Source_Game_InventoryWidget_h_24_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_PRIVATE_PROPERTY_OFFSET \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_SPARSE_DATA \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_INCLASS_NO_PURE_DECLS \
-	GameCopy_4_27_Source_Game_InventoryWidget_h_23_ENHANCED_CONSTRUCTORS \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_PRIVATE_PROPERTY_OFFSET \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_SPARSE_DATA \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_RPC_WRAPPERS_NO_PURE_DECLS \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_INCLASS_NO_PURE_DECLS \
+	GameCopy_4_27_Source_Game_InventoryWidget_h_24_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

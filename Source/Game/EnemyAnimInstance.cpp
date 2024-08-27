@@ -37,7 +37,7 @@ void UEnemyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			IsWalking = Enemy->IsWalking;
 			IsAttack = Enemy->IsAttack;
 			IsPicking = Enemy->IsPicking;
-			Hp = Enemy->Stat->GetHp();
+			Hp = Enemy->GetEnemyInfo().CurrentHp;
 		}
 	}
 }

@@ -27,11 +27,19 @@ void UInventoryWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    InventoryBoard->ClearChildren();
-    CurrentSlotWidgets.Empty();
+    GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+    // Default Slot , Push
+    DefaultSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
+    DefaultSlot->SlotTexture = DefaultSlotTexture;
+    DefaultSlot->ItemName = FName(TEXT("NULL"));
+    DefaultSlot->GameInstance = this->GameInstance;
 
-    CreateSlot();
-    FillInventory(EquipmentSlotWidgets);
+    Init();
+    //InventoryBoard->ClearChildren();
+    //CurrentSlotWidgets.Empty();
+
+    //CreateSlot();
+    //FillInventory(EquipmentSlotWidgets);
 
     if (EquipmentButton)
     {
@@ -50,6 +58,71 @@ void UInventoryWidget::NativeConstruct()
 
     GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
 
+}
+
+void UInventoryWidget::Init()
+{
+    // Current Slot
+    CurrentSlotWidgets.Add(Slot0);
+    CurrentSlotWidgets.Add(Slot1);
+    CurrentSlotWidgets.Add(Slot2);
+    CurrentSlotWidgets.Add(Slot3);
+    CurrentSlotWidgets.Add(Slot4);
+    CurrentSlotWidgets.Add(Slot5);
+    CurrentSlotWidgets.Add(Slot6);
+    CurrentSlotWidgets.Add(Slot7);
+    CurrentSlotWidgets.Add(Slot8);
+    CurrentSlotWidgets.Add(Slot9);
+    CurrentSlotWidgets.Add(Slot10);
+    CurrentSlotWidgets.Add(Slot11);
+
+    for (int i = 0; i < MaxInventorySize; ++i)
+    {
+        CurrentSlotWidgets[i]->Index = i;
+        CurrentSlotWidgets[i]->InventoryWidget = this;
+        CurrentSlotWidgets[i]->GameInstance = this->GameInstance;
+        CurrentSlotWidgets[i]->SetItem(DefaultSlot);
+    }
+
+    // Equipment
+    for (int i = 0; i < MaxInventorySize; ++i)
+    {
+        UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
+        NewSlot->Index = i;
+        NewSlot->InventoryWidget = this;
+        NewSlot->GameInstance = this->GameInstance;
+        NewSlot->CurrentSlot = CurrentSlotWidgets[i];
+        NewSlot->SetItem(DefaultSlot);
+        
+
+        EquipmentSlotWidgets.Add(NewSlot);
+    }
+
+    // Consumption
+    for (int i = 0; i < MaxInventorySize; ++i)
+    {
+        UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
+        NewSlot->Index = i;
+        NewSlot->InventoryWidget = this;
+        NewSlot->GameInstance = this->GameInstance;
+        NewSlot->SetItem(DefaultSlot);
+
+        ConsumptionSlotWidgets.Add(NewSlot);
+    }
+
+    // ETC
+    for (int i = 0; i < MaxInventorySize; ++i)
+    {
+        UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
+        NewSlot->Index = i;
+        NewSlot->InventoryWidget = this;
+        NewSlot->GameInstance = this->GameInstance;
+        NewSlot->SetItem(DefaultSlot);
+
+        ETCSlotWidgets.Add(NewSlot);
+    }
+
+    //FillInventory(EquipmentSlotWidgets, CurrentSlotWidgets);
 }
 
 
@@ -132,7 +205,7 @@ void UInventoryWidget::AddItemToInventory(FName Name)
             {
                 for (int i = 0; i < ETCSlotWidgets.Num(); ++i)
                 {
-                    if (ETCSlotWidgets[i]->CurrentItem == nullptr)
+                    if (ETCSlotWidgets[i]->ItemName == FName(TEXT("NULL")))
                     {
                         ETCSlotWidgets[i]->AddItem(Name);
                         break;
@@ -148,11 +221,31 @@ void UInventoryWidget::AddItemToInventory(FName Name)
 void UInventoryWidget::SwapSlot(int From, int To)
 {
     UInventorySlotWidget* Copy = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
-    Copy->SetItem(CurrentSlotWidgets[From]);
-
-
-    CurrentSlotWidgets[From]->SetItem(CurrentSlotWidgets[To]);
-    CurrentSlotWidgets[To]->SetItem(Copy);
+    
+    switch (InventoryState)
+    {
+    case 0:
+        Copy->SetItem(EquipmentSlotWidgets[From]);
+        EquipmentSlotWidgets[From]->SetItem(EquipmentSlotWidgets[To]);
+        EquipmentSlotWidgets[To]->SetItem(Copy);
+        break;
+    case 1:
+        Copy->SetItem(ConsumptionSlotWidgets[From]);
+        ConsumptionSlotWidgets[From]->SetItem(ConsumptionSlotWidgets[To]);
+        ConsumptionSlotWidgets[To]->SetItem(Copy);
+        break;
+    case 2:
+        Copy->SetItem(ETCSlotWidgets[From]);
+        ETCSlotWidgets[From]->SetItem(ETCSlotWidgets[To]);
+        ETCSlotWidgets[To]->SetItem(Copy);
+        break;
+    }
+    
+    //Copy->SetItem(CurrentSlotWidgets[From]);
+    //
+    //
+    //CurrentSlotWidgets[From]->SetItem(CurrentSlotWidgets[To]);
+    //CurrentSlotWidgets[To]->SetItem(Copy);
 
 
 }
@@ -160,90 +253,96 @@ void UInventoryWidget::SwapSlot(int From, int To)
 void UInventoryWidget::CreateSlot()
 {
 
-    int32 Row = 4;
-    int32 Column = 4;
+    //int32 Row = 4;
+    //int32 Column = 4;
 
-    float Width = InventorySizeBox->WidthOverride;
-    float Height = InventorySizeBox->HeightOverride;
+    //float Width = InventorySizeBox->WidthOverride;
+    //float Height = InventorySizeBox->HeightOverride;
 
-    DefaultSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
-    DefaultSlot->SlotTexture = DefaultSlotTexture;
-    DefaultSlot->ItemName = FName(TEXT("NULL"));
+    //DefaultSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
+    //DefaultSlot->SlotTexture = DefaultSlotTexture;
+    //DefaultSlot->ItemName = FName(TEXT("NULL"));
 
-    for (int32 i = 0; i < Row; ++i)
-    {
-        for (int32 j = 0; j < Column; ++j)
-        {
-            UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
-            NewSlot->SetSizeBox(Width / Row, Height / Column);
-            NewSlot->Index = i * Row + j;
-            NewSlot->InventoryWidget = this;
-            NewSlot->SetItem(DefaultSlot);
+    //for (int32 i = 0; i < Row; ++i)
+    //{
+    //    for (int32 j = 0; j < Column; ++j)
+    //    {
+    //        UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
+    //        NewSlot->SetSizeBox(Width / Row, Height / Column);
+    //        NewSlot->Index = i * Row + j;
+    //        NewSlot->InventoryWidget = this;
+    //        NewSlot->SetItem(DefaultSlot);
 
-            EquipmentSlotWidgets.Add(NewSlot);
+    //        EquipmentSlotWidgets.Add(NewSlot);
 
-        }
-    }
+    //    }
+    //}
 
-    for (int32 i = 0; i < Row; ++i)
-    {
-        for (int32 j = 0; j < Column; ++j)
-        {
-            UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
-            NewSlot->SetSizeBox(Width / Row, Height / Column);
-            NewSlot->Index = i * Row + j;
-            NewSlot->InventoryWidget = this;
-            NewSlot->SetItem(DefaultSlot);
+    //for (int32 i = 0; i < Row; ++i)
+    //{
+    //    for (int32 j = 0; j < Column; ++j)
+    //    {
+    //        UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
+    //        NewSlot->SetSizeBox(Width / Row, Height / Column);
+    //        NewSlot->Index = i * Row + j;
+    //        NewSlot->InventoryWidget = this;
+    //        NewSlot->SetItem(DefaultSlot);
 
-            ConsumptionSlotWidgets.Add(NewSlot);
+    //        ConsumptionSlotWidgets.Add(NewSlot);
 
-        }
-    }
+    //    }
+    //}
 
-    for (int32 i = 0; i < Row; ++i)
-    {
-        for (int32 j = 0; j < Column; ++j)
-        {
-            UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
-            NewSlot->SetSizeBox(Width / Row, Height / Column);
-            NewSlot->Index = i * Row + j;
-            NewSlot->InventoryWidget = this;
-            NewSlot->SetItem(DefaultSlot);
+    //for (int32 i = 0; i < Row; ++i)
+    //{
+    //    for (int32 j = 0; j < Column; ++j)
+    //    {
+    //        UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
+    //        NewSlot->SetSizeBox(Width / Row, Height / Column);
+    //        NewSlot->Index = i * Row + j;
+    //        NewSlot->InventoryWidget = this;
+    //        NewSlot->SetItem(DefaultSlot);
 
-            ETCSlotWidgets.Add(NewSlot);
+    //        ETCSlotWidgets.Add(NewSlot);
 
-        }
-    }
+    //    }
+    //}
 
     
 }
 
-void UInventoryWidget::FillInventory(TArray<UInventorySlotWidget*> Slots)
+void UInventoryWidget::FillInventory(TArray < UInventorySlotWidget*> before, TArray<UInventorySlotWidget*> after)
 {
-    InventoryBoard->ClearChildren();
-    CurrentSlotWidgets.Empty();
 
-    int32 Row = 4;
-    int32 Column = 4;
-    UE_LOG(LogTemp, Warning, TEXT("Slot Size : %d"), EquipmentSlotWidgets.Num());
-
-
-    for (int32 i = 0; i < Row; ++i)
+    for (int i = 0; i < MaxInventorySize; ++i)
     {
-        for (int32 j = 0; j < Column; ++j)
-        {
-            int Index = i * Row + j;
-
-        
-
-            if (Index < EquipmentSlotWidgets.Num())
-            {              
-                InventoryBoard->AddChildToUniformGrid(Slots[Index], i, j);
-            } 
-        }
+        //after[i]->SetItem(before[i]);
+        after[i] = before[i];
     }
 
-    CurrentSlotWidgets = Slots;
+    //InventoryBoard->ClearChildren();
+    //CurrentSlotWidgets.Empty();
+
+    //int32 Row = 4;
+    //int32 Column = 4;
+
+
+    //for (int32 i = 0; i < Row; ++i)
+    //{
+    //    for (int32 j = 0; j < Column; ++j)
+    //    {
+    //        int Index = i * Row + j;
+
+    //    
+
+    //        if (Index < EquipmentSlotWidgets.Num())
+    //        {              
+    //            InventoryBoard->AddChildToUniformGrid(Slots[Index], i, j);
+    //        } 
+    //    }
+    //}
+
+    //CurrentSlotWidgets = Slots;
 }
 
 void UInventoryWidget::SwapInventory(EINVENTORY_TYPE InventoryType)
@@ -251,47 +350,112 @@ void UInventoryWidget::SwapInventory(EINVENTORY_TYPE InventoryType)
     switch (InventoryState)
     {
     case 0:
-        EquipmentSlotWidgets = CurrentSlotWidgets;
+        for (int i = 0; i < MaxInventorySize; ++i)
+        {
+            EquipmentSlotWidgets[i]->SetItem(CurrentSlotWidgets[i]);
+            EquipmentSlotWidgets[i]->CurrentSlot = nullptr;
+
+        }
         break;
     case 1:
-        ConsumptionSlotWidgets = CurrentSlotWidgets;
+        for (int i = 0; i < MaxInventorySize; ++i)
+        {
+            ConsumptionSlotWidgets[i]->SetItem(CurrentSlotWidgets[i]);
+            ConsumptionSlotWidgets[i]->CurrentSlot = nullptr;
+
+        }
         break;
     case 2:
-        ETCSlotWidgets = CurrentSlotWidgets;
+        for (int i = 0; i < MaxInventorySize; ++i)
+        {
+            ETCSlotWidgets[i]->SetItem(CurrentSlotWidgets[i]);
+            ETCSlotWidgets[i]->CurrentSlot = nullptr;
+
+        }
         break;
     }
 
     switch (InventoryType)
     {
     case EINVENTORY_TYPE::EQUIPMENT:
-        FillInventory(EquipmentSlotWidgets);
         InventoryState = 0;
+        for (int i = 0; i < MaxInventorySize; ++i)
+        {
+            CurrentSlotWidgets[i]->SetItem(EquipmentSlotWidgets[i]);
+            EquipmentSlotWidgets[i]->CurrentSlot = CurrentSlotWidgets[i];
+        }
         break;
     case EINVENTORY_TYPE::CONSUMPTION:
-        FillInventory(ConsumptionSlotWidgets);
         InventoryState = 1;
+        for (int i = 0; i < MaxInventorySize; ++i)
+        {
+            CurrentSlotWidgets[i]->SetItem(ConsumptionSlotWidgets[i]);
+            ConsumptionSlotWidgets[i]->CurrentSlot = CurrentSlotWidgets[i];
+        }
         break;
     case EINVENTORY_TYPE::ETC:
-        FillInventory(ETCSlotWidgets);
         InventoryState = 2;
+        for (int i = 0; i < MaxInventorySize; ++i)
+        {
+            CurrentSlotWidgets[i]->SetItem(ETCSlotWidgets[i]);
+            ETCSlotWidgets[i]->CurrentSlot = CurrentSlotWidgets[i];
+        }
         break;
     }
+
+    //switch (InventoryState)
+    //{
+    //case 0:
+    //    FillInventory(CurrentSlotWidgets, EquipmentSlotWidgets);
+    //    //EquipmentSlotWidgets = CurrentSlotWidgets;
+    //    break;
+    //case 1:
+    //    FillInventory(CurrentSlotWidgets, ConsumptionSlotWidgets);
+    //    //ConsumptionSlotWidgets = CurrentSlotWidgets;
+    //    break;
+    //case 2:
+    //    FillInventory(CurrentSlotWidgets, ETCSlotWidgets);
+    //    //ETCSlotWidgets = CurrentSlotWidgets;
+    //    break;
+    //}
+
+    //switch (InventoryType)
+    //{
+    //case EINVENTORY_TYPE::EQUIPMENT:
+    //    FillInventory(EquipmentSlotWidgets, CurrentSlotWidgets);
+    //    InventoryState = 0;
+    //    break;
+    //case EINVENTORY_TYPE::CONSUMPTION:
+    //    FillInventory(ConsumptionSlotWidgets, CurrentSlotWidgets);
+    //    InventoryState = 1;
+    //    break;
+    //case EINVENTORY_TYPE::ETC:
+    //    FillInventory(ETCSlotWidgets, CurrentSlotWidgets);
+    //    InventoryState = 2;
+    //    break;
+    //}
 }
 
 void UInventoryWidget::ClickEquipmentButton()
 {
-    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, TEXT("Click Button"));
+    if (InventoryState == 0)
+        return;
+
     SwapInventory(EINVENTORY_TYPE::EQUIPMENT);
 }
 
 void UInventoryWidget::ClickConsumptionButton()
 {
-    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, TEXT("Click Button"));
+    if (InventoryState == 1)
+        return;
+
     SwapInventory(EINVENTORY_TYPE::CONSUMPTION);
 }
 
 void UInventoryWidget::ClickEtcButton()
 {
-    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, TEXT("Click Button"));
+    if (InventoryState == 2)
+        return;
+
     SwapInventory(EINVENTORY_TYPE::ETC);
 }

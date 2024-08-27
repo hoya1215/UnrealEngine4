@@ -118,6 +118,10 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_InventoryWidget;
 #if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentSlot_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentSlot;
+#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentItem_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentItem;
@@ -197,6 +201,13 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget = { "InventoryWidget", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, InventoryWidget), Z_Construct_UClass_UInventoryWidget_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget_MetaData)) };
 #if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentSlot_MetaData[] = {
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "InventorySlotWidget.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentSlot = { "CurrentSlot", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UInventorySlotWidget, CurrentSlot), Z_Construct_UClass_UInventorySlotWidget_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentSlot_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentSlot_MetaData)) };
+#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem_MetaData[] = {
 		{ "ModuleRelativePath", "InventorySlotWidget.h" },
 	};
@@ -222,6 +233,7 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Index,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_Count,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_InventoryWidget,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentSlot,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_CurrentItem,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_ItemName,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UInventorySlotWidget_Statics::NewProp_GameInstance,
@@ -253,7 +265,7 @@ void EmptyLinkFunctionForGeneratedCodeInventorySlotWidget() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UInventorySlotWidget, 4075300645);
+	IMPLEMENT_CLASS(UInventorySlotWidget, 2834403369);
 	template<> GAME_API UClass* StaticClass<UInventorySlotWidget>()
 	{
 		return UInventorySlotWidget::StaticClass();

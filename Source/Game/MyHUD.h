@@ -30,8 +30,8 @@ public:
 	void SetCharacter(AMyCharacter* CurrentCharacter);
 
 public:
-	UPROPERTY(Meta = (BindWidget))
-	UTextBlock* BulletText;
+	//UPROPERTY(Meta = (BindWidget))
+	//UTextBlock* BulletText;
 
 	UPROPERTY(Meta = (BindWidget))
 		UTextBlock* HpText;

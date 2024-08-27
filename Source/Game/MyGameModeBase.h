@@ -34,7 +34,7 @@ public:
 
 	virtual void BeginPlay() override;
 
-	void SpawnEnemy();
+	 void SpawnEnemy();
 
 	//void UpdateEnemyCount(AActor* DestroyEnemy);
 

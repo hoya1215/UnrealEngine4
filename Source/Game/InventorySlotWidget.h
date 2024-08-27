@@ -66,6 +66,9 @@ public:
 
 	UPROPERTY()
 		class UInventoryWidget* InventoryWidget;
+
+	UPROPERTY()
+		UInventorySlotWidget* CurrentSlot = nullptr;
 	
 
 public:

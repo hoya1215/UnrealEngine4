@@ -48,7 +48,7 @@ AMyCharacter::AMyCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
+	GetCharacterMovement()->bOrientRotationToMovement = false; // Character moves in the direction of input...	
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 	GetCharacterMovement()->AirControl = 0.2f;
@@ -132,7 +132,7 @@ void AMyCharacter::BeginPlay()
 			MyInventoryWidget->SetDesiredSizeInViewport(DesiredSize);
 			
 			// 원하는 위치로 설정
-			FVector2D DesiredPosition(800, 200); 
+			FVector2D DesiredPosition(800, 100); 
 			MyInventoryWidget->SetPositionInViewport(DesiredPosition, true); 
 
 			MyInventoryWidget->SetVisibility(ESlateVisibility::Hidden);
@@ -308,11 +308,14 @@ void AMyCharacter::MoveForward(float value)
 {
 	ForwardValue = value;
 
+	if (value == 0.f)
+		return;
+
 	const FRotator Rotation = Controller->GetControlRotation();
 	const FRotator YawRotation(0, Rotation.Yaw, 0);
 
 	const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	AddMovementInput(Direction, value);
+	AddMovementInput(GetActorForwardVector(), value);
 }
 
 void AMyCharacter::MoveRight(float value)
@@ -324,9 +327,10 @@ void AMyCharacter::MoveRight(float value)
 
 	const FRotator Rotation = Controller->GetControlRotation();
 	const FRotator YawRotation(0, Rotation.Yaw, 0);
-
+	
 	const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	AddMovementInput(Direction, value);
+
+	AddMovementInput(GetActorRightVector(), value);
 
 }
 
@@ -380,7 +384,7 @@ void AMyCharacter::UpdateUI()
 		{
 			// 총알 갯수 
 			const FString BulletString = FString::Printf(TEXT("Bullet %01d / %01d"), MyWeapon->CurrentBulletCount, MyWeapon->MaxBulletCount);
-			MyHUD->BulletText->SetText(FText::FromString(BulletString));
+			//MyHUD->BulletText->SetText(FText::FromString(BulletString));
 		}
 	}
 }
@@ -752,7 +756,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	{
 		
 		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::MAIN]->ItemName;
-		if (Name == FName(TEXT("NULL")) || CurrentWeaponState == 0)
+		if (Name == FName(TEXT("NULL")) || (MyWeapon != nullptr && CurrentWeaponState == 0))
 			return;
 		CurrentWeaponState = 0;
 		//ChangeCurrentWeapon(EEQUIPMENT_TYPE::MAIN);
@@ -761,7 +765,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	{
 		
 		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::SUB]->ItemName;
-		if (Name == FName(TEXT("NULL")) || CurrentWeaponState == 1)
+		if (Name == FName(TEXT("NULL")) || (MyWeapon != nullptr && CurrentWeaponState == 1))
 			return;
 		CurrentWeaponState = 1;
 		//ChangeCurrentWeapon(EEQUIPMENT_TYPE::SUB);
@@ -770,7 +774,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	{
 		
 		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::OTHER]->ItemName;
-		if (Name == FName(TEXT("NULL")) || CurrentWeaponState == 2)
+		if (Name == FName(TEXT("NULL")) || (MyWeapon != nullptr && CurrentWeaponState == 2))
 			return;
 		CurrentWeaponState = 2;
 		//ChangeCurrentWeapon(EEQUIPMENT_TYPE::OTHER);
@@ -793,8 +797,11 @@ void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
 		bCanPickUp = false;
 		auto NewWeapon = GetWorld()->SpawnActor<AWeapon>(ItemData->ItemClass);
 
-		MyWeapon->Destroy();
-		MyWeapon = nullptr;
+		if (MyWeapon != nullptr)
+		{
+			MyWeapon->Destroy();
+			MyWeapon = nullptr;
+		}
 		NewWeapon->AttachToCharacter();
 
 		bCanPickUp = true;
