@@ -54,7 +54,7 @@ private:
 		UEquipmentSlotWidget* ShoesSlot;
 
 	UPROPERTY(meta = (BindWidget))
-		UEquipmentSlotWidget* HeadSlot;
+		UEquipmentSlotWidget* HelmetSlot;
 
 	UPROPERTY(meta = (BindWidget))
 		UEquipmentSlotWidget* MainWeaponSlot;

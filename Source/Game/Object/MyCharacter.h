@@ -18,6 +18,8 @@ class UEquipmentWidget;
 class APet;
 class AWeapon;
 class AWing;
+class AShoes;
+class AHelmet;
 class UMyHUD;
 class USoundCue;
 
@@ -82,11 +84,18 @@ public:
 	void Revive();
 	void ChangeSpeed();
 
+	void UnDressedWing();
+	void UnDressedShoes();
+	void UnDressedHelmet();
+	void UnEquippedWeapon(FName ItemName);
+
 
 	// Get Set
 	void SetMyWeapon(AWeapon* CurrentWeapon);
 	AWeapon* GetMyWeapon() { return MyWeapon; }
 	void SetMyWing(AWing* CurrentWing) { MyWing = CurrentWing; }
+	void SetMyShoes(AShoes* CurrentShoes) { MyShoes = CurrentShoes; }
+	void SetMyHelmet(AHelmet* CurrentHelmet) { MyHelmet = CurrentHelmet; }
 	AWing* GetMyWing() { return MyWing; }
 	UInventoryComponent* GetInventory() { return MyInventory; }
 	UInventoryWidget* GetInventoryWidget() { return MyInventoryWidget; }
@@ -114,6 +123,7 @@ public:
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 public:
+
 	// Camera
 	UPROPERTY()
 		class USpringArmComponent* SpringArm;
@@ -241,7 +251,17 @@ private:
 
 	// Wing
 	UPROPERTY()
-		class AWing* MyWing = nullptr;
+		AWing* MyWing = nullptr;
+
+	// Shoes
+	UPROPERTY()
+		AShoes* MyShoes = nullptr;
+
+	// Helmet
+	UPROPERTY()
+		AHelmet* MyHelmet = nullptr;
+
+
 
 	// Pet
 	UPROPERTY()

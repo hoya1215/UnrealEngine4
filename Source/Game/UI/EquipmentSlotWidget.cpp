@@ -62,6 +62,7 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 
 	if (PlayerCharacter && ItemName != FName(TEXT("NULL")))
 	{
+		// 슬롯에서 해제
 		for (int i = 0; i < PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets.Num(); ++i)
 		{
 			if (PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->ItemName == FName(TEXT("NULL")))
@@ -71,43 +72,43 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 			}
 		}
 
-		//if (CurrentItem->InventoryType == EINVENTORY_TYPE::EQUIPMENT)
-		//{
+		// 실제 아이템 장착 해제
 		if (ItemName == FName(TEXT("Wing")))
 		{
-			PlayerCharacter->GetMyWing()->SetActorHiddenInGame(true);
-			PlayerCharacter->SetMyWing(nullptr);
+			PlayerCharacter->UnDressedWing();
+		}
+		else if (ItemName == FName(TEXT("Shoes")))
+		{
+			PlayerCharacter->UnDressedShoes();
+		}
+		else if (ItemName == FName(TEXT("Helmet")))
+		{
+			PlayerCharacter->UnDressedHelmet();
 		}
 		else
 		{
-			if (PlayerCharacter->GetMyWeapon() != nullptr &&
-				PlayerCharacter->GetMyWeapon()->ItemName == ItemName)
-			{
-				PlayerCharacter->GetMyWeapon()->Destroy();
-
-				PlayerCharacter->SetMyWeapon(nullptr);
-
-				// 다음 무기 있으면 장착 
-
-			}
+			PlayerCharacter->UnEquippedWeapon(ItemName);
 		}
 
-			//switch (ItemName)
-			//{
-			//case EEQUIPMENT_TYPE::WING:
-			//	PlayerCharacter->GetMyWing()->SetActorHiddenInGame(true);
-			//	PlayerCharacter->SetMyWing(nullptr);
-			//	break;
-			//default:
-			//	if (PlayerCharacter->GetMyWeapon() != nullptr && 
-			//		PlayerCharacter->GetMyWeapon()->EquipmentType == CurrentItem->EquipmentType)
-			//	{
-			//		
-			//		PlayerCharacter->GetMyWeapon()->SetActorHiddenInGame(true);
-			//		PlayerCharacter->SetMyWeapon(nullptr);
-			//	}
-			//	break;
-			//}
+		//if (CurrentItem->InventoryType == EINVENTORY_TYPE::EQUIPMENT)
+		//{
+		//if (ItemName == FName(TEXT("Wing")))
+		//{
+		//	PlayerCharacter->GetMyWing()->SetActorHiddenInGame(true);
+		//	PlayerCharacter->SetMyWing(nullptr);
+		//}
+		//else
+		//{
+		//	if (PlayerCharacter->GetMyWeapon() != nullptr &&
+		//		PlayerCharacter->GetMyWeapon()->ItemName == ItemName)
+		//	{
+		//		PlayerCharacter->GetMyWeapon()->Destroy();
+
+		//		PlayerCharacter->SetMyWeapon(nullptr);
+
+		//		// 다음 무기 있으면 장착 
+
+		//	}
 		//}
 
 		PullEquipment();

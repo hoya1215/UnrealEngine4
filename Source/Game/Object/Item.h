@@ -25,7 +25,7 @@ enum class EEQUIPMENT_TYPE : uint8
 	OTHER UMETA(DisplayName = "Other"),
 	WING UMETA(DisplayName = "Wing"),
 	SHOES UMETA(DisplayName = "Shoes"),
-	HEAD UMETA(DisplayName = "Head")
+	HELMET UMETA(DisplayName = "Helmet")
 };
 
 

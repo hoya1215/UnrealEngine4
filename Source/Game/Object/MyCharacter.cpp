@@ -26,6 +26,8 @@
 #include "EnemyController.h"
 #include "Pet.h"
 #include "Wing.h"
+#include "Shoes.h"
+#include "Helmet.h"
 #include "EquipmentSlotWidget.h"
 #include "Sound/SoundCue.h"
 #include "Util.h"
@@ -40,6 +42,9 @@ AMyCharacter::AMyCharacter()
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, -88.f), FRotator(0.0f, -90.f, 0.f));
+
+
+
 
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -110,6 +115,8 @@ AMyCharacter::AMyCharacter()
 	// Sound
 	Sounds.DieSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/voice_male_d_death_06_Cue.voice_male_d_death_06_Cue'"));
 	Sounds.JumpSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/voice_male_c_effort_short_jump_01_Cue.voice_male_c_effort_short_jump_01_Cue'"));
+
+
 
 }
 
@@ -198,10 +205,6 @@ void AMyCharacter::BeginPlay()
 		MyWing->EquippedItem();
 		
 	}
-
-
-	
-
 }
 
 
@@ -875,5 +878,68 @@ void AMyCharacter::ChangeSpeed()
 	}
 
 	//UE_LOG(LogTemp, Warning, TEXT("Current Speed : %f"), GetCharacterMovement()->MaxWalkSpeed);
+}
+
+void AMyCharacter::UnDressedWing()
+{
+	if (MyWing != nullptr)
+	{
+		MyWing->SetActorHiddenInGame(true);
+		MyWing = nullptr;
+	}
+
+}
+
+void AMyCharacter::UnDressedShoes()
+{
+	TArray<UStaticMeshComponent*> StaticMeshComponents;
+	GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+
+	for (UStaticMeshComponent* Comp : StaticMeshComponents)
+	{
+		if (Comp->GetFName() == FName(TEXT("Shoes_l")) || Comp->GetFName() == FName(TEXT("Shoes_r")))
+		{
+			Comp->SetStaticMesh(nullptr);
+		}
+	}
+
+	if (MyShoes)
+	{
+		MyShoes->Destroy();
+		MyShoes = nullptr;
+	}
+}
+
+void AMyCharacter::UnDressedHelmet()
+{
+	TArray<UStaticMeshComponent*> StaticMeshComponents;
+	GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+
+	for (UStaticMeshComponent* Comp : StaticMeshComponents)
+	{
+		if (Comp->GetFName() == FName(TEXT("Helmet")))
+		{
+			Comp->SetStaticMesh(nullptr);
+		}
+	}
+
+	if (MyHelmet)
+	{
+		MyHelmet->Destroy();
+		MyHelmet = nullptr;
+	}
+}
+
+void AMyCharacter::UnEquippedWeapon(FName ItemName)
+{
+	if (GetMyWeapon() != nullptr && GetMyWeapon()->ItemName == ItemName)
+	{
+		GetMyWeapon()->Destroy();
+
+		SetMyWeapon(nullptr);
+
+		// 다음 무기 있으면 장착 
+
+	}
 }
 

@@ -24,6 +24,6 @@ void UEquipmentWidget::InitSlots()
     EquipmentSlots.Add(EEQUIPMENT_TYPE::OTHER, OtherWeaponSlot);
     EquipmentSlots.Add(EEQUIPMENT_TYPE::WING, WingSlot);
     EquipmentSlots.Add(EEQUIPMENT_TYPE::SHOES, ShoesSlot);
-    EquipmentSlots.Add(EEQUIPMENT_TYPE::HEAD, HeadSlot);
+    EquipmentSlots.Add(EEQUIPMENT_TYPE::HELMET, HelmetSlot);
 }
 
