@@ -67,8 +67,8 @@ void AGun::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FName Name(TEXT("Main"));
-	SetWeaponInfo(Name);
+
+	SetWeaponInfo(ItemName);
 
 	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
 	//auto List = GameInstance->ItemList.Find(ItemName);

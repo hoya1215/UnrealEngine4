@@ -24,7 +24,10 @@ struct FCharacterData : public FTableRowBase
 	int32 Power;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxHp;
+	float MaxHp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float Defense;
 };
 
 USTRUCT()
@@ -36,7 +39,23 @@ struct FWeaponData : public FTableRowBase
 	int32 Power;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Speed;
+	float Speed;
+
+};
+
+USTRUCT()
+struct FClothesData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 Power;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float Speed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 Defense;
 
 };
 
@@ -49,10 +68,10 @@ struct FEnemyData : public FTableRowBase
 	int32 Power;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Speed;
+	float Speed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxHp;
+	float MaxHp;
 };
 
 USTRUCT()
@@ -87,6 +106,7 @@ public:
 
 	FCharacterData* GetStatData(int32 level);
 	FWeaponData* GetWeaponData(FName Name);
+	FClothesData* GetClothesData(FName Name);
 	FEnemyData* GetEnemyData(FName Name);
 	FItemData* GetItemData(FName Name);
 	USoundManager* GetSoundManager() { return SoundManager; }
@@ -97,6 +117,9 @@ private:
 
 	UPROPERTY()
 		UDataTable* WeaponData;
+
+	UPROPERTY()
+		UDataTable* ClothesData;
 
 	UPROPERTY()
 		UDataTable* EnemyData;

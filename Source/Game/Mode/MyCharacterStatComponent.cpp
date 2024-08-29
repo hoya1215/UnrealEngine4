@@ -45,16 +45,27 @@ void UMyCharacterStatComponent::SetLevel(int32 CurrentLevel)
 			Level = StatData->Level;
 			Hp = StatData->MaxHp;
 			Power = StatData->Power;
+			Defense = StatData->Defense;
 		}
 	}
 }
 
-void UMyCharacterStatComponent::SetHp(int32 NewHp)
+void UMyCharacterStatComponent::SetHp(float NewHp)
 {
 	Hp = NewHp;
 }
 
-int32 UMyCharacterStatComponent::GetMaxHp()
+void UMyCharacterStatComponent::SetPower(int32 NewPower)
+{
+	Power = NewPower;
+}
+
+void UMyCharacterStatComponent::SetDefense(int32 NewDefense)
+{
+	Defense = NewDefense;
+}
+
+float UMyCharacterStatComponent::GetMaxHp()
 {
 	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	
@@ -75,7 +86,6 @@ void UMyCharacterStatComponent::OnAttacked(float DamageAmount)
 	Hp -= DamageAmount;
 	if (Hp < 0)
 		Hp = 0;
-
-	UE_LOG(LogTemp, Warning, TEXT("My Hp :  %d"), Hp);
 }
+
 

@@ -42,7 +42,7 @@ void UMyHUD::NativeConstruct()
 void UMyHUD::UpdateHp()
 {
 
-	FString CurrentHp = FString::Printf(TEXT("Hp : %d"), MyCharacter->Stat->GetHp());
+	FString CurrentHp = FString::Printf(TEXT("Hp : %f"), MyCharacter->Stat->GetHp());
 	HpText->SetText(FText::FromString(CurrentHp));
 
 	float HpRatio = (float)MyCharacter->Stat->GetHp() / (float)MyCharacter->Stat->GetMaxHp();

@@ -23,21 +23,27 @@ protected:
 
 public:	
 	void SetLevel(int32 CurrentLevel);
-	void SetHp(int32 NewHp);
+	void SetHp(float NewHp);
+	void SetPower(int32 NewPower);
+	void SetDefense(int32 NewDefense);
 	void OnAttacked(float DamageAmount);
 
 	int32 GetLevel() { return Level; }
-	int32 GetHp() { return Hp; }
+	float GetHp() { return Hp; }
 	int32 GetPower() { return Power; }
-	int32 GetMaxHp();
+	int32 GetDefense() { return Defense; }
+	float GetMaxHp();
 
 private:
 	UPROPERTY(EditAnywhere, Category = Stat, Meta = (AllowPrivateAccess = true))
 	int32 Level;
 
 	UPROPERTY(EditAnywhere, Category = Stat, Meta = (AllowPrivateAccess = true))
-	int32 Hp;
+	float Hp;
 
 	UPROPERTY(EditAnywhere, Category = Stat, Meta = (AllowPrivateAccess = true))
 	int32 Power;
+
+	UPROPERTY(EditAnywhere, Category = Stat, Meta = (AllowPrivateAccess = true))
+		int32 Defense;
 };

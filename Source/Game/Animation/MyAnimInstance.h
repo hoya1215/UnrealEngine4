@@ -51,7 +51,7 @@ public:
 	int CurrentWeaponState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
-		int32 Hp;
+		float Hp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
 		int ForwardValue;

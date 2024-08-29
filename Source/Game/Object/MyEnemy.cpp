@@ -81,7 +81,7 @@ void AMyEnemy::Tick(float DeltaTime)
 
 
 	//int32 CurrentHp = Stat->GetHp();
-	int CurrentHp = EnemyInfo.CurrentHp;
+	float CurrentHp = EnemyInfo.CurrentHp;
 	if (CurrentHp <= 0)
 	{
 		Util::PlaySound(this, DieSound, GetActorLocation());

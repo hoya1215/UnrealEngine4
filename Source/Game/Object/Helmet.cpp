@@ -67,6 +67,7 @@ FName AHelmet::EquippedItem()
 			}
 
 			PlayerCharacter->SetMyHelmet(this);
+			PlayerCharacter->SetClothesStat(ItemName, true);
 			SetActorHiddenInGame(true);
 
 			return FName(TEXT("NULL"));

@@ -22,7 +22,7 @@ struct FEnemyInfo
 	int Speed;
 
 	UPROPERTY()
-	int CurrentHp;
+	float CurrentHp;
 };
 
 UCLASS()

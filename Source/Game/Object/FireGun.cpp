@@ -66,8 +66,7 @@ void AFireGun::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FName Name(TEXT("Sub"));
-	SetWeaponInfo(Name);
+	SetWeaponInfo(ItemName);
 
 	EffectComponent->Deactivate();
 

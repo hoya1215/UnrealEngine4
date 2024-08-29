@@ -22,6 +22,9 @@ UMyGameInstance::UMyGameInstance()
 	if (ID.Succeeded())
 		ItemData = ID.Object;
 
+	static ConstructorHelpers::FObjectFinder<UDataTable> CD(TEXT("DataTable'/Game/Custom/Data/DT_Clothes.DT_Clothes'"));
+	if (CD.Succeeded())
+		ClothesData = CD.Object;
 
 }
 
@@ -44,6 +47,11 @@ FCharacterData* UMyGameInstance::GetStatData(int32 level)
 FWeaponData* UMyGameInstance::GetWeaponData(FName Name)
 {
 	return WeaponData->FindRow<FWeaponData>(Name, TEXT(""));
+}
+
+FClothesData* UMyGameInstance::GetClothesData(FName Name)
+{
+	return ClothesData->FindRow<FClothesData>(Name, TEXT(""));
 }
 
 FEnemyData* UMyGameInstance::GetEnemyData(FName Name)

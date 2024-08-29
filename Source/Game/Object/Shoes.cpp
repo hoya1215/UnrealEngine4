@@ -68,6 +68,7 @@ FName AShoes::EquippedItem()
 			}
 
 			PlayerCharacter->SetMyShoes(this);
+			PlayerCharacter->SetClothesStat(ItemName, true);
 			SetActorHiddenInGame(true);
 
 			return FName(TEXT("NULL"));

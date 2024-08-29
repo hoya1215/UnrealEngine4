@@ -50,7 +50,7 @@ public:
 		bool IsPicking;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
-		int32 Hp;
+		float Hp;
 
 	FAttackEnd AttackEnd;
 

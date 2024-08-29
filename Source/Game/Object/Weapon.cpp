@@ -90,6 +90,7 @@ void AWeapon::AttachToCharacter()
 	PlayerCharacter->SetMyWeapon(this);
 	SetActorHiddenInGame(false);
 	PlayerCharacter->CurrentWeaponState = WeaponState;
+	PlayerCharacter->SetWeaponStat(ItemName, true);
 }
 
 void AWeapon::SetWeaponInfo(FName Name)

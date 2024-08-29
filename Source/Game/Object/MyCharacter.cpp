@@ -234,8 +234,8 @@ void AMyCharacter::Tick(float DeltaTime)
 		SetActorRotation(NewRotation);
 	}
 
-	int32 CurrentHp = Stat->GetHp();
-	if (CurrentHp <= 0)
+	float CurrentHp = Stat->GetHp();
+	if (CurrentHp <= 0.0)
 	{
 		GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		SetActorTickEnabled(false);
@@ -270,7 +270,9 @@ void AMyCharacter::Tick(float DeltaTime)
 	// Tick 이 아니고 무기 변경해줄때마다 하면 실제 속도는 변화 x -> 개선
 	if (MyWeapon == nullptr)
 		CurrentWeaponState = 2;
-	ChangeSpeed();
+
+	GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed;
+	//ChangeSpeed();
 }
 
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -471,7 +473,7 @@ void AMyCharacter::MainAttack()
 			{
 				FDamageEvent DamageEvent;
 
-				HitResult.Actor->TakeDamage(Stat->GetPower() + MyWeapon->GetWeaponInfo().Power, DamageEvent, GetController(), this);
+				HitResult.Actor->TakeDamage(Stat->GetPower(), DamageEvent, GetController(), this);
 			}
 
 			if (MyWeapon->Effect)
@@ -537,7 +539,7 @@ void AMyCharacter::SubAttack()
 		{
 			CurrentEnemy->FireGunDamageTime = 0.f;
 			FDamageEvent event;
-			HitResult.Actor->TakeDamage(Stat->GetPower() + MyWeapon->GetWeaponInfo().Power, event, GetController(), this);
+			HitResult.Actor->TakeDamage(Stat->GetPower(), event, GetController(), this);
 		}
 
 
@@ -585,7 +587,7 @@ void AMyCharacter::OtherAttack()
 
 
 		FDamageEvent event;
-		HitResult.Actor->TakeDamage(Stat->GetPower() + MyWeapon->GetWeaponInfo().Power, event, GetController(), this);
+		HitResult.Actor->TakeDamage(Stat->GetPower(), event, GetController(), this);
 	}
 
 	bIsAttacking = false;
@@ -880,6 +882,71 @@ void AMyCharacter::ChangeSpeed()
 	//UE_LOG(LogTemp, Warning, TEXT("Current Speed : %f"), GetCharacterMovement()->MaxWalkSpeed);
 }
 
+void AMyCharacter::SetClothesStat(FName Name, bool Plus)
+{
+	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+	auto ClothesData = GameInstance->GetClothesData(Name);
+
+	if (Plus)
+	{
+		if (ClothesData)
+		{
+			DefaultSpeed += ClothesData->Speed;
+			int32 NewPower = Stat->GetPower() + ClothesData->Power;
+			Stat->SetPower(NewPower);
+			int32 NewDefense = Stat->GetDefense() + ClothesData->Defense;
+			Stat->SetDefense(NewDefense);
+		}
+
+		
+	}
+	else
+	{
+		if (ClothesData)
+		{
+			DefaultSpeed -= ClothesData->Speed;
+			int32 NewPower = Stat->GetPower() - ClothesData->Power;
+			Stat->SetPower(NewPower);
+			int32 NewDefense = Stat->GetDefense() - ClothesData->Defense;
+			Stat->SetDefense(NewDefense);
+		}
+
+
+	}
+
+
+
+
+}
+
+void AMyCharacter::SetWeaponStat(FName Name, bool Plus)
+{
+	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+	auto WeaponData = GameInstance->GetWeaponData(Name);
+
+	if (Plus)
+	{
+		if (WeaponData)
+		{
+			DefaultSpeed += WeaponData->Speed;
+			int32 NewPower = Stat->GetPower() + WeaponData->Power;
+			Stat->SetPower(NewPower);
+		}
+
+	}
+	else
+	{
+		if (WeaponData)
+		{
+			DefaultSpeed -= WeaponData->Speed;
+			int32 NewPower = Stat->GetPower() - WeaponData->Power;
+			Stat->SetPower(NewPower);
+		}
+
+	}
+
+}
+
 void AMyCharacter::UnDressedWing()
 {
 	if (MyWing != nullptr)
@@ -905,6 +972,8 @@ void AMyCharacter::UnDressedShoes()
 
 	if (MyShoes)
 	{
+		SetClothesStat(MyShoes->ItemName, false);
+
 		MyShoes->Destroy();
 		MyShoes = nullptr;
 	}
@@ -925,6 +994,8 @@ void AMyCharacter::UnDressedHelmet()
 
 	if (MyHelmet)
 	{
+		SetClothesStat(MyHelmet->ItemName, false);
+
 		MyHelmet->Destroy();
 		MyHelmet = nullptr;
 	}
@@ -934,6 +1005,8 @@ void AMyCharacter::UnEquippedWeapon(FName ItemName)
 {
 	if (GetMyWeapon() != nullptr && GetMyWeapon()->ItemName == ItemName)
 	{
+		SetWeaponStat(ItemName, false);
+
 		GetMyWeapon()->Destroy();
 
 		SetMyWeapon(nullptr);
