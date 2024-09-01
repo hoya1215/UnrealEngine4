@@ -56,7 +56,7 @@ AFireGun::AFireGun()
 		MaterialTexture = MI.Object;
 	}
 
-	ItemName = FName(TEXT("FireGun"));
+	ItemInfo.ItemName = FName(TEXT("FireGun"));
 	ItemClass = AFireGun::StaticClass();
 
 	AttackSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/Smoke01_Cue.Smoke01_Cue'"));
@@ -66,7 +66,7 @@ void AFireGun::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetWeaponInfo(ItemName);
+	SetWeaponInfo(ItemInfo.ItemName);
 
 	EffectComponent->Deactivate();
 

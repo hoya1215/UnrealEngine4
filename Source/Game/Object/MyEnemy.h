@@ -10,6 +10,14 @@
 
 class USoundCue;
 
+UENUM()
+enum class EENEMY_TYPE : uint8
+{
+	ET_DEFAULT UMETA(DisplayName = "Default"),
+	ET_SMALL UMETA(DisplayName = "Small"),
+	ET_BOSS UMETA(DisplayName = "Boss")
+};
+
 USTRUCT()
 struct FEnemyInfo
 {
@@ -23,6 +31,12 @@ struct FEnemyInfo
 
 	UPROPERTY()
 	float CurrentHp;
+
+	UPROPERTY()
+		int32 Level;
+
+	UPROPERTY()
+		float EnemyExp;
 };
 
 UCLASS()
@@ -35,14 +49,16 @@ public:
 
 	// Çàµ¿
 	void Attack();
-
+	
 
 	virtual void Die();
+	virtual void Disappear();
 	// Get Set
 	int32 GetEnemyTypeIndex(EENEMY_TYPE EEnemyType);
 	FEnemyInfo GetEnemyInfo() { return EnemyInfo; }
 	void SetEnemyInfo(FName Name);
 
+	void SpawnItemList();
 
 protected:
 	virtual void BeginPlay() override;
@@ -76,8 +92,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		bool IsPicking = false;
 
-	FTimerHandle DieTimer;
-	float DieTime = 3.f;
+	FTimerHandle DisappearTimer;
+	float DisappearTime = 3.f;
+	bool bSpawned = false;
 
 	UPROPERTY()
 		EENEMY_TYPE EnemyType;
@@ -90,6 +107,9 @@ public:
 
 	UPROPERTY()
 		USoundCue* DieSound;
+
+	// Item
+	TArray<FName> HaveItemList;
 
 private:
 	UPROPERTY()

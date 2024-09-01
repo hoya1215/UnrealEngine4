@@ -4,6 +4,11 @@
 #include "MyCharacterStatComponent.h"
 #include "MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "MyCharacter.h"
+#include "MyGameModeBase.h"
+#include "MyHUD.h"
+#include "EnhanceWidget.h"
+#include "EnhanceSlotWidget.h"
 
 // Sets default values for this component's properties
 UMyCharacterStatComponent::UMyCharacterStatComponent()
@@ -81,11 +86,83 @@ float UMyCharacterStatComponent::GetMaxHp()
 	return -1;
 }
 
+int32 UMyCharacterStatComponent::GetPowerIncludeLevel(int32 CharacterLevel, int32 EnemyLevel, int32 CurrentPower)
+{
+	int32 NewPower = CurrentPower + FMath::Min((CharacterLevel - EnemyLevel), MaxLevelDifference);
+	if (NewPower < 0)
+		NewPower = 0;
+
+	return NewPower;
+}
+
+int32 UMyCharacterStatComponent::GetDamageIncludeDefense(int32 EnemyPower, int32 CurrentDefense)
+{
+	int32 Damage = EnemyPower * ((float)MaxDefense / float(MaxDefense - CurrentDefense));
+
+	return Damage;
+}
+
 void UMyCharacterStatComponent::OnAttacked(float DamageAmount)
 {
 	Hp -= DamageAmount;
 	if (Hp < 0)
+	{
 		Hp = 0;
+
+		MyCharacter->Die();
+	}
+}
+
+void UMyCharacterStatComponent::UpdateExp(float NewExp)
+{
+	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	auto StatData = MyGameInstance->GetStatData(Level);
+	float NeedExp = StatData->NeedExp;
+
+
+	CurrentExp += NewExp;
+	if (CurrentExp >= NeedExp)
+	{
+		int Value = CurrentExp / NeedExp;
+		LevelUp(Value);
+
+		CurrentExp = CurrentExp - (CurrentExp / NeedExp) * NeedExp;
+
+	}
+
+	float ExpRatio = CurrentExp / NeedExp;
+	AMyGameModeBase* MyGameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	if (MyGameMode)
+	{
+		UMyHUD* MyHUD = Cast<UMyHUD>(MyGameMode->Widget);
+		MyHUD->UpdateExp(ExpRatio);
+	}
+}
+
+void UMyCharacterStatComponent::LevelUp(int Value)
+{
+	if (Level + Value > MaxLevel)
+	{
+		EnhancePoint += MaxLevel - Level;
+		Level = MaxLevel;
+		CurrentExp = 100.f;
+	}
+	else
+	{
+		EnhancePoint += Value;
+		Level += Value;
+	}
+
+	MyCharacter->GetEnhanceWidget()->UpdateEnhancePoint();
+
+	AMyGameModeBase* MyGameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	if (MyGameMode)
+	{
+		UMyHUD* MyHUD = Cast<UMyHUD>(MyGameMode->Widget);
+		MyHUD->UpdateLevel(Level);
+	}
+
+	SetLevel(Level);
 }
 
 

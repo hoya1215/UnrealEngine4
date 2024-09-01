@@ -13,6 +13,8 @@
 #include "InventorySlotWidget.h"
 #include "Weapon.h"
 #include "Wing.h"
+#include "Shoes.h"
+#include "Helmet.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MyGameInstance.h"
 
@@ -23,34 +25,39 @@ void UEquipmentSlotWidget::NativeConstruct()
 
 	GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
 
+	SlotData.ItemInfo.ItemName = FName("NULL");
+	SlotData.ItemInfo.Level = 0;
+
 }
 
-void UEquipmentSlotWidget::PushEquipment(FName Name)
+void UEquipmentSlotWidget::PushEquipment(FSlotData Data)
 {
-	auto ItemData = GameInstance->GetItemData(Name);
+	auto ItemData = GameInstance->GetItemData(Data.ItemInfo.ItemName);
 
 	SlotTexture = ItemData->ItemIcon.LoadSynchronous();
 
 	SlotImage->SetBrushFromTexture(SlotTexture);
-	ItemName = Name;
+	SlotData = Data;
+
 }
 
 void UEquipmentSlotWidget::PullEquipment()
 {
 	SlotTexture = DefaultSlotTexture;
 	SlotImage->SetBrushFromTexture(DefaultSlotTexture);
-	ItemName = FName(TEXT("NULL"));
+	SlotData.ItemInfo.ItemName = FName(TEXT("NULL"));
+	SlotData.ItemInfo.Level = 0;
 }
 
-FName UEquipmentSlotWidget::SwapEquipment(FName NewName)
+FSlotData UEquipmentSlotWidget::SwapEquipment(FSlotData Data)
 {
-	FName PulledName = ItemName;
-	ItemName = NewName;
+	FSlotData PulledData = SlotData;
+	SlotData = Data;
 	//AItem* PulledItem = CurrentItem;
 	PullEquipment();
-	PushEquipment(NewName);
+	PushEquipment(SlotData);
 
-	return PulledName;
+	return PulledData;
 }
 
 FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
@@ -60,34 +67,38 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 
 	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
-	if (PlayerCharacter && ItemName != FName(TEXT("NULL")))
+	if (PlayerCharacter && SlotData.ItemInfo.ItemName != FName(TEXT("NULL")))
 	{
 		// 슬롯에서 해제
 		for (int i = 0; i < PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets.Num(); ++i)
 		{
-			if (PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->ItemName == FName(TEXT("NULL")))
+			if (PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->SlotData.ItemInfo.ItemName == FName(TEXT("NULL")))
 			{
-				PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->AddItem(ItemName);
+				PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->AddItem(SlotData.ItemInfo);
 				break;
 			}
 		}
 
 		// 실제 아이템 장착 해제
-		if (ItemName == FName(TEXT("Wing")))
+		if (SlotData.ItemInfo.ItemName == FName(TEXT("Wing")))
 		{
-			PlayerCharacter->UnDressedWing();
+			//PlayerCharacter->UnDressedWing();
+			PlayerCharacter->GetMyWing()->UnEquippedItem();
 		}
-		else if (ItemName == FName(TEXT("Shoes")))
+		else if (SlotData.ItemInfo.ItemName == FName(TEXT("Shoes")))
 		{
-			PlayerCharacter->UnDressedShoes();
+			//PlayerCharacter->UnDressedShoes();
+			PlayerCharacter->GetMyShoes()->UnEquippedItem();
 		}
-		else if (ItemName == FName(TEXT("Helmet")))
+		else if (SlotData.ItemInfo.ItemName == FName(TEXT("Helmet")))
 		{
-			PlayerCharacter->UnDressedHelmet();
+			//PlayerCharacter->UnDressedHelmet();
+			PlayerCharacter->GetMyHelmet()->UnEquippedItem();
 		}
 		else
 		{
-			PlayerCharacter->UnEquippedWeapon(ItemName);
+			//PlayerCharacter->UnEquippedWeapon(SlotData.ItemInfo.ItemName);
+			PlayerCharacter->GetMyWeapon()->UnEquippedItem();
 		}
 
 		//if (CurrentItem->InventoryType == EINVENTORY_TYPE::EQUIPMENT)

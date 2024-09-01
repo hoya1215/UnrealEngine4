@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "InventorySlotWidget.h"
 #include "EquipmentSlotWidget.generated.h"
 
 class AItem;
@@ -23,9 +24,9 @@ class GAME_API UEquipmentSlotWidget : public UUserWidget
 public:
 	virtual void NativeConstruct() override;
 
-	void PushEquipment(FName Name);
+	void PushEquipment(FSlotData Data);
 	void PullEquipment();
-	FName SwapEquipment(FName NewName);
+	FSlotData SwapEquipment(FSlotData Data);
 
 	virtual FReply NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
@@ -40,10 +41,7 @@ public:
 		class UImage* SlotImage;
 
 	UPROPERTY()
-		AItem* CurrentItem;
-
-	UPROPERTY()
-		FName ItemName {TEXT("NULL") };
+		FSlotData SlotData;
 
 	UPROPERTY()
 		class UMyGameInstance* GameInstance;

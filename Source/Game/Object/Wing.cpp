@@ -7,7 +7,7 @@
 #include "EquipmentWidget.h"
 #include "EquipmentSlotWidget.h"
 #include "MyGameInstance.h"
-
+#include "Util.h"
 
 AWing::AWing()
 {
@@ -23,7 +23,7 @@ AWing::AWing()
 	//ItemTexture = MakeShareable(WingTexture);
 
 
-	ItemName = FName(TEXT("Wing"));
+	ItemInfo.ItemName = FName(TEXT("Wing"));
 	ItemClass = AWing::StaticClass();
 	//SetActorRotation(FRotator(-85.f, 85.f, 81.f));
 }
@@ -41,39 +41,66 @@ void AWing::BeginPlay()
 	//}
 }
 
-FName AWing::EquippedItem()
+void AWing::EquippedItem(FItemInfo Info)
 {
+	FSlotData SlotData;
+
 	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
-	if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
+	//if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
+	//{
+	//	UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
+
+	//	SlotData.ItemName = ItemName;
+	//	SlotData.Level = Level;
+
+	//	if (CurrentSlot->SlotData.ItemName != FName(TEXT("NULL")))
+	//	{
+	//		// ±³Ã¼
+	//		return CurrentSlot->SwapEquipment(SlotData);
+	//	}
+	//	else
+	//	{
+
+	//		// ÀåÂø
+	//		CurrentSlot->PushEquipment(SlotData);
+
+	//		// ÀåÂø
+	//		FName WingSocket(TEXT("Wing_Socket"));
+
+	//		
+	//		AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+	//			WingSocket);
+	//		SetActorRelativeRotation(FRotator(270.f, 0.f, 0.f));
+	//		PlayerCharacter->SetMyWing(this);
+	//		SetActorHiddenInGame(false);
+
+	//		SlotData.ItemName = FName(TEXT("NULL"));
+	//		return SlotData;
+	//	}
+	//}
+
+	//SlotData.ItemName = FName(TEXT("NULL"));
+	//return SlotData;
+
+	// ÀåÂø
+	FName WingSocket(TEXT("Wing_Socket"));
+
+
+	AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+		WingSocket);
+	SetActorRelativeRotation(FRotator(270.f, 0.f, 0.f));
+	PlayerCharacter->SetMyWing(this);
+	SetActorHiddenInGame(false);
+}
+
+void AWing::UnEquippedItem()
+{
+	AMyCharacter* MyCharacter = Util::GetMyCharacter(GetWorld());
+
+	if (MyCharacter->GetMyWing() != nullptr)
 	{
-		UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
-
-
-		if (CurrentSlot->ItemName != FName(TEXT("NULL")))
-		{
-			// ±³Ã¼
-			return CurrentSlot->SwapEquipment(ItemName);
-		}
-		else
-		{
-
-			// ÀåÂø
-			CurrentSlot->PushEquipment(ItemName);
-
-			// ÀåÂø
-			FName WingSocket(TEXT("Wing_Socket"));
-
-			
-			AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-				WingSocket);
-			SetActorRelativeRotation(FRotator(270.f, 0.f, 0.f));
-			PlayerCharacter->SetMyWing(this);
-			SetActorHiddenInGame(false);
-
-			return FName(TEXT("NULL"));
-		}
+		MyCharacter->GetMyWing()->SetActorHiddenInGame(true);
+		MyCharacter->SetMyWing(nullptr);
 	}
-
-	return FName(TEXT("NULL"));
 }

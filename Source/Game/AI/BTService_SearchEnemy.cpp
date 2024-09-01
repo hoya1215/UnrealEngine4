@@ -53,7 +53,7 @@ void UBTService_SearchEnemy::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* 
 			{
 				AMyEnemy* Enemy = Cast<AMyEnemy>(OverlapResult.GetActor());
 
-				if (Enemy)
+				if (Enemy && Enemy->bSpawned)
 				{
 					OwnerComp.GetBlackboardComponent()->SetValueAsObject(FName(TEXT("Target")), Enemy);
 

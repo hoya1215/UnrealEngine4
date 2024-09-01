@@ -9,6 +9,7 @@
 #include "MyGameInstance.generated.h"
 
 class USoundManager;
+class APoolStorage;
 /**
  * 
  */
@@ -28,6 +29,9 @@ struct FCharacterData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float Defense;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float NeedExp;
 };
 
 USTRUCT()
@@ -40,6 +44,37 @@ struct FWeaponData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Speed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FName EnhanceStatName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float ChangeAmount;
+
+};
+
+USTRUCT()
+struct FPetData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bCanAttack;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bCanMagnet;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Power;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float AttackRange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float MagnetRange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float AttackSpeed;
 
 };
 
@@ -57,6 +92,12 @@ struct FClothesData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 Defense;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FName EnhanceStatName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float ChangeAmount;
+
 };
 
 USTRUCT()
@@ -72,6 +113,12 @@ struct FEnemyData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 Level;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float EnemyExp;
 };
 
 USTRUCT()
@@ -106,6 +153,7 @@ public:
 
 	FCharacterData* GetStatData(int32 level);
 	FWeaponData* GetWeaponData(FName Name);
+	FPetData* GetPetData(FName Name);
 	FClothesData* GetClothesData(FName Name);
 	FEnemyData* GetEnemyData(FName Name);
 	FItemData* GetItemData(FName Name);
@@ -117,6 +165,9 @@ private:
 
 	UPROPERTY()
 		UDataTable* WeaponData;
+
+	UPROPERTY()
+		UDataTable* PetData;
 
 	UPROPERTY()
 		UDataTable* ClothesData;
@@ -131,9 +182,15 @@ private:
 	UPROPERTY()
 		USoundManager* SoundManager;
 
+
+
+
 public:
 	// ItemList
 	TMap < FName, TTuple<TSubclassOf<AItem>, int>> ItemList;
 	TMap<FName, TSharedPtr<class UTexture2D>> ItemTexture;
 	
+
+	UPROPERTY()
+		APoolStorage* PoolStorage;
 };

@@ -29,6 +29,10 @@
 #include "Sound/SoundCue.h"
 #include "MyGameInstance.h"
 #include "EnemyEvent.h"
+#include "EnemyPool.h"
+#include "ItemPool.h"
+#include "PoolStorage.h"
+
 
 // Sets default values
 AMyEnemy::AMyEnemy()
@@ -58,7 +62,10 @@ AMyEnemy::AMyEnemy()
 
 	DieSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/voice_male_b_death_high_07_Cue.voice_male_b_death_high_07_Cue'"));
 
-
+	HaveItemList.Add(FName(TEXT("Money")));
+	int RandomIndex = FMath::RandRange(0, 2);
+	if (RandomIndex == 1)
+		HaveItemList.Add(FName(TEXT("Potion")));
 }
 
 void AMyEnemy::BeginPlay()
@@ -81,18 +88,11 @@ void AMyEnemy::Tick(float DeltaTime)
 
 
 	//int32 CurrentHp = Stat->GetHp();
-	float CurrentHp = EnemyInfo.CurrentHp;
-	if (CurrentHp <= 0)
-	{
-		Util::PlaySound(this, DieSound, GetActorLocation());
+	//float CurrentHp = EnemyInfo.CurrentHp;
+	//if (CurrentHp <= 0)
+	//{
 
-		auto Money = GetWorld()->SpawnActor<AMoney>(GetActorLocation(), FRotator::ZeroRotator);
-		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		SetActorTickEnabled(false);
-
-		GetWorldTimerManager().SetTimer(DieTimer, this, &AMyEnemy::Die, DieTime, true);
-	}
+	//}
 
 
 	if (EnemyAnimInstance)
@@ -113,7 +113,10 @@ float AMyEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, 
 {
 	EnemyInfo.CurrentHp -= DamageAmount;
 	if (EnemyInfo.CurrentHp < 0)
+	{
 		EnemyInfo.CurrentHp = 0;
+		this->Die();
+	}
 
 	//Stat->OnAttacked(DamageAmount);
 
@@ -156,7 +159,6 @@ void AMyEnemy::Attack()
 
 	if (bResult && HitResult.Actor.IsValid())
 	{
-		UE_LOG(LogTemp, Log, TEXT("Enemy Attack"));
 
 		FDamageEvent event;
 		HitResult.Actor->TakeDamage(EnemyInfo.Power, event, GetController(), this);
@@ -169,37 +171,14 @@ void AMyEnemy::Attack()
 
 void AMyEnemy::Die()
 {
-	int32 EnemyTypeIndex = GetEnemyTypeIndex(EnemyType);
+	Util::PlaySound(this, DieSound, GetActorLocation());
 
-	if (EnemyTypeIndex == -1)
-		return;
+	//auto Money = GetWorld()->SpawnActor<AMoney>(GetActorLocation(), FRotator::ZeroRotator);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	SetActorTickEnabled(false);
 
-	TArray<AActor*> EnemyEvents;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnemyEvent::StaticClass(), EnemyEvents);
-
-	for (auto Event : EnemyEvents)
-	{
-		AEnemyEvent* EnemyEvent = Cast<AEnemyEvent>(Event);
-
-		if (EnemyEvent)
-		{
-
-			if (EnemyEvent->EnemyTypeCount[EnemyTypeIndex] > 0)
-			{
-
-
-				EnemyEvent->EnemyTypeCount[EnemyTypeIndex]--;
-				EnemyEvent->CurrentEnemyCount--;
-			}
-		}
-		break;
-	}
-
-	//AMyGameModeBase* GameModeBase = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(this));
-	//if (GameModeBase && GameModeBase->EnemyTypeCount[EnemyTypeIndex] > 0)
-	//{
-	//	GameModeBase->EnemyTypeCount[EnemyTypeIndex]--;
-	//}
+	SpawnItemList();
 
 	AEnemyController* AIController = Cast<AEnemyController>(GetController());
 	if (AIController)
@@ -207,8 +186,61 @@ void AMyEnemy::Die()
 		AIController->OnUnPossess();
 		//AIController->Destroy();
 	}
-	
-	Destroy();
+
+	AMyCharacter* MyCharacter = Util::GetMyCharacter(GetWorld());
+	if (MyCharacter->Stat->GetLevel() < MyCharacter->Stat->GetMaxLevel())
+	{
+		MyCharacter->Stat->UpdateExp(EnemyInfo.EnemyExp);
+	}
+
+	GetWorldTimerManager().SetTimer(DisappearTimer, this, &AMyEnemy::Disappear, DisappearTime, true);
+}
+
+void AMyEnemy::Disappear()
+{
+	bSpawned = false;
+
+	int32 EnemyTypeIndex = GetEnemyTypeIndex(EnemyType);
+
+	if (EnemyTypeIndex == -1)
+		return;
+
+
+
+	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+	GameInstance->PoolStorage->EnemyPool->ReturnEnemy(EnemyType, this);
+
+	//TArray<AActor*> EnemyEvents;
+	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnemyEvent::StaticClass(), EnemyEvents);
+
+	//for (auto Event : EnemyEvents)
+	//{
+	//	AEnemyEvent* EnemyEvent = Cast<AEnemyEvent>(Event);
+
+	//	if (EnemyEvent)
+	//	{
+	//		EnemyEvent->GetEnemyPool()->ReturnEnemy(EnemyType, this);
+
+	//		//if (EnemyEvent->EnemyTypeCount[EnemyTypeIndex] > 0)
+	//		//{
+
+
+	//		//	EnemyEvent->EnemyTypeCount[EnemyTypeIndex]--;
+	//		//	EnemyEvent->CurrentEnemyCount--;
+	//		//}
+	//	}
+	//	break;
+	//}
+
+	//AMyGameModeBase* GameModeBase = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(this));
+	//if (GameModeBase && GameModeBase->EnemyTypeCount[EnemyTypeIndex] > 0)
+	//{
+	//	GameModeBase->EnemyTypeCount[EnemyTypeIndex]--;
+	//}
+
+
+
+	//Destroy();
 }
 
 int32 AMyEnemy::GetEnemyTypeIndex(EENEMY_TYPE EEnemyType)
@@ -237,8 +269,20 @@ void AMyEnemy::SetEnemyInfo(FName Name)
 	EnemyInfo.Power = EnemyData->Power;
 	EnemyInfo.Speed = EnemyData->Speed;
 	EnemyInfo.CurrentHp = EnemyData->MaxHp;
+	EnemyInfo.Level = EnemyData->Level;
+	EnemyInfo.EnemyExp = EnemyData->EnemyExp;
 }
 
+void AMyEnemy::SpawnItemList()
+{
+	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+
+	for (int i = 0; i < HaveItemList.Num(); ++i)
+	{
+		FName ItemName = HaveItemList[i];
+		GameInstance->PoolStorage->ItemPool->SpawnItem(ItemName, GetActorLocation());
+	}
+}
 
 
 

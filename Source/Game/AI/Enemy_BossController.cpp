@@ -44,7 +44,7 @@ void AEnemy_BossController::Tick(float DeltaTime)
 	TArray<AActor*> Rocks;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ARock::StaticClass(), Rocks);
 
-	UE_LOG(LogTemp, Warning, TEXT("Rock Num : %d"), Rocks.Num());
+
 
 	if (Rocks.Num() > 0)
 	{

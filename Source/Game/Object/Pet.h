@@ -10,6 +10,30 @@
 
 class AItem;
 
+USTRUCT()
+struct FPetInfo
+{
+	GENERATED_BODY()
+
+		UPROPERTY()
+		bool bCanAttack;
+
+	UPROPERTY()
+		bool bCanMagnet;
+
+	UPROPERTY()
+		int Power;
+
+	UPROPERTY()
+		float AttackRange;
+
+	UPROPERTY()
+		float MagnetRange;
+
+	UPROPERTY()
+		float AttackSpeed;
+};
+
 UCLASS()
 class GAME_API APet : public ACharacter
 {
@@ -28,6 +52,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void Attack();
+	void SearchEnemy();
 	void SearchItem();
 	void MagnetItem(AItem* Item);
 	void Stop();
@@ -35,10 +60,17 @@ public:
 
 	FRotator GetDefaultRotation() { return DefaultRotation; }
 	void SetDefaultRotation(FRotator NewRotation) { DefaultRotation = NewRotation; }
+	void SetPetInfo(FName Name);
 	void AttackEffectBegin();
 	void AttackEffectEnd();
 
 public:
+	UPROPERTY()
+		FName PetName;
+
+	UPROPERTY()
+		FPetInfo PetInfo;
+
 	// 자석 효과
 	UPROPERTY()
 		bool bIsMagnet = true; 

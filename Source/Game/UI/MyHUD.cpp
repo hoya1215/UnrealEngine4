@@ -42,11 +42,25 @@ void UMyHUD::NativeConstruct()
 void UMyHUD::UpdateHp()
 {
 
-	FString CurrentHp = FString::Printf(TEXT("Hp : %f"), MyCharacter->Stat->GetHp());
+	FString CurrentHp = FString::Printf(TEXT("Hp : %.1f"), MyCharacter->Stat->GetHp());
 	HpText->SetText(FText::FromString(CurrentHp));
 
 	float HpRatio = (float)MyCharacter->Stat->GetHp() / (float)MyCharacter->Stat->GetMaxHp();
 	Hp_Bar->SetPercent(HpRatio);
+}
+
+void UMyHUD::UpdateExp(float ExpRatio)
+{
+	FString CurrentExp = FString::Printf(TEXT("Exp : %.1f %"), ExpRatio * 100.f);
+	ExpText->SetText(FText::FromString(CurrentExp));
+
+	Exp_Bar->SetPercent(ExpRatio);
+}
+
+void UMyHUD::UpdateLevel(int Level)
+{
+	FString CurrentLevel = FString::Printf(TEXT("Lv %d"), Level);
+	LevelText->SetText(FText::FromString(CurrentLevel));
 }
 
 void UMyHUD::UpdateWeaponImage()

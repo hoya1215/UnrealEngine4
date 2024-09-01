@@ -31,7 +31,11 @@ void UInventoryWidget::NativeConstruct()
     // Default Slot , Push
     DefaultSlot = CreateWidget<UInventorySlotWidget>(this, InventorySlotWidgetClass);
     DefaultSlot->SlotTexture = DefaultSlotTexture;
-    DefaultSlot->ItemName = FName(TEXT("NULL"));
+    FSlotData DefaultData;
+    DefaultData.ItemInfo.ItemName = FName(TEXT("NULL"));
+    DefaultData.ItemInfo.Level = 0;
+    DefaultData.Count = 0;
+    DefaultSlot->SlotData = DefaultData;
     DefaultSlot->GameInstance = this->GameInstance;
 
     Init();
@@ -149,22 +153,22 @@ void UInventoryWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime
 }
 
 
-void UInventoryWidget::AddItemToInventory(FName Name)
+void UInventoryWidget::AddItemToInventory(FItemInfo ItemInfo)
 {
     if (InventorySlotWidgetClass)
     {
 
 
-        switch (GameInstance->GetItemData(Name)->InventoryType)
+        switch (GameInstance->GetItemData(ItemInfo.ItemName)->InventoryType)
         {
         case EINVENTORY_TYPE::EQUIPMENT:
             if (CurrentSlotIndex_Equipment < MaxInventorySize)
             {
                 for (int i = 0; i < EquipmentSlotWidgets.Num(); ++i)
                 {
-                    if (EquipmentSlotWidgets[i]->ItemName == FName("NULL"))
+                    if (EquipmentSlotWidgets[i]->SlotData.ItemInfo.ItemName == FName("NULL"))
                     {
-                        EquipmentSlotWidgets[i]->AddItem(Name);
+                        EquipmentSlotWidgets[i]->AddItem(ItemInfo);
                         break;
                     }
                 }
@@ -178,9 +182,9 @@ void UInventoryWidget::AddItemToInventory(FName Name)
 
                 for (int i = 0; i < ConsumptionSlotWidgets.Num(); ++i)
                 {
-                    if (ConsumptionSlotWidgets[i]->ItemName == Name)
+                    if (ConsumptionSlotWidgets[i]->SlotData.ItemInfo.ItemName == ItemInfo.ItemName)
                     {
-                        ConsumptionSlotWidgets[i]->AddItem(Name);
+                        ConsumptionSlotWidgets[i]->AddItem(ItemInfo);
                         bNew = false;
                         break;
                     }
@@ -190,9 +194,9 @@ void UInventoryWidget::AddItemToInventory(FName Name)
                 {
                     for (int i = 0; i < ConsumptionSlotWidgets.Num(); ++i)
                     {
-                        if (ConsumptionSlotWidgets[i]->ItemName == FName(TEXT("NULL")))
+                        if (ConsumptionSlotWidgets[i]->SlotData.ItemInfo.ItemName == FName(TEXT("NULL")))
                         {
-                            ConsumptionSlotWidgets[i]->AddItem(Name);
+                            ConsumptionSlotWidgets[i]->AddItem(ItemInfo);
                             break;
                         }
                     }
@@ -205,9 +209,9 @@ void UInventoryWidget::AddItemToInventory(FName Name)
             {
                 for (int i = 0; i < ETCSlotWidgets.Num(); ++i)
                 {
-                    if (ETCSlotWidgets[i]->ItemName == FName(TEXT("NULL")))
+                    if (ETCSlotWidgets[i]->SlotData.ItemInfo.ItemName == FName(TEXT("NULL")))
                     {
-                        ETCSlotWidgets[i]->AddItem(Name);
+                        ETCSlotWidgets[i]->AddItem(ItemInfo);
                         break;
                     }
                 }

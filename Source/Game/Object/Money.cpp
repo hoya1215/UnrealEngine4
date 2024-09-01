@@ -22,12 +22,12 @@ AMoney::AMoney()
 
 	Trigger->SetupAttachment(Mesh);
 	Mesh->SetCollisionProfileName(TEXT("Item"));
-	Mesh->SetSimulatePhysics(true);
-	Mesh->SetEnableGravity(true);
+	Mesh->SetSimulatePhysics(false);
+	Mesh->SetEnableGravity(false);
 
 	Value = FMath::RandRange(500, 1000);
 
-	ItemName = FName(TEXT("Money"));
+	ItemInfo.ItemName = FName(TEXT("Money"));
 	ItemType = EITEM_TYPE::MONEY;
 	InventoryType = EINVENTORY_TYPE::CONSUMPTION;
 

@@ -25,6 +25,8 @@ public:
 	virtual void NativeConstruct() override;
 
 	void UpdateHp();
+	void UpdateExp(float ExpRatio);
+	void UpdateLevel(int Level);
 	void UpdateWeaponImage();
 
 	void SetCharacter(AMyCharacter* CurrentCharacter);
@@ -38,6 +40,15 @@ public:
 
 	UPROPERTY(Meta = (BindWidget))
 		UProgressBar* Hp_Bar;
+
+	UPROPERTY(Meta = (BindWidget))
+		UProgressBar* Exp_Bar;
+
+	UPROPERTY(Meta = (BindWidget))
+		UTextBlock* ExpText;
+
+	UPROPERTY(Meta = (BindWidget))
+		UTextBlock* LevelText;
 
 	UPROPERTY(Meta = (BindWidget))
 		UImage* CurrentWeapon;

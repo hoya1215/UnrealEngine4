@@ -44,6 +44,5 @@ void UPetAnimInstance::AnimNotify_AttackEnd()
 	{
 		MyPet->bIsAttacking = false;
 		bIsAttacking = false;
-		UE_LOG(LogTemp, Warning, TEXT("Pet Attack End"));
 	}
 }

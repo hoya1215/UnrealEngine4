@@ -56,7 +56,7 @@ AGun::AGun()
 		MaterialTexture = MI.Object;
 	}
 
-	ItemName = FName(TEXT("MainGun"));
+	ItemInfo.ItemName = FName(TEXT("MainGun"));
 	ItemClass = AGun::StaticClass();
 
 	AttackSound = LoadObject<USoundCue>(nullptr, TEXT("SoundCue'/Game/Custom/Sound/Explosion_Cue.Explosion_Cue'"));
@@ -68,7 +68,7 @@ void AGun::BeginPlay()
 	Super::BeginPlay();
 
 
-	SetWeaponInfo(ItemName);
+	SetWeaponInfo(ItemInfo.ItemName);
 
 	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
 	//auto List = GameInstance->ItemList.Find(ItemName);

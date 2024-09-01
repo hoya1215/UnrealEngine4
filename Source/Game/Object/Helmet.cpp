@@ -8,6 +8,7 @@
 #include "EquipmentWidget.h"
 #include "EquipmentSlotWidget.h"
 #include "MyGameInstance.h"
+#include "Util.h"
 
 
 AHelmet::AHelmet()
@@ -23,7 +24,7 @@ AHelmet::AHelmet()
 
 
 
-	ItemName = FName(TEXT("Helmet"));
+	ItemInfo.ItemName = FName(TEXT("Helmet"));
 	ItemClass = AHelmet::StaticClass();
 
 	HelmetStaticMesh = SM.Object;
@@ -34,45 +35,92 @@ void AHelmet::BeginPlay()
 	Super::BeginPlay();
 }
 
-FName AHelmet::EquippedItem()
+void AHelmet::EquippedItem(FItemInfo Info)
 {
 	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
-	if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
+	//FSlotData SlotData;
+
+	//if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
+	//{
+	//	UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
+
+	//	SlotData.ItemName = ItemName;
+	//	SlotData.Level = Level;
+
+	//	if (CurrentSlot->SlotData.ItemName != FName(TEXT("NULL")))
+	//	{
+	//		// ±³Ã¼
+	//		return CurrentSlot->SwapEquipment(SlotData);
+	//	}
+	//	else
+	//	{
+
+	//		// ÀåÂø
+	//		CurrentSlot->PushEquipment(SlotData);
+
+	//		// ÀåÂø
+	//		TArray<UStaticMeshComponent*> StaticMeshComponents;
+	//		PlayerCharacter->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+
+	//		for (UStaticMeshComponent* Comp : StaticMeshComponents)
+	//		{
+	//			if (Comp->GetFName() == FName(TEXT("Helmet")))
+	//			{
+	//				Comp->SetStaticMesh(HelmetStaticMesh);
+	//			}
+	//		}
+
+	//		PlayerCharacter->SetMyHelmet(this);
+	//		PlayerCharacter->SetClothesStat(ItemName, true);
+	//		SetActorHiddenInGame(true);
+
+	//		SlotData.ItemName = FName(TEXT("NULL"));
+	//		return SlotData;
+	//	}
+	//}
+
+	//SlotData.ItemName = FName(TEXT("NULL"));
+	//return SlotData;
+
+	// ÀåÂø
+	TArray<UStaticMeshComponent*> StaticMeshComponents;
+	PlayerCharacter->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+
+	for (UStaticMeshComponent* Comp : StaticMeshComponents)
 	{
-		UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
-
-
-		if (CurrentSlot->ItemName != FName(TEXT("NULL")))
+		if (Comp->GetFName() == FName(TEXT("Helmet")))
 		{
-			// ±³Ã¼
-			return CurrentSlot->SwapEquipment(ItemName);
-		}
-		else
-		{
-
-			// ÀåÂø
-			CurrentSlot->PushEquipment(ItemName);
-
-			// ÀåÂø
-			TArray<UStaticMeshComponent*> StaticMeshComponents;
-			PlayerCharacter->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
-
-			for (UStaticMeshComponent* Comp : StaticMeshComponents)
-			{
-				if (Comp->GetFName() == FName(TEXT("Helmet")))
-				{
-					Comp->SetStaticMesh(HelmetStaticMesh);
-				}
-			}
-
-			PlayerCharacter->SetMyHelmet(this);
-			PlayerCharacter->SetClothesStat(ItemName, true);
-			SetActorHiddenInGame(true);
-
-			return FName(TEXT("NULL"));
+			Comp->SetStaticMesh(HelmetStaticMesh);
 		}
 	}
 
-	return FName(TEXT("NULL"));
+	PlayerCharacter->SetMyHelmet(this);
+	PlayerCharacter->SetClothesStat(ItemName, true);
+	SetActorHiddenInGame(true);
+}
+
+void AHelmet::UnEquippedItem()
+{
+	AMyCharacter* MyCharacter = Util::GetMyCharacter(GetWorld());
+	TArray<UStaticMeshComponent*> StaticMeshComponents;
+	MyCharacter->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+
+	for (UStaticMeshComponent* Comp : StaticMeshComponents)
+	{
+		if (Comp->GetFName() == FName(TEXT("Helmet")))
+		{
+			Comp->SetStaticMesh(nullptr);
+		}
+	}
+
+	if (MyCharacter->GetMyHelmet())
+	{
+		MyCharacter->SetClothesStat(MyCharacter->GetMyHelmet()->ItemName, false);
+
+		
+		MyCharacter->SetMyHelmet(nullptr);
+	}
+
+	Destroy();
 }

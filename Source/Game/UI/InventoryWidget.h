@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Item.h"
+#include "InventorySlotWidget.h"
 #include "InventoryWidget.generated.h"
 
 class UImage;
@@ -42,8 +43,8 @@ public:
 
     virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
-    UFUNCTION(BlueprintCallable, Category = "Inventory")
-        void AddItemToInventory(FName Name);
+    UFUNCTION()
+        void AddItemToInventory(FItemInfo ItemInfo);
 
     void Init();
 

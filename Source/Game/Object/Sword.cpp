@@ -44,7 +44,7 @@ ASword::ASword()
 		MaterialTexture = MI.Object;
 	}
 	
-	ItemName = FName(TEXT("Sword"));
+	ItemInfo.ItemName = FName(TEXT("Sword"));
 	ItemClass = ASword::StaticClass();
 
 
@@ -56,7 +56,7 @@ void ASword::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetWeaponInfo(ItemName);
+	SetWeaponInfo(ItemInfo.ItemName);
 
 	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
 	//auto List = GameInstance->ItemList.Find(ItemName);

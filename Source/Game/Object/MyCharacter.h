@@ -15,6 +15,7 @@ class UWidgetComponent;
 class UUserWidget;
 class UInventoryWidget;
 class UEquipmentWidget;
+class UEnhanceWidget;
 class APet;
 class AWeapon;
 class AWing;
@@ -74,6 +75,7 @@ public:
 	void Zoom();
 	void OpenInventory();
 	void OpenEquipment();
+	void OpenEnhance();
 	void FlyingMode();
 	void SetAirControl(bool Flying);
 	void SelectWeapon(FKey Key);
@@ -81,6 +83,7 @@ public:
 	void MainAttack();
 	void SubAttack();
 	void OtherAttack();
+	void Die();
 	void Revive();
 	void ChangeSpeed();
 	void SetClothesStat(FName Name, bool Plus);
@@ -99,9 +102,12 @@ public:
 	void SetMyShoes(AShoes* CurrentShoes) { MyShoes = CurrentShoes; }
 	void SetMyHelmet(AHelmet* CurrentHelmet) { MyHelmet = CurrentHelmet; }
 	AWing* GetMyWing() { return MyWing; }
+	AHelmet* GetMyHelmet() { return MyHelmet; }
+	AShoes* GetMyShoes() { return MyShoes; }
 	UInventoryComponent* GetInventory() { return MyInventory; }
 	UInventoryWidget* GetInventoryWidget() { return MyInventoryWidget; }
 	UEquipmentWidget* GetEquipmentWidget() { return MyEquipmentWidget; }
+	UEnhanceWidget* GetEnhanceWidget() { return MyEnhanceWidget; }
 	APet* GetMyPet() { return MyPet; }
 
 	// Util
@@ -202,6 +208,9 @@ public:
 	UPROPERTY()
 		bool bIsEquipmentOn = false;
 
+	UPROPERTY()
+		bool bIsEnhanceOn = false;
+
 	// Sound
 	UPROPERTY()
 		FSounds Sounds;
@@ -237,6 +246,12 @@ private:
 
 	UPROPERTY()
 		UEquipmentWidget* MyEquipmentWidget;
+
+	UPROPERTY(EditAnywhere, Category = "UI")
+		UEnhanceWidget* MyEnhanceWidget;
+
+	UPROPERTY()
+		TSubclassOf<UEnhanceWidget> MyEnhanceWidgetClass;
 
 	FVector2D DragOffset;
 	bool bIsDragging = false;

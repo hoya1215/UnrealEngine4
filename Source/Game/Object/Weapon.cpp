@@ -8,6 +8,9 @@
 #include "MyCharacter.h"
 #include "EquipmentWidget.h"
 #include "EquipmentSlotWidget.h"
+#include "InventoryWidget.h"
+#include "Pet.h"
+#include "Util.h"
 
 AWeapon::AWeapon()
 {
@@ -17,53 +20,116 @@ AWeapon::AWeapon()
 	bCanMagnet = false;
 }
 
-FName AWeapon::EquippedItem()
+void AWeapon::UnEquippedItem()
 {
-	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	AMyCharacter* MyCharacter = Util::GetMyCharacter(GetWorld());
 
-	if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
+	if (MyCharacter->GetMyWeapon() != nullptr && MyCharacter->GetMyWeapon()->ItemName == ItemInfo.ItemName)
 	{
-		UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
+		MyCharacter->SetWeaponStat(ItemInfo.ItemName, false);
 
-		// 같은 슬롯에 아이템이 있을경우
-		if (CurrentSlot->ItemName != FName(TEXT("NULL")))
-		{
-			// 교체
-			// 기존에 있던 것 destroy
-			return CurrentSlot->SwapEquipment(ItemName);
-		}
-		else // 다른 슬롯
-		{
-			// 현재 무기 있는 경우
-			if (PlayerCharacter->GetMyWeapon() != nullptr)
-			{
-				CurrentSlot->PushEquipment(ItemName);
-				return FName(TEXT("Destroy"));
-				//Destroy();
-			}
-			else
-			{
-				// 장착
-				CurrentSlot->PushEquipment(ItemName);
+		MyCharacter->SetMyWeapon(nullptr);
 
-				AttachToCharacter();
-				//// 장착
-				//FName GunSocket(TEXT("middle_r_socket"));
-				//
-				//AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-				//	GunSocket);
-				//SetActorRotation(FRotator(0.f, 0.f, 0.f));
-				//PlayerCharacter->SetMyWeapon(this);
-				//SetActorHiddenInGame(false);
-				//PlayerCharacter->CurrentWeaponState = WeaponState;
-			}
+		// 다음 무기 있으면 장착 
 
-
-			return FName(TEXT("NULL"));
-		}
 	}
 
-	return FName(TEXT("NULL"));
+	Destroy();
+}
+
+void AWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	//FSlotData SlotData;
+	//SlotData.ItemName = ItemName;
+	//SlotData.Level = Level;
+
+	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	AMyCharacter* Character = Cast<AMyCharacter>(OtherActor);
+	APet* MyPet = Cast<APet>(OtherActor);
+
+	if (MyPet || Character)
+	{
+
+
+		if (PlayerCharacter->bCanPickUp)
+		{
+			PlayerCharacter->GetInventoryWidget()->AddItemToInventory(ItemInfo);
+			SetActorEnableCollision(false);
+			SetActorHiddenInGame(true);
+			SetActorTickEnabled(false);
+
+			Destroy();
+		}
+		else
+		{
+			SetActorEnableCollision(false);
+			SetActorHiddenInGame(false);
+			SetActorTickEnabled(false);
+		}
+
+	}
+
+	//Destroy();
+}
+
+void AWeapon::EquippedItem(FItemInfo Info)
+{
+	FSlotData SlotData;
+
+	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+
+	//if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
+	//{
+	//	UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
+
+	//	SlotData.ItemName = ItemName;
+	//	SlotData.Level = Level;
+	//	// 같은 슬롯에 아이템이 있을경우
+	//	if (CurrentSlot->SlotData.ItemName != FName(TEXT("NULL")))
+	//	{
+	//		// 교체
+	//		// 기존에 있던 것 destroy
+
+	//		return CurrentSlot->SwapEquipment(SlotData);
+	//	}
+	//	else // 다른 슬롯
+	//	{
+	//		// 현재 무기 있는 경우
+	//		if (PlayerCharacter->GetMyWeapon() != nullptr)
+	//		{
+
+	//			CurrentSlot->PushEquipment(SlotData);
+	//			SlotData.ItemName = FName(TEXT("Destroy"));
+	//			return SlotData;
+	//			//Destroy();
+	//		}
+	//		else
+	//		{
+	//			// 장착
+	//			CurrentSlot->PushEquipment(SlotData);
+
+	//			AttachToCharacter();
+	//			//// 장착
+	//			//FName GunSocket(TEXT("middle_r_socket"));
+	//			//
+	//			//AttachToComponent(PlayerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+	//			//	GunSocket);
+	//			//SetActorRotation(FRotator(0.f, 0.f, 0.f));
+	//			//PlayerCharacter->SetMyWeapon(this);
+	//			//SetActorHiddenInGame(false);
+	//			//PlayerCharacter->CurrentWeaponState = WeaponState;
+	//		}
+
+
+	//		SlotData.ItemName = FName(TEXT("NULL"));
+	//		return SlotData;
+	//	}
+	//}
+
+	//SlotData.ItemName = FName(TEXT("NULL"));
+	//return SlotData;
+
+	AttachToCharacter();
 
 }
 

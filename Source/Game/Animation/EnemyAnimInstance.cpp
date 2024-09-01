@@ -52,7 +52,6 @@ void UEnemyAnimInstance::AnimNotify_AttackHit()
 void UEnemyAnimInstance::AnimNotify_AttackEnd()
 {
 	AttackEnd.Broadcast();
-	UE_LOG(LogTemp, Warning, TEXT("Attack End"));
 	IsAttack = false;
 }
 

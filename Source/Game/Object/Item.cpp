@@ -9,7 +9,9 @@
 #include "InventoryWidget.h"
 #include "Pet.h"
 #include "Kismet/GameplayStatics.h"
-
+#include "MyGameInstance.h"
+#include "ItemPool.h"
+#include "PoolStorage.h"
 
 AItem::AItem()
 {
@@ -19,6 +21,9 @@ AItem::AItem()
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("Trigger"));
 	Trigger->SetCollisionProfileName(TEXT("Item"));
 	Trigger->SetBoxExtent(FVector(30.f, 30.f, 30.f));
+
+
+	ItemInfo.Level = 0;
 }
 
 void AItem::BeginPlay()
@@ -36,29 +41,36 @@ void AItem::PostInitializeComponents()
 
 void AItem::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
+	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
 
 	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	AMyCharacter* Character = Cast<AMyCharacter>(OtherActor);
 	APet* MyPet = Cast<APet>(OtherActor);
 
+	//FSlotData SlotData;
+	//SlotData.ItemName = ItemName;
+	//SlotData.Level = Level;
+
 	if (MyPet || Character)
 	{
-		if (PlayerCharacter->bCanPickUp)
-		{
-			PlayerCharacter->GetInventoryWidget()->AddItemToInventory(ItemName);
-			SetActorEnableCollision(false);
-			SetActorHiddenInGame(true);
-			SetActorTickEnabled(false);
+		PlayerCharacter->GetInventoryWidget()->AddItemToInventory(ItemInfo);
+		GameInstance->PoolStorage->ItemPool->ReturnItem(ItemName, this);
 
-			Destroy();
-		}
-		else
-		{
-			SetActorEnableCollision(false);
-			SetActorHiddenInGame(false);
-			SetActorTickEnabled(false);
-		}
+		//if (PlayerCharacter->bCanPickUp)
+		//{
+		//	PlayerCharacter->GetInventoryWidget()->AddItemToInventory(ItemName);
+		//	SetActorEnableCollision(false);
+		//	SetActorHiddenInGame(true);
+		//	SetActorTickEnabled(false);
+
+		//	Destroy();
+		//}
+		//else
+		//{
+		//	SetActorEnableCollision(false);
+		//	SetActorHiddenInGame(false);
+		//	SetActorTickEnabled(false);
+		//}
 
 	}
 
@@ -66,9 +78,14 @@ void AItem::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 }
 
 
-FName AItem::EquippedItem()
+void AItem::EquippedItem(FItemInfo Item)
 {
-	return ItemName;
+	return;
+}
+
+void AItem::UnEquippedItem()
+{
+	return;
 }
 
 void AItem::AttachToCharacter()

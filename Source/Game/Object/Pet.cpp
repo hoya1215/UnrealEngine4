@@ -21,6 +21,8 @@ APet::APet()
  	
 	PrimaryActorTick.bCanEverTick = true;
 
+	PetName = FName(TEXT("Pet"));
+
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SM(TEXT("SkeletalMesh'/Game/FourEvilDragonsHP/Meshes/DrangonTheSoulEater/DragonTheSoulEaterSK.DragonTheSoulEaterSK'"));
@@ -39,9 +41,9 @@ APet::APet()
 
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pet"));
 
-
-	AIControllerClass = APetController::StaticClass();
-	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+	
+	//AIControllerClass = APetController::StaticClass();
+	//AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 
 }
 
@@ -49,6 +51,7 @@ APet::APet()
 void APet::BeginPlay()
 {
 	Super::BeginPlay();
+	SetPetInfo(PetName);
 	
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	MyCharacter->CharacterDie.AddUObject(this, &APet::Stop);
@@ -61,9 +64,24 @@ void APet::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if(bIsMagnet)
+	if (PetInfo.bCanAttack)
+	{
+		SearchEnemy();
+
+		if (EnemyTarget)
+		{
+			bIsAttacking = true;
+		}
+		else
+		{
+			bIsAttacking = false;
+		}
+	}
+
+	if(PetInfo.bCanMagnet)
 		SearchItem();
 }
+
 
 void APet::Attack()
 {
@@ -82,6 +100,50 @@ void APet::Attack()
 		FDamageEvent DamageEvent;
 		EnemyTarget->TakeDamage(this->Power, DamageEvent, GetController(), this);
 	}
+}
+
+void APet::SearchEnemy()
+{
+
+
+		TArray<FOverlapResult> OverlapResults;
+		FCollisionQueryParams QueryParams(NAME_None, false, this);
+
+		bool bResult = GetWorld()->OverlapMultiByChannel(
+			OverlapResults,
+			GetActorLocation(),
+			FQuat::Identity,
+			ECollisionChannel::ECC_GameTraceChannel6, // -> Enemy Ã¤³Î·Î 
+			FCollisionShape::MakeSphere(PetInfo.AttackRange),
+			QueryParams);
+
+
+
+		if (bResult)
+		{
+			for (auto& OverlapResult : OverlapResults)
+			{
+				AMyEnemy* Enemy = Cast<AMyEnemy>(OverlapResult.GetActor());
+
+				if (Enemy && Enemy->bSpawned)
+				{
+					EnemyLocation = Enemy->GetActorLocation();
+					FVector Direction = (GetActorLocation() - Enemy->GetActorLocation()).GetSafeNormal();
+					FRotator NewRotation = FRotationMatrix::MakeFromX(Direction).Rotator();
+					SetActorRotation(FRotator(0.f, NewRotation.Yaw + 90.f, 0.f));
+					EnemyTarget = Enemy;
+
+					return;
+				}
+			}
+
+			EnemyTarget = nullptr;
+		}
+		else
+		{
+			EnemyTarget = nullptr;
+		}
+
 }
 
 void APet::SearchItem()
@@ -132,7 +194,6 @@ void APet::MagnetItem(AItem* Item)
 {
 	FVector Direction = (GetActorLocation() - Item->GetActorLocation()).GetSafeNormal();
 	FVector NewLocation = Item->GetActorLocation() + Direction * 2.0;
-	//UE_LOG(LogTemp, Warning, TEXT("Item Direction X : %f, Y : %f, Z : %f"), Direction.X, Direction.Y, Direction.Z);
 	Item->SetActorLocation(NewLocation);
 }
 
@@ -155,33 +216,50 @@ void APet::AttackEffectEnd()
 void APet::Stop()
 {
 	SetActorTickEnabled(false);
-	bCanAttack = false;
-	bIsAttacking = false;
-	bIsMagnet = false;
+	PetInfo.bCanAttack = false;
+	PetInfo.bCanMagnet = false;
 
-	APetController* PetController = Cast<APetController>(GetController());
-	if (PetController)
-	{
-		UBehaviorTreeComponent* BehaviorComp = Cast<UBehaviorTreeComponent>(PetController->BrainComponent);
-		if (BehaviorComp)
-		{
-			BehaviorComp->StopLogic("Stopping Behavior Tree");
-		}
-	}
+	bIsAttacking = false;
+
+
+	//APetController* PetController = Cast<APetController>(GetController());
+	//if (PetController)
+	//{
+	//	UBehaviorTreeComponent* BehaviorComp = Cast<UBehaviorTreeComponent>(PetController->BrainComponent);
+	//	if (BehaviorComp)
+	//	{
+	//		BehaviorComp->StopLogic("Stopping Behavior Tree");
+	//	}
+	//}
 }
 
 void APet::ReStart()
 {
 	SetActorTickEnabled(true);
-	bCanAttack = true;
+	PetInfo.bCanAttack = true;
+	PetInfo.bCanMagnet = true;
+
 	bIsAttacking = true;
-	bIsMagnet = true;
 
 
 
-	APetController* PetController = Cast<APetController>(GetController());
-	if (PetController)
-	{
-		PetController->RunBehaviorTree(PetController->GetBehaviorTree());
-	}
+
+	//APetController* PetController = Cast<APetController>(GetController());
+	//if (PetController)
+	//{
+	//	PetController->RunBehaviorTree(PetController->GetBehaviorTree());
+	//}
+}
+
+void APet::SetPetInfo(FName Name)
+{
+	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	auto PetData = MyGameInstance->GetPetData(Name);
+
+	PetInfo.bCanAttack = PetData->bCanAttack;
+	PetInfo.bCanMagnet = PetData->bCanMagnet;
+	PetInfo.Power = PetData->Power;
+	PetInfo.AttackRange = PetData->AttackRange;
+	PetInfo.MagnetRange = PetData->MagnetRange;
+	PetInfo.AttackSpeed = PetData->AttackSpeed;
 }

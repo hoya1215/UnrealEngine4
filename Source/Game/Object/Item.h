@@ -32,7 +32,37 @@ enum class EEQUIPMENT_TYPE : uint8
 UENUM()
 enum class EITEM_TYPE : uint8
 {
-	MONEY UMETA(DisplayName = "Money")
+	MONEY UMETA(DisplayName = "Money"),
+	POTION UMETA(DisplayName = "Potion")
+};
+
+USTRUCT()
+struct FItemInfo
+{
+	GENERATED_BODY()
+
+public:
+	FItemInfo()
+	{
+		ItemName = FName(TEXT("NULL"));
+		Level = 0;
+	}
+
+	FItemInfo& operator=(const FItemInfo& NewInfo)
+	{
+		if (this != &NewInfo)
+		{
+			this->ItemName = NewInfo.ItemName;
+			this->Level = NewInfo.Level;
+		}
+		return *this;
+	}
+
+	UPROPERTY()
+	FName ItemName;
+
+	UPROPERTY()
+	int Level;
 };
 
 UCLASS()
@@ -43,7 +73,8 @@ class GAME_API AItem : public AActor
 public:	
 	AItem();
 
-	virtual FName EquippedItem();
+	virtual void EquippedItem(FItemInfo Item);
+	virtual void UnEquippedItem();
 	virtual void AttachToCharacter();
 	virtual void UseItem();
 
@@ -78,6 +109,12 @@ public:
 
 	UPROPERTY()
 		TSubclassOf<AItem> ItemClass;
+
+	UPROPERTY()
+		int Level = 0;
+
+	UPROPERTY()
+		FItemInfo ItemInfo;
 
 	UPROPERTY()
 		FRotator RelativeRotation = FRotator(0.f, 0.f, 0.f);

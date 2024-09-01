@@ -2,7 +2,10 @@
 
 
 #include "MyGameInstance.h"
+#include "Kismet/GameplayStatics.h"
 #include "Sound/SoundManager.h"
+#include "ItemPool.h"
+#include "PoolStorage.h"
 
 UMyGameInstance::UMyGameInstance()
 {
@@ -13,6 +16,10 @@ UMyGameInstance::UMyGameInstance()
 	static ConstructorHelpers::FObjectFinder<UDataTable> WD(TEXT("DataTable'/Game/Custom/Data/DT_Weapon.DT_Weapon'"));
 	if (WD.Succeeded())
 		WeaponData = WD.Object;
+
+	static ConstructorHelpers::FObjectFinder<UDataTable> PD(TEXT("DataTable'/Game/Custom/Data/DT_Pet.DT_Pet'"));
+	if (PD.Succeeded())
+		PetData = PD.Object;
 
 	static ConstructorHelpers::FObjectFinder<UDataTable> ED(TEXT("DataTable'/Game/Custom/Data/DT_Enemy.DT_Enemy'"));
 	if (ED.Succeeded())
@@ -33,6 +40,22 @@ void UMyGameInstance::Init()
 	Super::Init();
 
 	SoundManager = NewObject<USoundManager>();
+
+	TArray<AActor*> PoolStorages;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APoolStorage::StaticClass(), PoolStorages);
+
+	for (auto Pool : PoolStorages)
+	{
+		PoolStorage = Cast<APoolStorage>(Pool);
+		break;
+	}
+
+	if (!PoolStorage)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Pool Storage"));
+	}
+
+
 }
 
 FCharacterData* UMyGameInstance::GetStatData(int32 level)
@@ -49,6 +72,11 @@ FWeaponData* UMyGameInstance::GetWeaponData(FName Name)
 	return WeaponData->FindRow<FWeaponData>(Name, TEXT(""));
 }
 
+FPetData* UMyGameInstance::GetPetData(FName Name)
+{
+	return PetData->FindRow<FPetData>(Name, TEXT(""));
+}
+
 FClothesData* UMyGameInstance::GetClothesData(FName Name)
 {
 	return ClothesData->FindRow<FClothesData>(Name, TEXT(""));
@@ -63,3 +91,4 @@ FItemData* UMyGameInstance::GetItemData(FName Name)
 {
 	return ItemData->FindRow<FItemData>(Name, TEXT(""));
 }
+

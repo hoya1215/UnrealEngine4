@@ -23,6 +23,7 @@
 #include "Components/WidgetComponent.h"
 #include "InventoryWidget.h"
 #include "EquipmentWidget.h"
+#include "EnhanceWidget.h"
 #include "EnemyController.h"
 #include "Pet.h"
 #include "Wing.h"
@@ -31,6 +32,9 @@
 #include "EquipmentSlotWidget.h"
 #include "Sound/SoundCue.h"
 #include "Util.h"
+#include "ItemPool.h"
+#include "EnhanceSlotWidget.h"
+
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -98,6 +102,12 @@ AMyCharacter::AMyCharacter()
 		MyEquipmentWidgetClass = EW.Class;
 	}
 
+	ConstructorHelpers::FClassFinder<UEnhanceWidget> EhW(TEXT("WidgetBlueprint'/Game/Custom/UI/WBP_Enhance.WBP_Enhance_C'"));
+	if (EhW.Succeeded())
+	{
+		MyEnhanceWidgetClass = EhW.Class;
+	}
+
 
 
 	
@@ -163,6 +173,23 @@ void AMyCharacter::BeginPlay()
 		}
 	}
 
+	if (MyEnhanceWidgetClass)
+	{
+		MyEnhanceWidget = CreateWidget<UEnhanceWidget>(GetWorld(), MyEnhanceWidgetClass);
+		if (MyEnhanceWidget)
+		{
+			MyEnhanceWidget->AddToViewport();
+			FVector2D EquipmentSize(440, 500);
+			MyEnhanceWidget->SetDesiredSizeInViewport(EquipmentSize);
+
+			// 원하는 위치로 설정
+			FVector2D Position(0, 0);
+			MyEnhanceWidget->SetPositionInViewport(Position, true);
+
+			MyEnhanceWidget->SetVisibility(ESlateVisibility::Hidden);
+		}
+	}
+
 
 	if (GetWorld())
 	{
@@ -179,6 +206,7 @@ void AMyCharacter::BeginPlay()
 
 
 	MyController = GetWorld()->GetFirstPlayerController();
+	Stat->MyCharacter = this;
 
 	if (PetClass)
 	{
@@ -201,10 +229,16 @@ void AMyCharacter::BeginPlay()
 
 		MyWing = GetWorld()->SpawnActor<AWing>(MyWingClass, GetActorLocation(), FRotator(-85.f, 80.f, 81.f));
 
-
-		MyWing->EquippedItem();
+		FSlotData SlotData;
+		SlotData.ItemInfo = MyWing->ItemInfo;
+		MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::WING]->PushEquipment(SlotData);
+		MyWing->EquippedItem(MyWing->ItemInfo);
 		
 	}
+
+	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+	//GameInstance->ItemPool->BeginPlay(GetWorld());
+
 }
 
 
@@ -234,15 +268,6 @@ void AMyCharacter::Tick(float DeltaTime)
 		SetActorRotation(NewRotation);
 	}
 
-	float CurrentHp = Stat->GetHp();
-	if (CurrentHp <= 0.0)
-	{
-		GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		SetActorTickEnabled(false);
-		CharacterDie.Broadcast();
-		Util::PlaySound(this, Sounds.DieSound, GetActorLocation());
-		//UGameplayStatics::PlaySoundAtLocation(this, DieSound, GetActorLocation());
-	}
 
 	if (bIsDragging)
 	{
@@ -273,6 +298,8 @@ void AMyCharacter::Tick(float DeltaTime)
 
 	GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed;
 	//ChangeSpeed();
+
+
 }
 
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -294,6 +321,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction(TEXT("OpenInventory"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenInventory);
 	PlayerInputComponent->BindAction(TEXT("FlyingMode"), EInputEvent::IE_Pressed, this, &AMyCharacter::FlyingMode);
 	PlayerInputComponent->BindAction(TEXT("OpenEquipment"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenEquipment);
+	PlayerInputComponent->BindAction(TEXT("OpenEnhance"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenEnhance);
 
 	PlayerInputComponent->BindAction(TEXT("SelectMainWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
 	PlayerInputComponent->BindAction(TEXT("SelectSubWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
@@ -303,10 +331,11 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-	Stat->OnAttacked(DamageAmount);
+	float Damage = Stat->GetDamageIncludeDefense(DamageAmount, Stat->GetDefense());
+	Stat->OnAttacked(Damage);
 	HpChange.Broadcast();
 
-	return DamageAmount;
+	return Damage;
 }
 
 void AMyCharacter::MoveForward(float value)
@@ -401,7 +430,7 @@ void AMyCharacter::MouseClick()
 
 void AMyCharacter::Attack()
 {
-	if (bIsInventoryOn || bIsEquipmentOn)
+	if (bIsInventoryOn || bIsEquipmentOn || bIsEnhanceOn)
 		return;
 
 
@@ -466,14 +495,18 @@ void AMyCharacter::MainAttack()
 		{
 			DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 1.0f);
 
-			UE_LOG(LogTemp, Warning, TEXT("Hit: %s"), *HitResult.Actor->GetName());
 
 
 			if (HitResult.Actor.IsValid())
 			{
 				FDamageEvent DamageEvent;
-
-				HitResult.Actor->TakeDamage(Stat->GetPower(), DamageEvent, GetController(), this);
+				AMyEnemy* Enemy = Cast<AMyEnemy>(HitResult.Actor);
+				int32 Power = Stat->GetPower();
+				if (Enemy)
+				{
+					Power = Stat->GetPowerIncludeLevel(Stat->GetLevel(), Enemy->GetEnemyInfo().Level, Stat->GetPower());
+				}
+				HitResult.Actor->TakeDamage(Power, DamageEvent, GetController(), this);
 			}
 
 			if (MyWeapon->Effect)
@@ -593,6 +626,15 @@ void AMyCharacter::OtherAttack()
 	bIsAttacking = false;
 }
 
+void AMyCharacter::Die()
+{
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	SetActorTickEnabled(false);
+	CharacterDie.Broadcast();
+	Util::PlaySound(this, Sounds.DieSound, GetActorLocation());
+	//UGameplayStatics::PlaySoundAtLocation(this, DieSound, GetActorLocation());
+}
+
 void AMyCharacter::LeftMouseNonClick()
 {
 
@@ -707,6 +749,38 @@ void AMyCharacter::OpenEquipment()
 	}
 }
 
+void AMyCharacter::OpenEnhance()
+{
+	bIsEnhanceOn = !bIsEnhanceOn;
+
+	if (MyEnhanceWidget)
+	{
+		ESlateVisibility Visibility = MyEnhanceWidget->GetVisibility();
+		if (Visibility == ESlateVisibility::Visible)
+		{
+			MyEnhanceWidget->ItemSlot->Reset();
+			MyEnhanceWidget->SetVisibility(ESlateVisibility::Hidden);
+
+			if (MyController)
+			{
+				MyController->bShowMouseCursor = false;
+				MyController->SetIgnoreLookInput(false);
+
+			}
+		}
+		else
+		{
+			MyEnhanceWidget->SetVisibility(ESlateVisibility::Visible);
+
+			if (MyController)
+			{
+				MyController->bShowMouseCursor = true; // 마우스 커서 보이기
+				MyController->SetIgnoreLookInput(true);
+			}
+		}
+	}
+}
+
 void AMyCharacter::DragInventory()
 {
 	FVector2D MousePosition;
@@ -765,7 +839,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	if (Key == EKeys::One)
 	{
 		
-		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::MAIN]->ItemName;
+		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::MAIN]->SlotData.ItemInfo.ItemName;
 		if (Name == FName(TEXT("NULL")) || (MyWeapon != nullptr && CurrentWeaponState == 0))
 			return;
 		CurrentWeaponState = 0;
@@ -774,7 +848,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	else if (Key == EKeys::Two)
 	{
 		
-		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::SUB]->ItemName;
+		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::SUB]->SlotData.ItemInfo.ItemName;
 		if (Name == FName(TEXT("NULL")) || (MyWeapon != nullptr && CurrentWeaponState == 1))
 			return;
 		CurrentWeaponState = 1;
@@ -783,7 +857,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	else if (Key == EKeys::Three)
 	{
 		
-		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::OTHER]->ItemName;
+		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::OTHER]->SlotData.ItemInfo.ItemName;
 		if (Name == FName(TEXT("NULL")) || (MyWeapon != nullptr && CurrentWeaponState == 2))
 			return;
 		CurrentWeaponState = 2;
@@ -797,7 +871,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 
 void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
 {
-	FName Name = MyEquipmentWidget->EquipmentSlots[EquipmentType]->ItemName;
+	FName Name = MyEquipmentWidget->EquipmentSlots[EquipmentType]->SlotData.ItemInfo.ItemName;
 
 	if (Name != FName(TEXT("NULL")))
 	{
@@ -879,7 +953,7 @@ void AMyCharacter::ChangeSpeed()
 		break;
 	}
 
-	//UE_LOG(LogTemp, Warning, TEXT("Current Speed : %f"), GetCharacterMovement()->MaxWalkSpeed);
+
 }
 
 void AMyCharacter::SetClothesStat(FName Name, bool Plus)

@@ -48,10 +48,6 @@ void UBTService_SearchRock::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* N
 			for (auto& OverlapResult : OverlapResults)
 			{
 				AActor* OverlappedActor = OverlapResult.GetActor();
-				if(OverlappedActor)
-				{
-					UE_LOG(LogTemp, Warning, TEXT("Overlapping Actor: %s"), *OverlappedActor->GetName());
-				}
 
 				ARock* CurrentRock = Cast<ARock>(OverlapResult.GetActor());
 				OwnerComp.GetBlackboardComponent()->SetValueAsBool(TEXT("HaveRock"), true);

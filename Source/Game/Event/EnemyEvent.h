@@ -9,6 +9,8 @@
 
 class UBoxComponent;
 class AMyEnemy;
+class UEnemyPool;
+class APoolStorage;
 
 
 UCLASS()
@@ -34,7 +36,7 @@ public:
 	void SpawnEnemy();
 	
 
-
+	UEnemyPool* GetEnemyPool() { return EnemyPool; }
 	
 
 	
@@ -44,29 +46,19 @@ public:
 		UBoxComponent* Trigger;
 
 
-	// Enemy
-	UPROPERTY(VisibleAnywhere)
-		TSubclassOf<AMyEnemy> EnemyClass;
-
-	UPROPERTY(VisibleAnywhere)
-		TSubclassOf<class AEnemy_Small> EnemySmallClass;
-
-	UPROPERTY(VisibleAnywhere)
-		TSubclassOf<class AEnemy_Boss> EnemyBossClass;
-
-	TArray<int32> EnemyTypeCount;
-	TArray<int32> MaxEnemyTypeCount;
-
 	FTimerHandle EnemyTimerHandle;
 
 	float SpawnInterval = 3.f;
-	float SpawnRadius = 500.f;
 
 
 
-	int32 CurrentEnemyCount = 0;
-	int32 MaxEnemyCount = 1;
 
 private:
+	UPROPERTY()
+		UEnemyPool* EnemyPool;
+
+	UPROPERTY()
+		class UMyGameInstance* GameInstance;
+
 
 };

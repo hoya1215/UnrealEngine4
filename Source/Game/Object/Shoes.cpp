@@ -8,7 +8,7 @@
 #include "EquipmentWidget.h"
 #include "EquipmentSlotWidget.h"
 #include "MyGameInstance.h"
-
+#include "Util.h"
 
 AShoes::AShoes()
 {
@@ -24,7 +24,7 @@ AShoes::AShoes()
 	SetActorScale3D(FVector(0.1f, 0.1f, 0.1f));
 
 
-	ItemName = FName(TEXT("Shoes"));
+	ItemInfo.ItemName = FName(TEXT("Shoes"));
 	ItemClass = AShoes::StaticClass();
 
 	ShoesStaticMesh = SM.Object;
@@ -35,45 +35,96 @@ void AShoes::BeginPlay()
 	Super::BeginPlay();
 }
 
-FName AShoes::EquippedItem()
+void AShoes::EquippedItem(FItemInfo Info)
 {
 	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
-	if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
+	//FSlotData SlotData;
+
+	//if (PlayerCharacter && PlayerCharacter->GetEquipmentWidget())
+	//{
+	//	UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
+
+	//	
+	//	SlotData.ItemName = ItemName;
+	//	SlotData.Level = Level;
+
+	//	if (CurrentSlot->SlotData.ItemName != FName(TEXT("NULL")))
+	//	{
+
+	//		// ±³Ã¼
+	//		return CurrentSlot->SwapEquipment(SlotData);
+	//	}
+	//	else
+	//	{
+
+	//		// ÀåÂø
+	//		CurrentSlot->PushEquipment(SlotData);
+
+	//		// ÀåÂø
+	//		TArray<UStaticMeshComponent*> StaticMeshComponents;
+	//		PlayerCharacter->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+
+	//		for (UStaticMeshComponent* Comp : StaticMeshComponents)
+	//		{
+	//			if (Comp->GetFName() == FName(TEXT("Shoes_l")) || Comp->GetFName() == FName(TEXT("Shoes_r")) )
+	//			{
+	//				Comp->SetStaticMesh(ShoesStaticMesh);
+	//			}
+	//		}
+
+	//		PlayerCharacter->SetMyShoes(this);
+	//		PlayerCharacter->SetClothesStat(ItemName, true);
+	//		SetActorHiddenInGame(true);
+
+
+	//		SlotData.ItemName = FName(TEXT("NULL"));
+	//		return SlotData;
+	//	}
+	//}
+	//SlotData.ItemName = FName(TEXT("NULL"));
+	//return SlotData;
+
+
+	// ÀåÂø
+	TArray<UStaticMeshComponent*> StaticMeshComponents;
+	PlayerCharacter->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+
+	for (UStaticMeshComponent* Comp : StaticMeshComponents)
 	{
-		UEquipmentSlotWidget* CurrentSlot = PlayerCharacter->GetEquipmentWidget()->EquipmentSlots[EquipmentType];
-
-
-		if (CurrentSlot->ItemName != FName(TEXT("NULL")))
+		if (Comp->GetFName() == FName(TEXT("Shoes_l")) || Comp->GetFName() == FName(TEXT("Shoes_r")))
 		{
-			// ±³Ã¼
-			return CurrentSlot->SwapEquipment(ItemName);
-		}
-		else
-		{
-
-			// ÀåÂø
-			CurrentSlot->PushEquipment(ItemName);
-
-			// ÀåÂø
-			TArray<UStaticMeshComponent*> StaticMeshComponents;
-			PlayerCharacter->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
-
-			for (UStaticMeshComponent* Comp : StaticMeshComponents)
-			{
-				if (Comp->GetFName() == FName(TEXT("Shoes_l")) || Comp->GetFName() == FName(TEXT("Shoes_r")) )
-				{
-					Comp->SetStaticMesh(ShoesStaticMesh);
-				}
-			}
-
-			PlayerCharacter->SetMyShoes(this);
-			PlayerCharacter->SetClothesStat(ItemName, true);
-			SetActorHiddenInGame(true);
-
-			return FName(TEXT("NULL"));
+			Comp->SetStaticMesh(ShoesStaticMesh);
 		}
 	}
 
-	return FName(TEXT("NULL"));
+	PlayerCharacter->SetMyShoes(this);
+	PlayerCharacter->SetClothesStat(ItemName, true);
+	SetActorHiddenInGame(true);
+}
+
+void AShoes::UnEquippedItem()
+{
+	AMyCharacter* MyCharacter = Util::GetMyCharacter(GetWorld());
+
+	TArray<UStaticMeshComponent*> StaticMeshComponents;
+	MyCharacter->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+
+	for (UStaticMeshComponent* Comp : StaticMeshComponents)
+	{
+		if (Comp->GetFName() == FName(TEXT("Shoes_l")) || Comp->GetFName() == FName(TEXT("Shoes_r")))
+		{
+			Comp->SetStaticMesh(nullptr);
+		}
+	}
+
+	if (MyCharacter->GetMyShoes())
+	{
+		MyCharacter->SetClothesStat(MyCharacter->GetMyShoes()->ItemName, false);
+
+		
+		MyCharacter->SetMyShoes(nullptr);
+	}
+
+	Destroy();
 }

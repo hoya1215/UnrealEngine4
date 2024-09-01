@@ -20,7 +20,8 @@ public:
 
 	virtual void BeginPlay() override;
 	
-	virtual FName EquippedItem() override;
+	virtual void EquippedItem(FItemInfo Info) override;
+	virtual void UnEquippedItem() override;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

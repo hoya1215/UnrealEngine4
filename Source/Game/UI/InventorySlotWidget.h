@@ -7,10 +7,38 @@
 #include "Item.h"
 #include "InventorySlotWidget.generated.h"
 
+USTRUCT()
+struct FSlotData
+{
+	GENERATED_BODY()
+
+public:
+	FSlotData& operator=(const FSlotData& NewData)
+	{
+		if (this != &NewData)
+		{
+			this->ItemInfo.ItemName = NewData.ItemInfo.ItemName;
+			this->ItemInfo.Level = NewData.ItemInfo.Level;
+			this->Count = NewData.Count;
+		}
+		return *this;
+	}
+
+	UPROPERTY()
+		FItemInfo ItemInfo;
+
+	UPROPERTY()
+		int Count;
+};
+
 class UTexture2D;
 /**
  * 
  */
+
+
+
+
 UCLASS()
 class GAME_API UInventorySlotWidget : public UUserWidget
 {
@@ -20,14 +48,16 @@ public:
 	virtual void NativeConstruct() override;
 
 	// Util
-	void AddItem(FName Name);
+	void AddItem(FItemInfo ItemInfo);
 
 	void SetItem(UInventorySlotWidget* OtherSlot);
+
+	void UpdateLevel();
 
 	//void UseItem(EITEM_TYPE ItemType);
 
 	//void EquippedItem(AItem* Item);
-	void EquippedItem(FName ItemName);
+	void EquippedItem(FSlotData Data);
 
 	UFUNCTION(BlueprintCallable)
 		void SetSizeBox(float Width, float Height);
@@ -61,8 +91,6 @@ public:
 	UPROPERTY()
 		int Index;
 
-	UPROPERTY()
-		int Count = 0;
 
 	UPROPERTY()
 		class UInventoryWidget* InventoryWidget;
@@ -72,13 +100,9 @@ public:
 	
 
 public:
-	UPROPERTY()
-	 AItem* CurrentItem = nullptr;
 
 	UPROPERTY()
-		FName ItemName {
-		TEXT("NULL")
-	};
+		FSlotData SlotData;
 
 	UPROPERTY()
 		class UMyGameInstance* GameInstance;

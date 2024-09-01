@@ -32,8 +32,13 @@ class GAME_API AWeapon : public AItem
 	
 public:
 	AWeapon();
+
+	virtual void UnEquippedItem() override;
+
+	virtual	void OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) override;
 	
-	virtual FName EquippedItem() override;
+	virtual void EquippedItem(FItemInfo Info) override;
 	virtual void AttachToCharacter() override;
 	//virtual AItem* EquippedItem() override;
 
