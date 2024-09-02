@@ -24,12 +24,13 @@ void AWeapon::UnEquippedItem()
 {
 	AMyCharacter* MyCharacter = Util::GetMyCharacter(GetWorld());
 
-	if (MyCharacter->GetMyWeapon() != nullptr && MyCharacter->GetMyWeapon()->ItemName == ItemInfo.ItemName)
+	if (MyCharacter->GetMyWeapon() != nullptr && MyCharacter->GetMyWeapon()->ItemInfo.ItemName == ItemInfo.ItemName)
 	{
-		MyCharacter->SetWeaponStat(ItemInfo.ItemName, false);
+		//MyCharacter->SetWeaponStat(ItemInfo.ItemName, false);
+		SetCharacterStat(false);
 
 		MyCharacter->SetMyWeapon(nullptr);
-
+		MyCharacter->CurrentWeaponState = 2;
 		// 다음 무기 있으면 장착 
 
 	}
@@ -156,7 +157,8 @@ void AWeapon::AttachToCharacter()
 	PlayerCharacter->SetMyWeapon(this);
 	SetActorHiddenInGame(false);
 	PlayerCharacter->CurrentWeaponState = WeaponState;
-	PlayerCharacter->SetWeaponStat(ItemName, true);
+	SetCharacterStat(true);
+	//PlayerCharacter->SetWeaponStat(ItemName, true);
 }
 
 void AWeapon::SetWeaponInfo(FName Name)

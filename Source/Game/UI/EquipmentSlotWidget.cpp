@@ -98,7 +98,8 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 		else
 		{
 			//PlayerCharacter->UnEquippedWeapon(SlotData.ItemInfo.ItemName);
-			PlayerCharacter->GetMyWeapon()->UnEquippedItem();
+			if(PlayerCharacter->GetMyWeapon()->ItemInfo.ItemName == SlotData.ItemInfo.ItemName)
+				PlayerCharacter->GetMyWeapon()->UnEquippedItem();
 		}
 
 		//if (CurrentItem->InventoryType == EINVENTORY_TYPE::EQUIPMENT)

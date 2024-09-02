@@ -36,7 +36,19 @@ void UMyCharacterStatComponent::InitializeComponent()
 {
 	Super::InitializeComponent();
 
-	SetLevel(Level);
+	Level = 1;
+	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (MyGameInstance)
+	{
+		auto StatData = MyGameInstance->GetStatData(1);
+		Ability.Defense = StatData->Defense;
+		Ability.Hp = StatData->MaxHp;
+		Ability.Power = StatData->Power;
+		CurrentHp = StatData->MaxHp;
+	}
+	
+
+	//SetLevel(1);
 }
 
 void UMyCharacterStatComponent::SetLevel(int32 CurrentLevel)
@@ -47,8 +59,13 @@ void UMyCharacterStatComponent::SetLevel(int32 CurrentLevel)
 		auto StatData = MyGameInstance->GetStatData(CurrentLevel);
 		if (StatData)
 		{
+			//Ability.MaxHp = StatData->MaxHp;
+			//Ability.Defense = StatData->Defense;
+			//Ability.Power = StatData->Power;
+			//Ability.Speed = 0;
+
 			Level = StatData->Level;
-			Hp = StatData->MaxHp;
+			CurrentHp = StatData->MaxHp;
 			Power = StatData->Power;
 			Defense = StatData->Defense;
 		}
@@ -57,21 +74,22 @@ void UMyCharacterStatComponent::SetLevel(int32 CurrentLevel)
 
 void UMyCharacterStatComponent::SetHp(float NewHp)
 {
-	Hp = NewHp;
+	CurrentHp = NewHp;
 }
 
 void UMyCharacterStatComponent::SetPower(int32 NewPower)
 {
-	Power = NewPower;
+	Ability.Power = NewPower;
 }
 
 void UMyCharacterStatComponent::SetDefense(int32 NewDefense)
 {
-	Defense = NewDefense;
+	Ability.Defense = NewDefense;
 }
 
 float UMyCharacterStatComponent::GetMaxHp()
 {
+
 	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	
 	if (MyGameInstance)
@@ -79,7 +97,7 @@ float UMyCharacterStatComponent::GetMaxHp()
 		auto StatData = MyGameInstance->GetStatData(Level);
 		if (StatData)
 		{
-			return StatData->MaxHp;
+			return Ability.Hp;
 		}
 	}
 	// 실패
@@ -104,10 +122,10 @@ int32 UMyCharacterStatComponent::GetDamageIncludeDefense(int32 EnemyPower, int32
 
 void UMyCharacterStatComponent::OnAttacked(float DamageAmount)
 {
-	Hp -= DamageAmount;
-	if (Hp < 0)
+	CurrentHp -= DamageAmount;
+	if (CurrentHp < 0)
 	{
-		Hp = 0;
+		CurrentHp = 0;
 
 		MyCharacter->Die();
 	}
@@ -162,7 +180,16 @@ void UMyCharacterStatComponent::LevelUp(int Value)
 		MyHUD->UpdateLevel(Level);
 	}
 
-	SetLevel(Level);
+	// 전레벨과의 스탯변동량 더해주기
+	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	auto PrevStatData = MyGameInstance->GetStatData(Level - Value);
+	auto NextStatData = MyGameInstance->GetStatData(Level);
+
+	MyCharacter->Stat->Ability.Hp += NextStatData->MaxHp - PrevStatData->MaxHp;
+	MyCharacter->Stat->CurrentHp = MyCharacter->Stat->Ability.Hp;
+
+	MyCharacter->Stat->Ability.Power += NextStatData->Power - PrevStatData->Power;
+	MyCharacter->Stat->Ability.Defense += NextStatData->Defense - PrevStatData->Defense;
 }
 
 

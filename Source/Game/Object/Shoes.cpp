@@ -99,7 +99,8 @@ void AShoes::EquippedItem(FItemInfo Info)
 	}
 
 	PlayerCharacter->SetMyShoes(this);
-	PlayerCharacter->SetClothesStat(ItemName, true);
+	SetCharacterStat(true);
+	//PlayerCharacter->SetClothesStat(ItemName, true);
 	SetActorHiddenInGame(true);
 }
 
@@ -120,8 +121,8 @@ void AShoes::UnEquippedItem()
 
 	if (MyCharacter->GetMyShoes())
 	{
-		MyCharacter->SetClothesStat(MyCharacter->GetMyShoes()->ItemName, false);
-
+		//MyCharacter->SetClothesStat(MyCharacter->GetMyShoes()->ItemName, false);
+		SetCharacterStat(false);
 		
 		MyCharacter->SetMyShoes(nullptr);
 	}

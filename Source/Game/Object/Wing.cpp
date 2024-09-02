@@ -91,6 +91,7 @@ void AWing::EquippedItem(FItemInfo Info)
 		WingSocket);
 	SetActorRelativeRotation(FRotator(270.f, 0.f, 0.f));
 	PlayerCharacter->SetMyWing(this);
+	SetCharacterStat(true);
 	SetActorHiddenInGame(false);
 }
 

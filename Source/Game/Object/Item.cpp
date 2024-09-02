@@ -12,6 +12,8 @@
 #include "MyGameInstance.h"
 #include "ItemPool.h"
 #include "PoolStorage.h"
+#include "Util.h"
+#include "MyCharacterStatComponent.h"
 
 AItem::AItem()
 {
@@ -54,7 +56,7 @@ void AItem::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 	if (MyPet || Character)
 	{
 		PlayerCharacter->GetInventoryWidget()->AddItemToInventory(ItemInfo);
-		GameInstance->PoolStorage->ItemPool->ReturnItem(ItemName, this);
+		GameInstance->PoolStorage->ItemPool->ReturnItem(ItemInfo.ItemName, this);
 
 		//if (PlayerCharacter->bCanPickUp)
 		//{
@@ -93,8 +95,35 @@ void AItem::AttachToCharacter()
 
 }
 
+void AItem::SetItemInfo(FItemInfo NewInfo)
+{
+	ItemInfo = NewInfo;
+}
+
 void AItem::UseItem()
 {
 
+}
+
+void AItem::SetCharacterStat(bool Plus)
+{
+	// 기본 스탯 가져오고 레벨에 따라 변동량 가져와서 더해주고 캐릭터와 더해주기
+	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+	auto BasicAbility = GameInstance->GetItemAbility(ItemInfo.ItemName);
+	auto AbilityChange = GameInstance->GetItemAbilityChange(ItemInfo.ItemName);
+
+	AbilityChange->SetLevel(ItemInfo.Level);
+	*BasicAbility += *AbilityChange;
+
+	AMyCharacter* MyCharacter = Util::GetMyCharacter(GetWorld());
+	if (Plus)
+	{
+		MyCharacter->Stat->Ability += *BasicAbility;
+	}
+	else
+	{
+		MyCharacter->Stat->Ability -= *BasicAbility;
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Power %d"), MyCharacter->Stat->Ability.Power);
 }
 

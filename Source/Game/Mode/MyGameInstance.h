@@ -14,6 +14,57 @@ class APoolStorage;
  * 
  */
 USTRUCT()
+struct FAbility : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	void SetLevel(int Level)
+	{
+		this->Power *= Level;
+		this->Speed *= Level;
+		this->Defense *= Level;
+		this->Hp *= Level;
+	}
+
+
+	FAbility& operator+=(const FAbility& Other)
+	{
+		this->Power += Other.Power;
+		this->Speed += Other.Speed;
+		this->Defense += Other.Defense;
+		this->Hp += Other.Hp;
+
+		return *this;
+	}
+
+	FAbility& operator-=(const FAbility& Other)
+	{
+		this->Power -= Other.Power;
+		this->Speed -= Other.Speed;
+		this->Defense -= Other.Defense;
+		this->Hp -= Other.Hp;
+
+		return *this;
+	}
+
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Power;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Speed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Defense;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Hp;
+};
+
+
+USTRUCT()
 struct FCharacterData : public FTableRowBase
 {
 	GENERATED_BODY()
@@ -152,6 +203,9 @@ public:
 	virtual void Init() override;
 
 	FCharacterData* GetStatData(int32 level);
+	FAbility* GetItemAbility(FName Name);
+	FAbility* GetItemAbilityChange(FName Name);
+
 	FWeaponData* GetWeaponData(FName Name);
 	FPetData* GetPetData(FName Name);
 	FClothesData* GetClothesData(FName Name);
@@ -162,6 +216,12 @@ public:
 private:
 	UPROPERTY()
 		class UDataTable* MyStats;
+
+	UPROPERTY()
+		UDataTable* ItemAbility;
+
+	UPROPERTY()
+		UDataTable* ItemAbilityChange;
 
 	UPROPERTY()
 		UDataTable* WeaponData;

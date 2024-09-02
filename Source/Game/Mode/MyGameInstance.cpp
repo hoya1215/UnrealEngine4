@@ -33,6 +33,13 @@ UMyGameInstance::UMyGameInstance()
 	if (CD.Succeeded())
 		ClothesData = CD.Object;
 
+	static ConstructorHelpers::FObjectFinder<UDataTable> IA(TEXT("DataTable'/Game/Custom/Data/DT_ItemAbility.DT_ItemAbility'"));
+	if (IA.Succeeded())
+		ItemAbility = IA.Object;
+
+	static ConstructorHelpers::FObjectFinder<UDataTable> IAC(TEXT("DataTable'/Game/Custom/Data/DT_AbilityChange.DT_AbilityChange'"));
+	if (IAC.Succeeded())
+		ItemAbilityChange = IAC.Object;
 }
 
 void UMyGameInstance::Init()
@@ -92,3 +99,12 @@ FItemData* UMyGameInstance::GetItemData(FName Name)
 	return ItemData->FindRow<FItemData>(Name, TEXT(""));
 }
 
+FAbility* UMyGameInstance::GetItemAbility(FName Name)
+{
+	return ItemAbility->FindRow<FAbility>(Name, TEXT(""));
+}
+
+FAbility* UMyGameInstance::GetItemAbilityChange(FName Name)
+{
+	return ItemAbilityChange->FindRow<FAbility>(Name, TEXT(""));
+}

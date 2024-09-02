@@ -207,6 +207,7 @@ void AMyCharacter::BeginPlay()
 
 	MyController = GetWorld()->GetFirstPlayerController();
 	Stat->MyCharacter = this;
+	Stat->Ability.Speed = DefaultSpeed;
 
 	if (PetClass)
 	{
@@ -293,11 +294,11 @@ void AMyCharacter::Tick(float DeltaTime)
 
 
 	// Tick 이 아니고 무기 변경해줄때마다 하면 실제 속도는 변화 x -> 개선
-	if (MyWeapon == nullptr)
-		CurrentWeaponState = 2;
+	//if (MyWeapon == nullptr)
+	//	CurrentWeaponState = 2;
 
-	GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed;
-	//ChangeSpeed();
+	//GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed;
+	ChangeSpeed();
 
 
 }
@@ -886,6 +887,7 @@ void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
 			MyWeapon->Destroy();
 			MyWeapon = nullptr;
 		}
+		NewWeapon->SetItemInfo(MyEquipmentWidget->EquipmentSlots[EquipmentType]->SlotData.ItemInfo);
 		NewWeapon->AttachToCharacter();
 
 		bCanPickUp = true;
@@ -896,6 +898,10 @@ void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
 		//MyWeapon->SetActorHiddenInGame(true);
 		//NewWeapon->SetActorHiddenInGame(false);
 		//SetMyWeapon(NewWeapon);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Weapon Swap"));
 	}
 
 	
@@ -933,26 +939,26 @@ void AMyCharacter::Revive()
 void AMyCharacter::ChangeSpeed()
 {
 	// Speed
-	switch (CurrentWeaponState)
-	{
-	case 0:
-		GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
-		break;
-	case 1:
-		GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
-		break;
-	case 2:
-		if (MyWeapon != nullptr)
-		{
-			GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
-		}
-		else
-		{
-			GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed;
-		}
-		break;
-	}
-
+	//switch (CurrentWeaponState)
+	//{
+	//case 0:
+	//	GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
+	//	break;
+	//case 1:
+	//	GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
+	//	break;
+	//case 2:
+	//	if (MyWeapon != nullptr)
+	//	{
+	//		GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
+	//	}
+	//	else
+	//	{
+	//		GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed;
+	//	}
+	//	break;
+	//}
+	GetCharacterMovement()->MaxWalkSpeed = Stat->Ability.Speed;
 
 }
 
@@ -1021,72 +1027,72 @@ void AMyCharacter::SetWeaponStat(FName Name, bool Plus)
 
 }
 
-void AMyCharacter::UnDressedWing()
-{
-	if (MyWing != nullptr)
-	{
-		MyWing->SetActorHiddenInGame(true);
-		MyWing = nullptr;
-	}
-
-}
-
-void AMyCharacter::UnDressedShoes()
-{
-	TArray<UStaticMeshComponent*> StaticMeshComponents;
-	GetComponents<UStaticMeshComponent>(StaticMeshComponents);
-
-	for (UStaticMeshComponent* Comp : StaticMeshComponents)
-	{
-		if (Comp->GetFName() == FName(TEXT("Shoes_l")) || Comp->GetFName() == FName(TEXT("Shoes_r")))
-		{
-			Comp->SetStaticMesh(nullptr);
-		}
-	}
-
-	if (MyShoes)
-	{
-		SetClothesStat(MyShoes->ItemName, false);
-
-		MyShoes->Destroy();
-		MyShoes = nullptr;
-	}
-}
-
-void AMyCharacter::UnDressedHelmet()
-{
-	TArray<UStaticMeshComponent*> StaticMeshComponents;
-	GetComponents<UStaticMeshComponent>(StaticMeshComponents);
-
-	for (UStaticMeshComponent* Comp : StaticMeshComponents)
-	{
-		if (Comp->GetFName() == FName(TEXT("Helmet")))
-		{
-			Comp->SetStaticMesh(nullptr);
-		}
-	}
-
-	if (MyHelmet)
-	{
-		SetClothesStat(MyHelmet->ItemName, false);
-
-		MyHelmet->Destroy();
-		MyHelmet = nullptr;
-	}
-}
-
-void AMyCharacter::UnEquippedWeapon(FName ItemName)
-{
-	if (GetMyWeapon() != nullptr && GetMyWeapon()->ItemName == ItemName)
-	{
-		SetWeaponStat(ItemName, false);
-
-		GetMyWeapon()->Destroy();
-
-		SetMyWeapon(nullptr);
-
-		// 다음 무기 있으면 장착 
-
-	}
-}
+//void AMyCharacter::UnDressedWing()
+//{
+//	if (MyWing != nullptr)
+//	{
+//		MyWing->SetActorHiddenInGame(true);
+//		MyWing = nullptr;
+//	}
+//
+//}
+//
+//void AMyCharacter::UnDressedShoes()
+//{
+//	TArray<UStaticMeshComponent*> StaticMeshComponents;
+//	GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+//
+//	for (UStaticMeshComponent* Comp : StaticMeshComponents)
+//	{
+//		if (Comp->GetFName() == FName(TEXT("Shoes_l")) || Comp->GetFName() == FName(TEXT("Shoes_r")))
+//		{
+//			Comp->SetStaticMesh(nullptr);
+//		}
+//	}
+//
+//	if (MyShoes)
+//	{
+//		SetClothesStat(MyShoes->ItemName, false);
+//
+//		MyShoes->Destroy();
+//		MyShoes = nullptr;
+//	}
+//}
+//
+//void AMyCharacter::UnDressedHelmet()
+//{
+//	TArray<UStaticMeshComponent*> StaticMeshComponents;
+//	GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+//
+//	for (UStaticMeshComponent* Comp : StaticMeshComponents)
+//	{
+//		if (Comp->GetFName() == FName(TEXT("Helmet")))
+//		{
+//			Comp->SetStaticMesh(nullptr);
+//		}
+//	}
+//
+//	if (MyHelmet)
+//	{
+//		SetClothesStat(MyHelmet->ItemName, false);
+//
+//		MyHelmet->Destroy();
+//		MyHelmet = nullptr;
+//	}
+//}
+//
+//void AMyCharacter::UnEquippedWeapon(FName ItemName)
+//{
+//	if (GetMyWeapon() != nullptr && GetMyWeapon()->ItemName == ItemName)
+//	{
+//		SetWeaponStat(ItemName, false);
+//
+//		GetMyWeapon()->Destroy();
+//
+//		SetMyWeapon(nullptr);
+//
+//		// 다음 무기 있으면 장착 
+//
+//	}
+//}
 

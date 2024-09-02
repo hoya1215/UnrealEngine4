@@ -4,9 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "MyGameInstance.h"
 #include "MyCharacterStatComponent.generated.h"
 
 class AMyCharacter;
+
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GAME_API UMyCharacterStatComponent : public UActorComponent
@@ -38,9 +41,9 @@ public:
 
 	int32 GetLevel() { return Level; }
 	int32 GetMaxLevel() { return MaxLevel; }
-	float GetHp() { return Hp; }
-	int32 GetPower() { return Power; }
-	int32 GetDefense() { return Defense; }
+	float GetHp() { return CurrentHp; }
+	int32 GetPower() { return Ability.Power; }
+	int32 GetDefense() { return Ability.Defense; }
 	float GetMaxHp();
 	int GetEnhancePoint() { return EnhancePoint; }
 	float GetCurrentExp() { return CurrentExp; }
@@ -50,16 +53,19 @@ public:
 
 public:
 	float MaxDefense = 100.f;
+
 	int MaxLevelDifference = 10;
 
 	AMyCharacter* MyCharacter;
+
+	FAbility Ability;
 
 private:
 	UPROPERTY(EditAnywhere, Category = Stat, Meta = (AllowPrivateAccess = true))
 	int32 Level;
 
 	UPROPERTY(EditAnywhere, Category = Stat, Meta = (AllowPrivateAccess = true))
-	float Hp;
+	float CurrentHp;
 
 	UPROPERTY(EditAnywhere, Category = Stat, Meta = (AllowPrivateAccess = true))
 	int32 Power;

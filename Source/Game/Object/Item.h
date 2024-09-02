@@ -76,6 +76,8 @@ public:
 	virtual void EquippedItem(FItemInfo Item);
 	virtual void UnEquippedItem();
 	virtual void AttachToCharacter();
+	virtual void SetItemInfo(FItemInfo NewInfo);
+	virtual void SetCharacterStat(bool Plus);
 	virtual void UseItem();
 
 protected:

@@ -96,7 +96,8 @@ void AHelmet::EquippedItem(FItemInfo Info)
 	}
 
 	PlayerCharacter->SetMyHelmet(this);
-	PlayerCharacter->SetClothesStat(ItemName, true);
+	SetCharacterStat(true);
+	//PlayerCharacter->SetClothesStat(ItemName, true);
 	SetActorHiddenInGame(true);
 }
 
@@ -116,8 +117,8 @@ void AHelmet::UnEquippedItem()
 
 	if (MyCharacter->GetMyHelmet())
 	{
-		MyCharacter->SetClothesStat(MyCharacter->GetMyHelmet()->ItemName, false);
-
+		//MyCharacter->SetClothesStat(MyCharacter->GetMyHelmet()->ItemName, false);
+		SetCharacterStat(false);
 		
 		MyCharacter->SetMyHelmet(nullptr);
 	}

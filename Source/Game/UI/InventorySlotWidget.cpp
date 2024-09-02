@@ -230,7 +230,9 @@ void UInventorySlotWidget::EquippedItem(FSlotData Data)
     auto Item = GetWorld()->SpawnActor<AItem>(ItemData->ItemClass, FVector::ZeroVector, FRotator::ZeroRotator);
     if (Item)
     {
-        UEquipmentSlotWidget* CurrentEquipmentSlot = MyCharacter->GetEquipmentWidget()->EquipmentSlots[Item->EquipmentType];
+        Item->SetItemInfo(SlotData.ItemInfo);
+
+        UEquipmentSlotWidget* CurrentEquipmentSlot = MyCharacter->GetEquipmentWidget()->EquipmentSlots[ItemData->EquipmentType];
         
         if (CurrentEquipmentSlot->SlotData.ItemInfo.ItemName == FName(TEXT("NULL")))
         {
@@ -241,6 +243,7 @@ void UInventorySlotWidget::EquippedItem(FSlotData Data)
                 ItemData->EquipmentType == EEQUIPMENT_TYPE::SUB ||
                 ItemData->EquipmentType == EEQUIPMENT_TYPE::OTHER) && MyCharacter->GetMyWeapon() != nullptr)
             {
+                Item->Destroy();
                 return;
             }
 
