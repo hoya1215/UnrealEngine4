@@ -66,16 +66,8 @@ void AFireGun::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetWeaponInfo(ItemInfo.ItemName);
-
 	EffectComponent->Deactivate();
 
 
-	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
-	//auto List = GameInstance->ItemList.Find(ItemName);
-	//if (List == nullptr)
-	//{
-	//	GameInstance->ItemList.Add(ItemName, MakeTuple(ItemClass, 0));
-	//	GameInstance->ItemTexture.Add(ItemName, ItemTexture);
-	//}
+
 }

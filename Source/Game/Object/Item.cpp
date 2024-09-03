@@ -112,18 +112,28 @@ void AItem::SetCharacterStat(bool Plus)
 	auto BasicAbility = GameInstance->GetItemAbility(ItemInfo.ItemName);
 	auto AbilityChange = GameInstance->GetItemAbilityChange(ItemInfo.ItemName);
 
-	AbilityChange->SetLevel(ItemInfo.Level);
-	*BasicAbility += *AbilityChange;
+	//AbilityChange->SetLevel(ItemInfo.Level);
+
+
 
 	AMyCharacter* MyCharacter = Util::GetMyCharacter(GetWorld());
 	if (Plus)
 	{
 		MyCharacter->Stat->Ability += *BasicAbility;
+		for (int i = 0; i < ItemInfo.Level; ++i)
+		{
+			MyCharacter->Stat->Ability += *AbilityChange;
+		}
 	}
 	else
 	{
 		MyCharacter->Stat->Ability -= *BasicAbility;
+		for (int i = 0; i < ItemInfo.Level; ++i)
+		{
+			MyCharacter->Stat->Ability -= *AbilityChange;
+		}
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Power %d"), MyCharacter->Stat->Ability.Power);
+	UE_LOG(LogTemp, Warning, TEXT("Level %d"), ItemInfo.Level);
+	UE_LOG(LogTemp, Warning, TEXT("Power %d"), BasicAbility->Power);
 }
 

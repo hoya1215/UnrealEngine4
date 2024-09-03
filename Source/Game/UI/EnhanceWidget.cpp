@@ -28,10 +28,10 @@ void UEnhanceWidget::NativeConstruct()
 
 	CurrentLevel->SetText(FText::FromString(DefaultText));
 	NextLevel->SetText(FText::FromString(DefaultText));
-	CurrentStat->SetText(FText::FromString(DefaultText));
-	NextStat->SetText(FText::FromString(DefaultText));
+	//CurrentStat->SetText(FText::FromString(DefaultText));
+	//NextStat->SetText(FText::FromString(DefaultText));
 	CompareText1->SetText(FText::FromString(DefaultText));
-	CompareText2->SetText(FText::FromString(DefaultText));
+	//CompareText2->SetText(FText::FromString(DefaultText));
 
 	if (UpgradeButton)
 	{

@@ -42,13 +42,8 @@ public:
 	UPROPERTY(meta = (BindWidget))
 		UTextBlock* NextLevel;
 	UPROPERTY(meta = (BindWidget))
-		UTextBlock* CurrentStat;
-	UPROPERTY(meta = (BindWidget))
-		UTextBlock* NextStat;
-	UPROPERTY(meta = (BindWidget))
 		UTextBlock* CompareText1;
-	UPROPERTY(meta = (BindWidget))
-		UTextBlock* CompareText2;
+
 
 	UPROPERTY(meta = (BindWidget))
 		UEnhanceSlotWidget* ItemSlot;

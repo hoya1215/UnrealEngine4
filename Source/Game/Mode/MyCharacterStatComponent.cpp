@@ -66,8 +66,7 @@ void UMyCharacterStatComponent::SetLevel(int32 CurrentLevel)
 
 			Level = StatData->Level;
 			CurrentHp = StatData->MaxHp;
-			Power = StatData->Power;
-			Defense = StatData->Defense;
+
 		}
 	}
 }

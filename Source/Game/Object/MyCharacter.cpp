@@ -34,6 +34,7 @@
 #include "Util.h"
 #include "ItemPool.h"
 #include "EnhanceSlotWidget.h"
+#include "AbilityWidget.h"
 
 
 // Sets default values
@@ -729,6 +730,7 @@ void AMyCharacter::OpenEquipment()
 		if (Visibility == ESlateVisibility::Visible)
 		{
 			MyEquipmentWidget->SetVisibility(ESlateVisibility::Hidden);
+			MyEquipmentWidget->AbilityWidget->SetVisibility(ESlateVisibility::Hidden);
 
 			if (MyController)
 			{
@@ -884,8 +886,9 @@ void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
 
 		if (MyWeapon != nullptr)
 		{
-			MyWeapon->Destroy();
-			MyWeapon = nullptr;
+			MyWeapon->UnEquippedItem();
+			//MyWeapon->Destroy();
+			//MyWeapon = nullptr;
 		}
 		NewWeapon->SetItemInfo(MyEquipmentWidget->EquipmentSlots[EquipmentType]->SlotData.ItemInfo);
 		NewWeapon->AttachToCharacter();
@@ -930,169 +933,19 @@ void AMyCharacter::Revive()
 	Stat->SetHp(MaxHp);
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	SetActorTickEnabled(true);
-	GetCharacterMovement()->MaxWalkSpeed = MyWeapon != nullptr ? DefaultSpeed + MyWeapon->WeaponInfo.Speed
-		: DefaultSpeed;
 
 	CharacterRevive.Broadcast();
 }
 
 void AMyCharacter::ChangeSpeed()
 {
-	// Speed
-	//switch (CurrentWeaponState)
-	//{
-	//case 0:
-	//	GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
-	//	break;
-	//case 1:
-	//	GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
-	//	break;
-	//case 2:
-	//	if (MyWeapon != nullptr)
-	//	{
-	//		GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed + MyWeapon->GetWeaponInfo().Speed;
-	//	}
-	//	else
-	//	{
-	//		GetCharacterMovement()->MaxWalkSpeed = DefaultSpeed;
-	//	}
-	//	break;
-	//}
+
 	GetCharacterMovement()->MaxWalkSpeed = Stat->Ability.Speed;
 
 }
 
-void AMyCharacter::SetClothesStat(FName Name, bool Plus)
-{
-	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
-	auto ClothesData = GameInstance->GetClothesData(Name);
-
-	if (Plus)
-	{
-		if (ClothesData)
-		{
-			DefaultSpeed += ClothesData->Speed;
-			int32 NewPower = Stat->GetPower() + ClothesData->Power;
-			Stat->SetPower(NewPower);
-			int32 NewDefense = Stat->GetDefense() + ClothesData->Defense;
-			Stat->SetDefense(NewDefense);
-		}
-
-		
-	}
-	else
-	{
-		if (ClothesData)
-		{
-			DefaultSpeed -= ClothesData->Speed;
-			int32 NewPower = Stat->GetPower() - ClothesData->Power;
-			Stat->SetPower(NewPower);
-			int32 NewDefense = Stat->GetDefense() - ClothesData->Defense;
-			Stat->SetDefense(NewDefense);
-		}
-
-
-	}
 
 
 
 
-}
-
-void AMyCharacter::SetWeaponStat(FName Name, bool Plus)
-{
-	UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
-	auto WeaponData = GameInstance->GetWeaponData(Name);
-
-	if (Plus)
-	{
-		if (WeaponData)
-		{
-			DefaultSpeed += WeaponData->Speed;
-			int32 NewPower = Stat->GetPower() + WeaponData->Power;
-			Stat->SetPower(NewPower);
-		}
-
-	}
-	else
-	{
-		if (WeaponData)
-		{
-			DefaultSpeed -= WeaponData->Speed;
-			int32 NewPower = Stat->GetPower() - WeaponData->Power;
-			Stat->SetPower(NewPower);
-		}
-
-	}
-
-}
-
-//void AMyCharacter::UnDressedWing()
-//{
-//	if (MyWing != nullptr)
-//	{
-//		MyWing->SetActorHiddenInGame(true);
-//		MyWing = nullptr;
-//	}
-//
-//}
-//
-//void AMyCharacter::UnDressedShoes()
-//{
-//	TArray<UStaticMeshComponent*> StaticMeshComponents;
-//	GetComponents<UStaticMeshComponent>(StaticMeshComponents);
-//
-//	for (UStaticMeshComponent* Comp : StaticMeshComponents)
-//	{
-//		if (Comp->GetFName() == FName(TEXT("Shoes_l")) || Comp->GetFName() == FName(TEXT("Shoes_r")))
-//		{
-//			Comp->SetStaticMesh(nullptr);
-//		}
-//	}
-//
-//	if (MyShoes)
-//	{
-//		SetClothesStat(MyShoes->ItemName, false);
-//
-//		MyShoes->Destroy();
-//		MyShoes = nullptr;
-//	}
-//}
-//
-//void AMyCharacter::UnDressedHelmet()
-//{
-//	TArray<UStaticMeshComponent*> StaticMeshComponents;
-//	GetComponents<UStaticMeshComponent>(StaticMeshComponents);
-//
-//	for (UStaticMeshComponent* Comp : StaticMeshComponents)
-//	{
-//		if (Comp->GetFName() == FName(TEXT("Helmet")))
-//		{
-//			Comp->SetStaticMesh(nullptr);
-//		}
-//	}
-//
-//	if (MyHelmet)
-//	{
-//		SetClothesStat(MyHelmet->ItemName, false);
-//
-//		MyHelmet->Destroy();
-//		MyHelmet = nullptr;
-//	}
-//}
-//
-//void AMyCharacter::UnEquippedWeapon(FName ItemName)
-//{
-//	if (GetMyWeapon() != nullptr && GetMyWeapon()->ItemName == ItemName)
-//	{
-//		SetWeaponStat(ItemName, false);
-//
-//		GetMyWeapon()->Destroy();
-//
-//		SetMyWeapon(nullptr);
-//
-//		// 다음 무기 있으면 장착 
-//
-//	}
-//}
 

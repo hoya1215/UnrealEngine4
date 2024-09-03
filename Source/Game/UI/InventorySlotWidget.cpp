@@ -70,6 +70,10 @@ void UInventorySlotWidget::AddItem(FItemInfo ItemInfo)
     {
         Text = FString::Printf(TEXT("%d"), SlotData.Count);
         SlotText->SetText(FText::FromString(Text));
+        if (CurrentSlot)
+        {
+            CurrentSlot->SlotText->SetText(FText::FromString(Text));
+        }
     }
 
     
@@ -326,6 +330,10 @@ void UInventorySlotWidget::UpdateLevel()
 {
     FString Text = FString::Printf(TEXT("Lv.%d"), SlotData.ItemInfo.Level);
     SlotText->SetText(FText::FromString(Text));
+    if (CurrentSlot)
+    {
+        CurrentSlot->SlotText->SetText(FText::FromString(Text));
+    }
 }
 
 //void UInventorySlotWidget::EquippedItem(AItem* Item)

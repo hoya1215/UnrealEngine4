@@ -54,7 +54,7 @@ public:
 	int Power;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Speed;
+	float Speed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Defense;

@@ -17,6 +17,7 @@
 #include "Helmet.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MyGameInstance.h"
+#include "Components/TextBlock.h"
 
 
 void UEquipmentSlotWidget::NativeConstruct()
@@ -38,6 +39,8 @@ void UEquipmentSlotWidget::PushEquipment(FSlotData Data)
 
 	SlotImage->SetBrushFromTexture(SlotTexture);
 	SlotData = Data;
+	FString Level = FString::Printf(TEXT("Lv.%d"), SlotData.ItemInfo.Level);
+	LevelText->SetText(FText::FromString(Level));
 
 }
 
@@ -47,6 +50,8 @@ void UEquipmentSlotWidget::PullEquipment()
 	SlotImage->SetBrushFromTexture(DefaultSlotTexture);
 	SlotData.ItemInfo.ItemName = FName(TEXT("NULL"));
 	SlotData.ItemInfo.Level = 0;
+	FString Level = FString::Printf(TEXT(""));
+	LevelText->SetText(FText::FromString(Level));
 }
 
 FSlotData UEquipmentSlotWidget::SwapEquipment(FSlotData Data)

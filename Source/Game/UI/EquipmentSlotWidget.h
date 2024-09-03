@@ -9,7 +9,7 @@
 
 class AItem;
 class UTexture2D;
-
+class UTextBlock;
 
 
 
@@ -39,6 +39,9 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 		class UImage* SlotImage;
+
+	UPROPERTY(meta = (BindWidget))
+		UTextBlock* LevelText;
 
 	UPROPERTY()
 		FSlotData SlotData;

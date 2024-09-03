@@ -42,8 +42,6 @@ public:
 	virtual void AttachToCharacter() override;
 	//virtual AItem* EquippedItem() override;
 
-	FWeaponInfo GetWeaponInfo() { return WeaponInfo; }
-	void SetWeaponInfo(FName Name);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -64,8 +62,7 @@ public:
 	UPROPERTY()
 		int WeaponState;
 
-	UPROPERTY()
-		FWeaponInfo WeaponInfo;
+
 
 	UPROPERTY()
 	class UMaterialInterface* MaterialTexture;

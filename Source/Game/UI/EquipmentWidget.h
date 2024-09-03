@@ -13,6 +13,7 @@ class UImage;
 class UUniformGridPanel;
 class USizeBox;
 class UButton;
+class UAbilityWidget;
 
 /**
  * 
@@ -26,6 +27,9 @@ public:
 	UEquipmentWidget(const FObjectInitializer& ObjectInitializer);
 
 	virtual void NativeConstruct() override;
+
+	UFUNCTION()
+	void ClickAbilityButton();
 
 	void InitSlots();
 
@@ -41,8 +45,13 @@ public:
 	UPROPERTY()
 		TMap<EEQUIPMENT_TYPE, UEquipmentSlotWidget*> EquipmentSlots;
 
+	UPROPERTY(meta = (BindWidget))
+		UAbilityWidget* AbilityWidget;
 
 private:
+	UPROPERTY(meta = (BindWidget))
+		UButton* AbilityButton;
+
 
 
 	// ½½·Ô

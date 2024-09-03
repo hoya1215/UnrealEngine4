@@ -87,13 +87,6 @@ public:
 	void Die();
 	void Revive();
 	void ChangeSpeed();
-	void SetClothesStat(FName Name, bool Plus);
-	void SetWeaponStat(FName Name, bool Plus);
-
-	void UnDressedWing();
-	void UnDressedShoes();
-	void UnDressedHelmet();
-	void UnEquippedWeapon(FName ItemName);
 
 
 	// Get Set

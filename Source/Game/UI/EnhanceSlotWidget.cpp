@@ -49,10 +49,9 @@ void UEnhanceSlotWidget::PullItem()
 
 	EnhanceWidget->CurrentLevel->SetText(FText::FromString(EnhanceWidget->DefaultText));
 	EnhanceWidget->NextLevel->SetText(FText::FromString(EnhanceWidget->DefaultText));
-	EnhanceWidget->CurrentStat->SetText(FText::FromString(EnhanceWidget->DefaultText));
-	EnhanceWidget->NextStat->SetText(FText::FromString(EnhanceWidget->DefaultText));
+
 	EnhanceWidget->CompareText1->SetText(FText::FromString(EnhanceWidget->DefaultText));
-	EnhanceWidget->CompareText2->SetText(FText::FromString(EnhanceWidget->DefaultText));
+
 }
 
 void UEnhanceSlotWidget::UpdateText()
@@ -64,62 +63,62 @@ void UEnhanceSlotWidget::UpdateText()
 
 	auto ItemData = GameInstance->GetItemData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
 
-	FString CurrentLevel = FString::Printf(TEXT("Level %d"), CurrentInventorySlot->SlotData.ItemInfo.Level);
+	FString CurrentLevel = FString::Printf(TEXT("Lv %d"), CurrentInventorySlot->SlotData.ItemInfo.Level);
 	EnhanceWidget->CurrentLevel->SetText(FText::FromString(CurrentLevel));
 
 
 	EnhanceWidget->CompareText1->SetText(FText::FromString(EnhanceWidget->CompareText));
-	EnhanceWidget->CompareText2->SetText(FText::FromString(EnhanceWidget->CompareText));
+
 
 	FName CurrentStatName;
-	float ChangeAmount;
-	float Value;
+	//float ChangeAmount;
+	//float Value;
 
-	FClothesData* CData;
-	FWeaponData* WData;
+	//FClothesData* CData;
+	//FWeaponData* WData;
 
-	switch (ItemData->EquipmentType)
-	{
-	case EEQUIPMENT_TYPE::WING:
-		CData = GameInstance->GetClothesData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
-		CurrentStatName = CData->EnhanceStatName;
-		ChangeAmount = CData->ChangeAmount;
-		Value = CData->Speed;
-		break;
-	case EEQUIPMENT_TYPE::SHOES:
-		CData = GameInstance->GetClothesData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
-		CurrentStatName = CData->EnhanceStatName;
-		ChangeAmount = CData->ChangeAmount;
-		Value = CData->Speed;
-		break;
-	case EEQUIPMENT_TYPE::HELMET:
-		CData = GameInstance->GetClothesData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
-		CurrentStatName = CData->EnhanceStatName;
-		ChangeAmount = CData->ChangeAmount;
-		Value = CData->Defense;
-		break;
-	default:
-		WData = GameInstance->GetWeaponData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
-		CurrentStatName = WData->EnhanceStatName;
-		ChangeAmount = WData->ChangeAmount;
-		Value = WData->Power;
-		break;
-	}
+	//switch (ItemData->EquipmentType)
+	//{
+	//case EEQUIPMENT_TYPE::WING:
+	//	CData = GameInstance->GetClothesData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
+	//	//CurrentStatName = CData->EnhanceStatName;
+	//	//ChangeAmount = CData->ChangeAmount;
+	//	//Value = CData->Speed;
+	//	break;
+	//case EEQUIPMENT_TYPE::SHOES:
+	//	CData = GameInstance->GetClothesData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
+	//	//CurrentStatName = CData->EnhanceStatName;
+	//	//ChangeAmount = CData->ChangeAmount;
+	//	Value = CData->Speed;
+	//	break;
+	//case EEQUIPMENT_TYPE::HELMET:
+	//	CData = GameInstance->GetClothesData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
+	//	CurrentStatName = CData->EnhanceStatName;
+	//	ChangeAmount = CData->ChangeAmount;
+	//	Value = CData->Defense;
+	//	break;
+	//default:
+	//	WData = GameInstance->GetWeaponData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
+	//	CurrentStatName = WData->EnhanceStatName;
+	//	ChangeAmount = WData->ChangeAmount;
+	//	Value = WData->Power;
+	//	break;
+	//}
 	FString NextLevel;
-	FString CurrentStat = FString::Printf(TEXT("%s %.1f"), *CurrentStatName.ToString(), Value + (CurrentInventorySlot->SlotData.ItemInfo.Level) * ChangeAmount);
-	FString NextStat = FString::Printf(TEXT("%s %.1f"), *CurrentStatName.ToString(), Value + (CurrentInventorySlot->SlotData.ItemInfo.Level + 1) * ChangeAmount);
+	//FString CurrentStat = FString::Printf(TEXT("%s %.1f"), *CurrentStatName.ToString(), Value + (CurrentInventorySlot->SlotData.ItemInfo.Level) * ChangeAmount);
+	//FString NextStat = FString::Printf(TEXT("%s %.1f"), *CurrentStatName.ToString(), Value + (CurrentInventorySlot->SlotData.ItemInfo.Level + 1) * ChangeAmount);
 	if (CurrentInventorySlot->SlotData.ItemInfo.Level >= 5)
 	{
 		NextLevel = FString::Printf(TEXT("Max"));
-		NextStat = FString::Printf(TEXT("Max"));
+		//NextStat = FString::Printf(TEXT("Max"));
 	}
 	else
 	{
-		NextLevel = FString::Printf(TEXT("Level %d"), CurrentInventorySlot->SlotData.ItemInfo.Level + 1);
+		NextLevel = FString::Printf(TEXT("Lv %d"), CurrentInventorySlot->SlotData.ItemInfo.Level + 1);
 	}
 	EnhanceWidget->NextLevel->SetText(FText::FromString(NextLevel));
-	EnhanceWidget->CurrentStat->SetText(FText::FromString(CurrentStat));
-	EnhanceWidget->NextStat->SetText(FText::FromString(NextStat));
+	//EnhanceWidget->CurrentStat->SetText(FText::FromString(CurrentStat));
+	//EnhanceWidget->NextStat->SetText(FText::FromString(NextStat));
 
 	
 }

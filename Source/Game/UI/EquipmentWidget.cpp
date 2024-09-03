@@ -2,6 +2,8 @@
 
 
 #include "EquipmentWidget.h"
+#include "AbilityWidget.h"
+#include "Components/Button.h"
 
 UEquipmentWidget::UEquipmentWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -15,6 +17,27 @@ void UEquipmentWidget::NativeConstruct()
     Super::NativeConstruct();
 
     InitSlots();
+
+    if (AbilityButton)
+    {
+        AbilityButton->OnClicked.AddDynamic(this, &UEquipmentWidget::ClickAbilityButton);
+    }
+
+    AbilityWidget->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UEquipmentWidget::ClickAbilityButton()
+{
+    ESlateVisibility Ability_Visibility = AbilityWidget->GetVisibility();
+    if (Ability_Visibility == ESlateVisibility::Visible)
+    {
+        AbilityWidget->SetVisibility(ESlateVisibility::Hidden);
+    }
+    else
+    {
+        AbilityWidget->SetVisibility(ESlateVisibility::Visible);
+    }
+
 }
 
 void UEquipmentWidget::InitSlots()
