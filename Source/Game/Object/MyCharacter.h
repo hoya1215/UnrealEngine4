@@ -88,6 +88,7 @@ public:
 	void Revive();
 	void ChangeSpeed();
 
+	void Skill();
 
 	// Get Set
 	void SetMyWeapon(AWeapon* CurrentWeapon);
@@ -285,5 +286,8 @@ private:
 	UPROPERTY()
 		FTimerHandle MouseTimerHandle;
 
+	// Skill
+	UPROPERTY()
+		class USkill_Tag* TagSkill;
 
 };

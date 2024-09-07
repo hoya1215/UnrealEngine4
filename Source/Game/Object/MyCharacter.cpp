@@ -35,6 +35,7 @@
 #include "ItemPool.h"
 #include "EnhanceSlotWidget.h"
 #include "AbilityWidget.h"
+#include "Skill_Tag.h"
 
 
 // Sets default values
@@ -241,6 +242,10 @@ void AMyCharacter::BeginPlay()
 	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
 	//GameInstance->ItemPool->BeginPlay(GetWorld());
 
+	//Skill
+	TagSkill = NewObject<USkill_Tag>();
+
+	TagSkill->BeginPlay(GetWorld(), this);
 }
 
 
@@ -329,6 +334,8 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction(TEXT("SelectSubWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
 	PlayerInputComponent->BindAction(TEXT("SelectOtherWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
 	PlayerInputComponent->BindAction(TEXT("Revive"), EInputEvent::IE_Pressed, this, &AMyCharacter::Revive);
+
+	PlayerInputComponent->BindAction(TEXT("Skill_Tag"), EInputEvent::IE_Pressed, this, &AMyCharacter::Skill);
 }
 
 float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -942,6 +949,11 @@ void AMyCharacter::ChangeSpeed()
 
 	GetCharacterMovement()->MaxWalkSpeed = Stat->Ability.Speed;
 
+}
+
+void AMyCharacter::Skill()
+{
+	TagSkill->Play();
 }
 
 

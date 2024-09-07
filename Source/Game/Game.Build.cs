@@ -20,7 +20,8 @@ public class Game : ModuleRules
             "Game/Object",
             "Game/Sound",
             "Game/UI",
-            "Game/ObjectPool"
+            "Game/ObjectPool",
+            "Game/Skill"
         });
     }
 
