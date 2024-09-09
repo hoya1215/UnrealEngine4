@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Kismet/GameplayStatics.h"
 #include "MyCharacter.h"
+#include "MyGameModeBase.h"
+#include "MyHUD.h"
 #include "Engine/World.h"
 #include "CoreMinimal.h"
 
@@ -35,5 +37,11 @@ public:
 		AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(World, 0));
 
 		return MyCharacter;
+	}
+
+	static UMyHUD* GetHUD(UWorld* World)
+	{
+		AMyGameModeBase* GameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(World));
+		return GameMode->Widget;
 	}
 };

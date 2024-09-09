@@ -10,6 +10,7 @@ class UTextBlock;
 class UProgressBar;
 class UImage;
 class AMyCharacter;
+class USkillSlotWidget;
 
 /**
  * 
@@ -23,6 +24,7 @@ public:
 
 
 	virtual void NativeConstruct() override;
+	
 
 	void UpdateHp();
 	void UpdateExp(float ExpRatio);
@@ -55,6 +57,10 @@ public:
 
 	UPROPERTY()
 		UTexture2D* DefaultTexture;
+
+	// Skill
+	UPROPERTY(Meta = (BindWidget))
+		USkillSlotWidget* TabSkill;
 
 private:
 	UPROPERTY()

@@ -36,7 +36,8 @@
 #include "EnhanceSlotWidget.h"
 #include "AbilityWidget.h"
 #include "Skill_Tag.h"
-
+#include "SkillSlotWidget.h"
+#include "SkillManager.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -243,9 +244,16 @@ void AMyCharacter::BeginPlay()
 	//GameInstance->ItemPool->BeginPlay(GetWorld());
 
 	//Skill
-	TagSkill = NewObject<USkill_Tag>();
+	auto SkillManager = USkillManager::Get();
+	SkillManager->BeginPlay(GetWorld(), this);
 
-	TagSkill->BeginPlay(GetWorld(), this);
+	//TagSkill = NewObject<USkill_Tag>();
+
+	//TagSkill->BeginPlay(GetWorld(), this);
+
+	//AMyGameModeBase* GameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	//GameMode->Widget->TabSkill->SetProgressBarImage(TagSkill->SkillTexture);
+	//GameMode->Widget->TabSkill->CoolTime = TagSkill->CoolTime;
 }
 
 
@@ -335,7 +343,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction(TEXT("SelectOtherWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
 	PlayerInputComponent->BindAction(TEXT("Revive"), EInputEvent::IE_Pressed, this, &AMyCharacter::Revive);
 
-	PlayerInputComponent->BindAction(TEXT("Skill_Tag"), EInputEvent::IE_Pressed, this, &AMyCharacter::Skill);
+	PlayerInputComponent->BindAction(TEXT("Skill_Tag"), EInputEvent::IE_Pressed, this, &AMyCharacter::TabSkill);
 }
 
 float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -951,9 +959,20 @@ void AMyCharacter::ChangeSpeed()
 
 }
 
-void AMyCharacter::Skill()
+void AMyCharacter::TabSkill()
 {
-	TagSkill->Play();
+	auto HUD = Util::GetHUD(GetWorld());
+	if (HUD->TabSkill->CurrentTime > 0.f)
+		return;
+	HUD->TabSkill->CurrentTime += 0.001f;
+
+	HUD->TabSkill->Skill->Play();
+	//USkillManager::Get()->Skill_Tag->Play();
+}
+
+ACharacter_Tag* AMyCharacter::GetTagCharacter()
+{
+	return TagSkill->TagCharacter;
 }
 
 

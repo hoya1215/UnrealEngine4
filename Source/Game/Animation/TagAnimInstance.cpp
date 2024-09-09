@@ -3,7 +3,6 @@
 
 #include "Animation/TagAnimInstance.h"
 #include "Character_Tag.h"
-#include "DrawDebugHelpers.h"
 #include "Particles/ParticleSystemComponent.h"
 
 UTagAnimInstance::UTagAnimInstance()
@@ -65,41 +64,7 @@ void UTagAnimInstance::AnimNotify_MoveEnd()
 
 void UTagAnimInstance::AnimNotify_Attack()
 {
-	FHitResult HitResult;
-	FCollisionQueryParams Params(NAME_None, false, TagCharacter);
-
-	float Range = 200.0f;
-	float Radius = 50.f;
-
-	bool bResult = GetWorld()->SweepSingleByChannel(
-		OUT HitResult,
-		TagCharacter->GetActorLocation(),
-		TagCharacter->GetActorLocation() + TagCharacter->GetActorForwardVector() * Range,
-		FQuat::Identity,
-		ECollisionChannel::ECC_GameTraceChannel3,
-		FCollisionShape::MakeSphere(Radius),
-		Params
-	);
-
-	// 디버거용 그림
-	FVector Vec = TagCharacter->GetActorForwardVector() * Range;
-	FVector Center = TagCharacter->GetActorLocation() + Vec * 0.5f;
-	float HalfHeight = Range * 0.5f + Radius;
-	FQuat Rotation = FRotationMatrix::MakeFromZ(Vec).ToQuat();
-	FColor DrawColor;
-	if (bResult)
-		DrawColor = FColor::Green;
-	else
-		DrawColor = FColor::Red;
-
-	DrawDebugCapsule(GetWorld(), Center, HalfHeight, Radius, Rotation, DrawColor, false, 2.f);
-
-	if (bResult && HitResult.Actor.IsValid())
-	{
-
-		FDamageEvent event;
-		HitResult.Actor->TakeDamage(TagCharacter->Power, event, TagCharacter->GetController(), TagCharacter);
-	}
+	TagCharacter->Attack();
 }
 
 void UTagAnimInstance::AnimNotify_Effect()

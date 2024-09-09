@@ -15,22 +15,25 @@ USkill_Tag::USkill_Tag()
 		TagCharacterClass = CT.Class;
 	}
 
-	
+	ConstructorHelpers::FObjectFinder<UTexture2D> ST(TEXT("Texture2D'/Game/Custom/Resources/Tag.Tag'"));
+	if (ST.Succeeded())
+	{
+		SkillTexture = ST.Object;
+	}
 
+	CoolTime = 5.f;
 }
 
 void USkill_Tag::BeginPlay(UWorld* World, AMyCharacter* Character)
 {
+	USkill::BeginPlay(World, Character);
+
 	if (World)
 	{
 		TagCharacter = World->SpawnActor<ACharacter_Tag>(TagCharacterClass, FVector::ZeroVector, FRotator::ZeroRotator);
 		TagCharacter->SetActorHiddenInGame(true);
-		MyCharacter = Character;
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No World"));
-	}
+
 }
 
 void USkill_Tag::Play()

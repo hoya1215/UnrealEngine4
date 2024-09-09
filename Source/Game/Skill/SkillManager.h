@@ -7,6 +7,7 @@
 #include "SkillManager.generated.h"
 
 class USkill_Tag;
+class AMyCharacter;
 /**
  * 
  */
@@ -16,9 +17,16 @@ class GAME_API USkillManager : public UObject
 	GENERATED_BODY()
 	
 public:
-	USkillManager();
+	static USkillManager* Get();
+
+	void BeginPlay(UWorld* World, AMyCharacter* MyCharacter);
 
 public:
 	UPROPERTY()
 		USkill_Tag* Skill_Tag;
+
+private:
+	USkillManager();
+
+	static USkillManager* SkillManager;
 };

@@ -23,6 +23,8 @@ class AShoes;
 class AHelmet;
 class UMyHUD;
 class USoundCue;
+class ACharacter_Tag;
+class USkill_Tag;
 
 USTRUCT()
 struct FSounds
@@ -88,7 +90,7 @@ public:
 	void Revive();
 	void ChangeSpeed();
 
-	void Skill();
+	void TabSkill();
 
 	// Get Set
 	void SetMyWeapon(AWeapon* CurrentWeapon);
@@ -104,6 +106,7 @@ public:
 	UEquipmentWidget* GetEquipmentWidget() { return MyEquipmentWidget; }
 	UEnhanceWidget* GetEnhanceWidget() { return MyEnhanceWidget; }
 	APet* GetMyPet() { return MyPet; }
+	ACharacter_Tag* GetTagCharacter();
 
 	// Util
 	void UpdateUI();
@@ -210,6 +213,10 @@ public:
 	UPROPERTY()
 		FSounds Sounds;
 
+	// Skill
+	UPROPERTY()
+		class USkill_Tag* TagSkill;
+
 private:
 
 	// Gun
@@ -286,8 +293,6 @@ private:
 	UPROPERTY()
 		FTimerHandle MouseTimerHandle;
 
-	// Skill
-	UPROPERTY()
-		class USkill_Tag* TagSkill;
+
 
 };

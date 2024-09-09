@@ -5,6 +5,12 @@
 #include "Components/CapsuleComponent.h"
 #include "Particles/ParticleSystem.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "DrawDebugHelpers.h"
+#include "MyCharacter.h"
+#include "MyGameInstance.h"
+#include "Util.h"
+#include "MyCharacterStatComponent.h"
+#include "MyEnemy.h"
 
 // Sets default values
 ACharacter_Tag::ACharacter_Tag()
@@ -53,5 +59,53 @@ void ACharacter_Tag::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void ACharacter_Tag::Attack()
+{
+	FHitResult HitResult;
+	FCollisionQueryParams Params(NAME_None, false, this);
+
+	float Range = 200.0f;
+	float Radius = 50.f;
+
+	bool bResult = GetWorld()->SweepSingleByChannel(
+		OUT HitResult,
+		GetActorLocation(),
+		GetActorLocation() + GetActorForwardVector() * Range,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel3,
+		FCollisionShape::MakeSphere(Radius),
+		Params
+	);
+
+	// 디버거용 그림
+	FVector Vec = GetActorForwardVector() * Range;
+	FVector Center = GetActorLocation() + Vec * 0.5f;
+	float HalfHeight = Range * 0.5f + Radius;
+	FQuat Rotation = FRotationMatrix::MakeFromZ(Vec).ToQuat();
+	FColor DrawColor = FColor::Red;
+
+	
+
+	if (bResult && HitResult.Actor.IsValid())
+	{
+		AMyEnemy* Enemy = Cast<AMyEnemy>(HitResult.Actor);
+		if (Enemy)
+		{
+			AMyCharacter* MyCharacter = Util::GetMyCharacter(GetWorld());
+			UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetGameInstance());
+			auto CharacterStatData = GameInstance->GetStatData(MyCharacter->Stat->GetLevel());
+			int CharacterPower = CharacterStatData->Level;
+
+			FDamageEvent event;
+			HitResult.Actor->TakeDamage(CharacterPower, event, GetController(), this);
+
+			DrawColor = FColor::Green;
+		}
+
+	}
+
+	DrawDebugCapsule(GetWorld(), Center, HalfHeight, Radius, Rotation, DrawColor, false, 2.f);
 }
 

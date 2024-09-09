@@ -9,6 +9,8 @@
 #include "Kismet/GameplayStatics.h"  
 #include "MyCharacterStatComponent.h"
 #include "Weapon.h"
+#include "SkillSlotWidget.h"
+#include "Skill_Tag.h"
 
 
 void UMyHUD::NativeConstruct()
@@ -28,6 +30,7 @@ void UMyHUD::NativeConstruct()
 
 		MyCharacter->HpChange.AddUObject(this, &UMyHUD::UpdateHp);
 		MyCharacter->WeaponChange.AddUObject(this, &UMyHUD::UpdateWeaponImage);
+		TabSkill->SetProgressBarImage(MyCharacter->TagSkill->SkillTexture);
 	}
 
 
@@ -36,8 +39,14 @@ void UMyHUD::NativeConstruct()
 
 	CurrentWeapon->SetBrushFromTexture(DefaultTexture);
 
+	
+
+	
+
 	//CurrentWeapon->SetVisibility(ESlateVisibility::Hidden);
 }
+
+
 
 void UMyHUD::UpdateHp()
 {

@@ -3,25 +3,26 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+#include "Skill.h"
 #include "Skill_Tag.generated.h"
 
 class AMyCharacter;
 class ACharacter_Tag;
 class UWorld;
+class UTexture2D;
 /**
  * 
  */
 UCLASS()
-class GAME_API USkill_Tag : public UObject
+class GAME_API USkill_Tag : public USkill
 {
 	GENERATED_BODY()
 public:
 	USkill_Tag();
 
-	void BeginPlay(UWorld* World, AMyCharacter* Character);
+	virtual void BeginPlay(UWorld* World, AMyCharacter* Character) override;
 
-	void Play();
+	virtual void Play() override;
 
 public:
 	UPROPERTY()
@@ -30,6 +31,8 @@ public:
 	UPROPERTY()
 		ACharacter_Tag* TagCharacter;
 
-	UPROPERTY()
-		AMyCharacter* MyCharacter;
+
+
+
+
 };

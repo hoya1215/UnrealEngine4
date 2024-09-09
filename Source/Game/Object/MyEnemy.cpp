@@ -171,6 +171,8 @@ void AMyEnemy::Attack()
 
 void AMyEnemy::Die()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Enemy Die"));
+
 	Util::PlaySound(this, DieSound, GetActorLocation());
 
 	//auto Money = GetWorld()->SpawnActor<AMoney>(GetActorLocation(), FRotator::ZeroRotator);
