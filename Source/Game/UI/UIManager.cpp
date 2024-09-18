@@ -69,7 +69,7 @@ void UUIManager::BeginPlay(AMyCharacter* Character)
 	}
 
 
-	//HUD->SetCharacter(MyCharacter);
+	HUD->SetCharacter(MyCharacter);
 
 	if (World)
 	{

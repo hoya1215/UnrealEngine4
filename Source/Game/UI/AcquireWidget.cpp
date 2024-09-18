@@ -27,7 +27,7 @@ void UAcquireWidget::AcquireItem(UTexture2D* ItemTexture, bool Animation, float 
 {
 	Texture = ItemTexture;
 	ItemImage->SetBrushFromTexture(ItemTexture);
-	// 보이게 하고 timer 설정해서 다시 안보이게
+
 	SetVisibility(ESlateVisibility::Visible);
 
 	if (Animation)

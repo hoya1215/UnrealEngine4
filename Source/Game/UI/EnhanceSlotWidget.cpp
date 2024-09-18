@@ -33,12 +33,7 @@ void UEnhanceSlotWidget::PushItem(UInventorySlotWidget* NewSlot)
 		}
 
 		UpdateText();
-		
-		
-
 	}
-
-	
 }
 
 void UEnhanceSlotWidget::PullItem()
@@ -71,54 +66,18 @@ void UEnhanceSlotWidget::UpdateText()
 
 
 	FName CurrentStatName;
-	//float ChangeAmount;
-	//float Value;
-
-	//FClothesData* CData;
-	//FWeaponData* WData;
-
-	//switch (ItemData->EquipmentType)
-	//{
-	//case EEQUIPMENT_TYPE::WING:
-	//	CData = GameInstance->GetClothesData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
-	//	//CurrentStatName = CData->EnhanceStatName;
-	//	//ChangeAmount = CData->ChangeAmount;
-	//	//Value = CData->Speed;
-	//	break;
-	//case EEQUIPMENT_TYPE::SHOES:
-	//	CData = GameInstance->GetClothesData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
-	//	//CurrentStatName = CData->EnhanceStatName;
-	//	//ChangeAmount = CData->ChangeAmount;
-	//	Value = CData->Speed;
-	//	break;
-	//case EEQUIPMENT_TYPE::HELMET:
-	//	CData = GameInstance->GetClothesData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
-	//	CurrentStatName = CData->EnhanceStatName;
-	//	ChangeAmount = CData->ChangeAmount;
-	//	Value = CData->Defense;
-	//	break;
-	//default:
-	//	WData = GameInstance->GetWeaponData(CurrentInventorySlot->SlotData.ItemInfo.ItemName);
-	//	CurrentStatName = WData->EnhanceStatName;
-	//	ChangeAmount = WData->ChangeAmount;
-	//	Value = WData->Power;
-	//	break;
-	//}
 	FString NextLevel;
-	//FString CurrentStat = FString::Printf(TEXT("%s %.1f"), *CurrentStatName.ToString(), Value + (CurrentInventorySlot->SlotData.ItemInfo.Level) * ChangeAmount);
-	//FString NextStat = FString::Printf(TEXT("%s %.1f"), *CurrentStatName.ToString(), Value + (CurrentInventorySlot->SlotData.ItemInfo.Level + 1) * ChangeAmount);
+
 	if (CurrentInventorySlot->SlotData.ItemInfo.Level >= 5)
 	{
 		NextLevel = FString::Printf(TEXT("Max"));
-		//NextStat = FString::Printf(TEXT("Max"));
+
 	}
 	else
 	{
 		NextLevel = FString::Printf(TEXT("Lv %d"), CurrentInventorySlot->SlotData.ItemInfo.Level + 1);
 	}
 	EnhanceWidget->NextLevel->SetText(FText::FromString(NextLevel));
-	//EnhanceWidget->CurrentStat->SetText(FText::FromString(CurrentStat));
-	//EnhanceWidget->NextStat->SetText(FText::FromString(NextStat));
 
 	
 }

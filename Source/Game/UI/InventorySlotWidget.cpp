@@ -39,6 +39,7 @@ void UInventorySlotWidget::AddItem(FItemInfo ItemInfo)
 
     FItemData* ItemData = GameInstance->GetItemData(ItemInfo.ItemName);
 
+    // SlotData Update
     if (SlotData.Count == 0)
     {
         
@@ -64,6 +65,7 @@ void UInventorySlotWidget::AddItem(FItemInfo ItemInfo)
     
     SlotData.Count++;
 
+    // Text Update
     FString Text;
     if (ItemData->InventoryType == EINVENTORY_TYPE::EQUIPMENT)
     {
@@ -78,8 +80,6 @@ void UInventorySlotWidget::AddItem(FItemInfo ItemInfo)
             CurrentSlot->SlotText->SetText(FText::FromString(Text));
         }
     }
-
-
     ItemStatWidget->FillStatText(ItemInfo);
 
 }
@@ -105,29 +105,6 @@ void UInventorySlotWidget::SetItem(UInventorySlotWidget* OtherSlot)
     
 }
 
-void UInventorySlotWidget::ShowItemStat()
-{
-    //// 아이템 이름으로 스탯 가져와서 벡터끼리 더해주고 텍스트 채워주기
-    //UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
-    //auto BasicAbility = GameInstance->GetItemAbility(SlotData.ItemInfo.ItemName);
-    //auto AbilityChange = GameInstance->GetItemAbilityChange(SlotData.ItemInfo.ItemName);
-
-    //TArray<float> BasicStat = BasicAbility->GetStatList();
-    //TArray<float> ChangeStat = AbilityChange->GetStatList();
-
-    //for (int i = 0; i < BasicStat.Num(); ++i)
-    //{
-    //    BasicStat[i] += ChangeStat[i] * SlotData.ItemInfo.Level;
-    //}
-
-    //for (int i = 0; i < StatName.Num(); ++i)
-    //{
-    //    if (BasicStat[i] > 0.f)
-    //    {
-
-    //    }
-    //}
-}
 
 
 
@@ -258,20 +235,6 @@ void UInventorySlotWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
     }
 }
 
-//void UInventorySlotWidget::UseItem(FName Name)
-//{
-//
-//    switch (ItemType)
-//    {
-//    case EITEM_TYPE::MONEY:
-//    {
-//        this->SetItem(InventoryWidget->DefaultSlot);
-//        InventoryWidget->CurrentMoney += FMath::RandRange(100, 300);
-//        Count--;
-//        break;
-//    }
-//    }
-//}
 
 void UInventorySlotWidget::EquippedItem(FSlotData Data)
 {
@@ -365,26 +328,3 @@ void UInventorySlotWidget::UpdateLevel()
     
 }
 
-//void UInventorySlotWidget::EquippedItem(AItem* Item)
-//{
-//    // 장비창에 해당하는 장비타입 없으면 디폴트 위젯 , 있으면 위젯 교체 
-//    // 장착 먼저 
-//    // 아이템 소환 Item Name 으로 
-//    AItem* NewItem = Item->EquippedItem();
-//    if (NewItem == nullptr)
-//    {
-//        this->SetItem(InventoryWidget->DefaultSlot);
-//    }
-//    else
-//    {
-//        //Count = 0;
-//        this->AddItem(NewItem);
-//    }
-//
-//    AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-//    if (MyCharacter)
-//    {
-//        MyCharacter->ChangeSpeed();
-//        MyCharacter->WeaponChange.Broadcast();
-//    }
-//}

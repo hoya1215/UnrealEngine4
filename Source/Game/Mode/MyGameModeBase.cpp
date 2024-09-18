@@ -64,8 +64,7 @@ void AMyGameModeBase::BeginPlay()
 
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	UUIManager::Get()->BeginPlay(MyCharacter);
-	//
-	//Widget->SetCharacter(MyCharacter);
+
 
 
 	auto Gun = GetWorld()->SpawnActor<AGun>(MyCharacter->GetActorLocation() + FVector(100.f, 0.f, 0.f), FRotator::ZeroRotator);

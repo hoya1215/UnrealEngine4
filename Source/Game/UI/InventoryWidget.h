@@ -32,25 +32,18 @@ public:
     virtual void NativeConstruct() override;
     virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& MouseEvent,
         UDragDropOperation*& Operation) override;
-    //virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
-    //virtual bool NativeOnDragOver(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, 
-    //    UDragDropOperation* InOperation) override;
-
-    //virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
-    //virtual FReply NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
-    //virtual FReply NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
-
 
     virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
     UFUNCTION()
         void AddItemToInventory(FItemInfo ItemInfo);
 
+
     void Init();
 
     void SwapSlot(int From, int To);
     
-    void CreateSlot();
+    void CreateDefaultSlot();
 
     void FillInventory(TArray < UInventorySlotWidget*> before, TArray<UInventorySlotWidget*> after);
     void SwapInventory(EINVENTORY_TYPE InventoryType);

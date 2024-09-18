@@ -51,9 +51,9 @@ public:
 	// Util
 	void AddItem(FItemInfo ItemInfo);
 
+
 	void SetItem(UInventorySlotWidget* OtherSlot);
 
-	void ShowItemStat();
 
 	void UpdateLevel();
 

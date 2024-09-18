@@ -136,16 +136,17 @@ void UMyHUD::SetCharacter(AMyCharacter* CurrentCharacter)
 {
 	MyCharacter = CurrentCharacter;
 
-	MyCharacter->HpChange.AddUObject(this, &UMyHUD::UpdateHp);
-	MyCharacter->WeaponChange.AddUObject(this, &UMyHUD::UpdateWeaponImage);
+	if (MyCharacter)
+	{
+		MyCharacter->HpChange.AddUObject(this, &UMyHUD::UpdateHp);
+		MyCharacter->WeaponChange.AddUObject(this, &UMyHUD::UpdateWeaponImage);
 
-	FString Hp = FString::Printf(TEXT("Hp : %d"), MyCharacter->Stat->GetMaxHp());
+		FString Hp = FString::Printf(TEXT("Hp : %d"), MyCharacter->Stat->GetMaxHp());
 
-	HpText->SetText(FText::FromString(Hp));
+		HpText->SetText(FText::FromString(Hp));
 
-	//CurrentWeapon->SetBrushFromTexture(MyCharacter->GetMyWeapon()->ItemTexture);
+		//TabSkill->SetProgressBarImage(MyCharacter->TagSkill->SkillTexture);
+	}
 
-	//MyCharacter->HpChange.AddUObject(this, &UMyHUD::UpdateHp);
-	//MyCharacter->WeaponChange.AddUObject(this, &UMyHUD::UpdateWeaponImage);
-	TabSkill->SetProgressBarImage(MyCharacter->TagSkill->SkillTexture);
+
 }

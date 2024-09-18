@@ -92,46 +92,22 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 		// 실제 아이템 장착 해제
 		if (SlotData.ItemInfo.ItemName == FName(TEXT("Wing")))
 		{
-			//PlayerCharacter->UnDressedWing();
 			PlayerCharacter->GetMyWing()->UnEquippedItem();
 		}
 		else if (SlotData.ItemInfo.ItemName == FName(TEXT("Shoes")))
 		{
-			//PlayerCharacter->UnDressedShoes();
 			PlayerCharacter->GetMyShoes()->UnEquippedItem();
 		}
 		else if (SlotData.ItemInfo.ItemName == FName(TEXT("Helmet")))
 		{
-			//PlayerCharacter->UnDressedHelmet();
 			PlayerCharacter->GetMyHelmet()->UnEquippedItem();
 		}
 		else
 		{
-			//PlayerCharacter->UnEquippedWeapon(SlotData.ItemInfo.ItemName);
 			if(PlayerCharacter->GetMyWeapon()->ItemInfo.ItemName == SlotData.ItemInfo.ItemName)
 				PlayerCharacter->GetMyWeapon()->UnEquippedItem();
 		}
 
-		//if (CurrentItem->InventoryType == EINVENTORY_TYPE::EQUIPMENT)
-		//{
-		//if (ItemName == FName(TEXT("Wing")))
-		//{
-		//	PlayerCharacter->GetMyWing()->SetActorHiddenInGame(true);
-		//	PlayerCharacter->SetMyWing(nullptr);
-		//}
-		//else
-		//{
-		//	if (PlayerCharacter->GetMyWeapon() != nullptr &&
-		//		PlayerCharacter->GetMyWeapon()->ItemName == ItemName)
-		//	{
-		//		PlayerCharacter->GetMyWeapon()->Destroy();
-
-		//		PlayerCharacter->SetMyWeapon(nullptr);
-
-		//		// 다음 무기 있으면 장착 
-
-		//	}
-		//}
 
 		PullEquipment();
 
