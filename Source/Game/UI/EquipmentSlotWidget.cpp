@@ -18,6 +18,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MyGameInstance.h"
 #include "Components/TextBlock.h"
+#include "UIManager.h"
+#include "ItemStatWidget.h"
 
 
 void UEquipmentSlotWidget::NativeConstruct()
@@ -42,6 +44,7 @@ void UEquipmentSlotWidget::PushEquipment(FSlotData Data)
 	FString Level = FString::Printf(TEXT("Lv.%d"), SlotData.ItemInfo.Level);
 	LevelText->SetText(FText::FromString(Level));
 
+	ItemStatWidget->FillStatText(Data.ItemInfo);
 }
 
 void UEquipmentSlotWidget::PullEquipment()
@@ -52,6 +55,8 @@ void UEquipmentSlotWidget::PullEquipment()
 	SlotData.ItemInfo.Level = 0;
 	FString Level = FString::Printf(TEXT(""));
 	LevelText->SetText(FText::FromString(Level));
+
+	ItemStatWidget->ResetStatText();
 }
 
 FSlotData UEquipmentSlotWidget::SwapEquipment(FSlotData Data)
@@ -75,11 +80,11 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 	if (PlayerCharacter && SlotData.ItemInfo.ItemName != FName(TEXT("NULL")))
 	{
 		// 슬롯에서 해제
-		for (int i = 0; i < PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets.Num(); ++i)
+		for (int i = 0; i < UUIManager::Get()->GetInventoryWidget()->EquipmentSlotWidgets.Num(); ++i)
 		{
-			if (PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->SlotData.ItemInfo.ItemName == FName(TEXT("NULL")))
+			if (UUIManager::Get()->GetInventoryWidget()->EquipmentSlotWidgets[i]->SlotData.ItemInfo.ItemName == FName(TEXT("NULL")))
 			{
-				PlayerCharacter->GetInventoryWidget()->EquipmentSlotWidgets[i]->AddItem(SlotData.ItemInfo);
+				UUIManager::Get()->GetInventoryWidget()->EquipmentSlotWidgets[i]->AddItem(SlotData.ItemInfo);
 				break;
 			}
 		}
@@ -138,4 +143,24 @@ FReply UEquipmentSlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
 
 
 	return Reply.NativeReply;
+}
+
+void UEquipmentSlotWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
+
+	if (SlotData.ItemInfo.ItemName != FName(TEXT("NULL")))
+	{
+		ItemStatWidget->SetVisibility(ESlateVisibility::Visible);
+	}
+}
+
+void UEquipmentSlotWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
+{
+	Super::NativeOnMouseLeave(InMouseEvent);
+
+	if (SlotData.ItemInfo.ItemName != FName(TEXT("NULL")))
+	{
+		ItemStatWidget->SetVisibility(ESlateVisibility::Hidden);
+	}
 }

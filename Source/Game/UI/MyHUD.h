@@ -11,17 +11,19 @@ class UProgressBar;
 class UImage;
 class AMyCharacter;
 class USkillSlotWidget;
+class UAcquireWidget;
 
 /**
  * 
  */
+DECLARE_MULTICAST_DELEGATE(FAcquireWidgetUp)
 UCLASS()
 class GAME_API UMyHUD : public UUserWidget
 {
 	GENERATED_BODY()
 
 public:
-
+	UMyHUD(const FObjectInitializer& ObjectInitializer);
 
 	virtual void NativeConstruct() override;
 	
@@ -31,7 +33,12 @@ public:
 	void UpdateLevel(int Level);
 	void UpdateWeaponImage();
 
+	void AcquireItem(FName ItemName);
+	void SwapAcquireWidget();
+
 	void SetCharacter(AMyCharacter* CurrentCharacter);
+
+	FAcquireWidgetUp AcquireWidgetUp;
 
 public:
 	//UPROPERTY(Meta = (BindWidget))
@@ -65,4 +72,21 @@ public:
 private:
 	UPROPERTY()
 		AMyCharacter* MyCharacter;
+
+
+
+	UPROPERTY()
+		TSubclassOf<UAcquireWidget> AcquireWidgetClass;
+
+	UPROPERTY(meta = (BindWidget))
+		UAcquireWidget* AcquireWidgetTop;
+
+	UPROPERTY(meta = (BindWidget))
+		UAcquireWidget* AcquireWidgetMiddle;
+
+	UPROPERTY(meta = (BindWidget))
+		UAcquireWidget* AcquireWidgetBottom;
+
+	TQueue<UAcquireWidget*> AcquireWidgets;
+	int MaxAcquireWidgetCount = 3;
 };

@@ -48,20 +48,33 @@ public:
 		return *this;
 	}
 
+	TArray<float> GetStatList()
+	{
+		TArray<float> StatArray;
+		StatArray.Add(Power);
+		StatArray.Add(Speed);
+		StatArray.Add(Defense);
+		StatArray.Add(Hp);
+
+		return StatArray;
+	}
+
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Power;
+	float Power;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Speed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Defense;
+	float Defense;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Hp;
 };
+
+
 
 
 USTRUCT()
@@ -73,7 +86,7 @@ struct FCharacterData : public FTableRowBase
 		int32 Level;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Power;
+	float Power;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHp;
@@ -91,7 +104,7 @@ struct FWeaponData : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Power;
+	float Power;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Speed;
@@ -135,13 +148,13 @@ struct FClothesData : public FTableRowBase
 	GENERATED_BODY()
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 Power;
+		float Power;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float Speed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 Defense;
+		float Defense;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FName EnhanceStatName;
@@ -157,7 +170,7 @@ struct FEnemyData : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Power;
+	float Power;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Speed;
@@ -249,6 +262,8 @@ public:
 	// ItemList
 	TMap < FName, TTuple<TSubclassOf<AItem>, int>> ItemList;
 	TMap<FName, TSharedPtr<class UTexture2D>> ItemTexture;
+
+	TArray<FName> StatNameList;
 	
 
 	UPROPERTY()

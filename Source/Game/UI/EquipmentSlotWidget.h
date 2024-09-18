@@ -10,7 +10,7 @@
 class AItem;
 class UTexture2D;
 class UTextBlock;
-
+class UItemStatWidget;
 
 
 /**
@@ -30,6 +30,9 @@ public:
 
 	virtual FReply NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
+	virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Texture")
 	UTexture2D* DefaultSlotTexture;
@@ -45,6 +48,9 @@ public:
 
 	UPROPERTY()
 		FSlotData SlotData;
+
+	UPROPERTY(meta = (BindWidget))
+		UItemStatWidget* ItemStatWidget;
 
 	UPROPERTY()
 		class UMyGameInstance* GameInstance;

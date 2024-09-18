@@ -38,6 +38,7 @@
 #include "Skill_Tag.h"
 #include "SkillSlotWidget.h"
 #include "SkillManager.h"
+#include "UIManager.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -87,33 +88,7 @@ AMyCharacter::AMyCharacter()
 	MuzzleOffset = FVector(100.f, 0.f, 0.f);
 
 
-	Stat = CreateDefaultSubobject<UMyCharacterStatComponent>(TEXT("Stat"));
-
-	// Inventory
-	MyInventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
-	
-	//MyInventoryWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("InventoryWidget"));
-	ConstructorHelpers::FClassFinder<UInventoryWidget> IW(TEXT("WidgetBlueprint'/Game/Custom/UI/WBP_Inventory.WBP_Inventory_C'"));
-	if (IW.Succeeded())
-	{
-		MyInventoryWidgetClass = IW.Class;
-	}
-
-	ConstructorHelpers::FClassFinder<UEquipmentWidget> EW(TEXT("WidgetBlueprint'/Game/Custom/UI/WBP_Equipment.WBP_Equipment_C'"));
-	if (EW.Succeeded())
-	{
-		MyEquipmentWidgetClass = EW.Class;
-	}
-
-	ConstructorHelpers::FClassFinder<UEnhanceWidget> EhW(TEXT("WidgetBlueprint'/Game/Custom/UI/WBP_Enhance.WBP_Enhance_C'"));
-	if (EhW.Succeeded())
-	{
-		MyEnhanceWidgetClass = EhW.Class;
-	}
-
-
-
-	
+	Stat = CreateDefaultSubobject<UMyCharacterStatComponent>(TEXT("Stat"));	
 	
 	static ConstructorHelpers::FClassFinder<APet> PC(TEXT("Blueprint'/Game/Custom/Blueprint/BP_Pet.BP_Pet_C'"));
 	if (PC.Succeeded())
@@ -140,58 +115,8 @@ void AMyCharacter::BeginPlay()
 	
 	FName GunSocket(TEXT("hand_r_socket"));
 
-	//auto Gun = GetWorld()->SpawnActor<AGun>(FVector::ZeroVector, FRotator::ZeroRotator);
 
-	if (MyInventoryWidgetClass)
-	{
-		MyInventoryWidget = CreateWidget<UInventoryWidget>(GetWorld(), MyInventoryWidgetClass);
-		if (MyInventoryWidget)
-		{
-			MyInventoryWidget->AddToViewport();
-			FVector2D DesiredSize(330, 400);
-			MyInventoryWidget->SetDesiredSizeInViewport(DesiredSize);
-			
-			// 원하는 위치로 설정
-			FVector2D DesiredPosition(800, 100); 
-			MyInventoryWidget->SetPositionInViewport(DesiredPosition, true); 
-
-			MyInventoryWidget->SetVisibility(ESlateVisibility::Hidden);
-		}
-	}
-
-	if (MyEquipmentWidgetClass)
-	{
-		MyEquipmentWidget = CreateWidget<UEquipmentWidget>(GetWorld(), MyEquipmentWidgetClass);
-		if (MyEquipmentWidget)
-		{
-			MyEquipmentWidget->AddToViewport();
-			FVector2D EquipmentSize(440, 500);
-			MyEquipmentWidget->SetDesiredSizeInViewport(EquipmentSize);
-
-			// 원하는 위치로 설정
-			FVector2D EquipmentPosition(0, 0);
-			MyEquipmentWidget->SetPositionInViewport(EquipmentPosition, true);
-
-			MyEquipmentWidget->SetVisibility(ESlateVisibility::Hidden);
-		}
-	}
-
-	if (MyEnhanceWidgetClass)
-	{
-		MyEnhanceWidget = CreateWidget<UEnhanceWidget>(GetWorld(), MyEnhanceWidgetClass);
-		if (MyEnhanceWidget)
-		{
-			MyEnhanceWidget->AddToViewport();
-			FVector2D EquipmentSize(440, 500);
-			MyEnhanceWidget->SetDesiredSizeInViewport(EquipmentSize);
-
-			// 원하는 위치로 설정
-			FVector2D Position(0, 0);
-			MyEnhanceWidget->SetPositionInViewport(Position, true);
-
-			MyEnhanceWidget->SetVisibility(ESlateVisibility::Hidden);
-		}
-	}
+	//UUIManager::Get()->BeginPlay(this);
 
 
 	if (GetWorld())
@@ -235,25 +160,17 @@ void AMyCharacter::BeginPlay()
 
 		FSlotData SlotData;
 		SlotData.ItemInfo = MyWing->ItemInfo;
-		MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::WING]->PushEquipment(SlotData);
+		//MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::WING]->PushEquipment(SlotData);
+		UUIManager::Get()->GetEquipmentWidget()->EquipmentSlots[EEQUIPMENT_TYPE::WING]->PushEquipment(SlotData);
 		MyWing->EquippedItem(MyWing->ItemInfo);
 		
 	}
 
-	//UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
-	//GameInstance->ItemPool->BeginPlay(GetWorld());
+
 
 	//Skill
 	auto SkillManager = USkillManager::Get();
 	SkillManager->BeginPlay(GetWorld(), this);
-
-	//TagSkill = NewObject<USkill_Tag>();
-
-	//TagSkill->BeginPlay(GetWorld(), this);
-
-	//AMyGameModeBase* GameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-	//GameMode->Widget->TabSkill->SetProgressBarImage(TagSkill->SkillTexture);
-	//GameMode->Widget->TabSkill->CoolTime = TagSkill->CoolTime;
 }
 
 
@@ -284,27 +201,6 @@ void AMyCharacter::Tick(float DeltaTime)
 	}
 
 
-	if (bIsDragging)
-	{
-			FVector2D MousePosition;
-			MyController->GetMousePosition(MousePosition.X, MousePosition.Y);
-
-			FVector2D NewPosition = MousePosition + DragOffset;
-			MyInventoryWidget->SetPositionInViewport(NewPosition, false);
-			bIsDragging = false;
-	}
-
-	//if (MyWeapon == nullptr)
-	//	CurrentWeaponState = 2;
-	//else
-	//{
-	//	// 장착
-	//	FName GunSocket(TEXT("middle_r_socket"));
-
-	//	MyWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-	//		GunSocket);
-	//	SetActorRotation(FRotator(0.f, 0.f, 0.f));
-	//}
 
 
 	// Tick 이 아니고 무기 변경해줄때마다 하면 실제 속도는 변화 x -> 개선
@@ -333,10 +229,10 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyCharacter::Attack);
 	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Released, this, &AMyCharacter::LeftMouseNonClick);
 	//PlayerInputComponent->BindAction(TEXT("Zoom"), EInputEvent::IE_Pressed, this, &AMyCharacter::Zoom);
-	PlayerInputComponent->BindAction(TEXT("OpenInventory"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenInventory);
+	PlayerInputComponent->BindAction(TEXT("OpenInventory"), EInputEvent::IE_Pressed, UUIManager::Get(), &UUIManager::OpenInventory);
 	PlayerInputComponent->BindAction(TEXT("FlyingMode"), EInputEvent::IE_Pressed, this, &AMyCharacter::FlyingMode);
-	PlayerInputComponent->BindAction(TEXT("OpenEquipment"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenEquipment);
-	PlayerInputComponent->BindAction(TEXT("OpenEnhance"), EInputEvent::IE_Pressed, this, &AMyCharacter::OpenEnhance);
+	PlayerInputComponent->BindAction(TEXT("OpenEquipment"), EInputEvent::IE_Pressed, UUIManager::Get(), &UUIManager::OpenEquipment);
+	PlayerInputComponent->BindAction(TEXT("OpenEnhance"), EInputEvent::IE_Pressed, UUIManager::Get(), &UUIManager::OpenEnhance);
 
 	PlayerInputComponent->BindAction(TEXT("SelectMainWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
 	PlayerInputComponent->BindAction(TEXT("SelectSubWeapon"), EInputEvent::IE_Pressed, this, &AMyCharacter::SelectWeapon);
@@ -447,8 +343,10 @@ void AMyCharacter::MouseClick()
 
 void AMyCharacter::Attack()
 {
-	if (bIsInventoryOn || bIsEquipmentOn || bIsEnhanceOn)
+	if (UUIManager::Get()->GetPresentUICount() > 0)
+	{
 		return;
+	}
 
 
 	if (MyWeapon != nullptr)
@@ -699,116 +597,16 @@ void AMyCharacter::Zoom()
 	IsZoom = !IsZoom;
 }
 
-void AMyCharacter::OpenInventory()
-{
-	bIsInventoryOn = !bIsInventoryOn;
-
-	if (MyInventoryWidget)
-	{
-		ESlateVisibility Visibility = MyInventoryWidget->GetVisibility();
-		if (Visibility == ESlateVisibility::Visible)
-		{
-			MyInventoryWidget->SetVisibility(ESlateVisibility::Hidden);
-			// 현재 플레이어 컨트롤러 가져오기
-			//APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
-			if (MyController)
-			{
-				MyController->bShowMouseCursor = false; // 마우스 커서 숨기기
-				MyController->SetIgnoreLookInput(false);
-				//PlayerController->SetInputMode(FInputModeGameOnly()); // 게임 입력 모드로 전환
-			}
-		}
-		else
-		{
-			MyInventoryWidget->SetVisibility(ESlateVisibility::Visible);
-			// 현재 플레이어 컨트롤러 가져오기
-			//APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
-			if (MyController)
-			{
-				MyController->bShowMouseCursor = true; // 마우스 커서 보이기
-				MyController->SetIgnoreLookInput(true);
-				//FInputModeGameAndUI InputMode;
-				//InputMode.SetWidgetToFocus(TakeWidget());
-				//PlayerController->SetInputMode(InputMode); // 게임과 UI 입력 모드 설정
-			}
-		}
-	}
-}
-
-void AMyCharacter::OpenEquipment()
-{
-	bIsEquipmentOn = !bIsEquipmentOn;
-
-	if (MyEquipmentWidget)
-	{
-		ESlateVisibility Visibility = MyEquipmentWidget->GetVisibility();
-		if (Visibility == ESlateVisibility::Visible)
-		{
-			MyEquipmentWidget->SetVisibility(ESlateVisibility::Hidden);
-			MyEquipmentWidget->AbilityWidget->SetVisibility(ESlateVisibility::Hidden);
-
-			if (MyController)
-			{
-				MyController->bShowMouseCursor = false; 
-				MyController->SetIgnoreLookInput(false);
-			
-			}
-		}
-		else
-		{
-			MyEquipmentWidget->SetVisibility(ESlateVisibility::Visible);
-			
-			if (MyController)
-			{
-				MyController->bShowMouseCursor = true; // 마우스 커서 보이기
-				MyController->SetIgnoreLookInput(true);
-			}
-		}
-	}
-}
-
-void AMyCharacter::OpenEnhance()
-{
-	bIsEnhanceOn = !bIsEnhanceOn;
-
-	if (MyEnhanceWidget)
-	{
-		ESlateVisibility Visibility = MyEnhanceWidget->GetVisibility();
-		if (Visibility == ESlateVisibility::Visible)
-		{
-			MyEnhanceWidget->ItemSlot->Reset();
-			MyEnhanceWidget->SetVisibility(ESlateVisibility::Hidden);
-
-			if (MyController)
-			{
-				MyController->bShowMouseCursor = false;
-				MyController->SetIgnoreLookInput(false);
-
-			}
-		}
-		else
-		{
-			MyEnhanceWidget->SetVisibility(ESlateVisibility::Visible);
-
-			if (MyController)
-			{
-				MyController->bShowMouseCursor = true; // 마우스 커서 보이기
-				MyController->SetIgnoreLookInput(true);
-			}
-		}
-	}
-}
-
-void AMyCharacter::DragInventory()
-{
-	FVector2D MousePosition;
-	MyController->GetMousePosition(MousePosition.X, MousePosition.Y);
-
-	FVector2D WidgetPosition = MyInventoryWidget->GetCachedGeometry().GetAbsolutePosition();
-	DragOffset = WidgetPosition - MousePosition;
-
-	bIsDragging = true;
-}
+//void AMyCharacter::DragInventory()
+//{
+//	FVector2D MousePosition;
+//	MyController->GetMousePosition(MousePosition.X, MousePosition.Y);
+//
+//	FVector2D WidgetPosition = MyInventoryWidget->GetCachedGeometry().GetAbsolutePosition();
+//	DragOffset = WidgetPosition - MousePosition;
+//
+//	bIsDragging = true;
+//}
 
 void AMyCharacter::FlyingMode()
 {
@@ -857,7 +655,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	if (Key == EKeys::One)
 	{
 		
-		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::MAIN]->SlotData.ItemInfo.ItemName;
+		FName Name = UUIManager::Get()->GetEquipmentWidget()->EquipmentSlots[EEQUIPMENT_TYPE::MAIN]->SlotData.ItemInfo.ItemName;
 		if (Name == FName(TEXT("NULL")) || (MyWeapon != nullptr && CurrentWeaponState == 0))
 			return;
 		CurrentWeaponState = 0;
@@ -866,7 +664,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	else if (Key == EKeys::Two)
 	{
 		
-		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::SUB]->SlotData.ItemInfo.ItemName;
+		FName Name = UUIManager::Get()->GetEquipmentWidget()->EquipmentSlots[EEQUIPMENT_TYPE::SUB]->SlotData.ItemInfo.ItemName;
 		if (Name == FName(TEXT("NULL")) || (MyWeapon != nullptr && CurrentWeaponState == 1))
 			return;
 		CurrentWeaponState = 1;
@@ -875,7 +673,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 	else if (Key == EKeys::Three)
 	{
 		
-		FName Name = MyEquipmentWidget->EquipmentSlots[EEQUIPMENT_TYPE::OTHER]->SlotData.ItemInfo.ItemName;
+		FName Name = UUIManager::Get()->GetEquipmentWidget()->EquipmentSlots[EEQUIPMENT_TYPE::OTHER]->SlotData.ItemInfo.ItemName;
 		if (Name == FName(TEXT("NULL")) || (MyWeapon != nullptr && CurrentWeaponState == 2))
 			return;
 		CurrentWeaponState = 2;
@@ -889,7 +687,7 @@ void AMyCharacter::SelectWeapon(FKey Key)
 
 void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
 {
-	FName Name = MyEquipmentWidget->EquipmentSlots[EquipmentType]->SlotData.ItemInfo.ItemName;
+	FName Name = UUIManager::Get()->GetEquipmentWidget()->EquipmentSlots[EquipmentType]->SlotData.ItemInfo.ItemName;
 
 	if (Name != FName(TEXT("NULL")))
 	{
@@ -905,7 +703,7 @@ void AMyCharacter::ChangeCurrentWeapon(EEQUIPMENT_TYPE EquipmentType)
 			//MyWeapon->Destroy();
 			//MyWeapon = nullptr;
 		}
-		NewWeapon->SetItemInfo(MyEquipmentWidget->EquipmentSlots[EquipmentType]->SlotData.ItemInfo);
+		NewWeapon->SetItemInfo(UUIManager::Get()->GetEquipmentWidget()->EquipmentSlots[EquipmentType]->SlotData.ItemInfo);
 		NewWeapon->AttachToCharacter();
 
 		bCanPickUp = true;
@@ -961,7 +759,7 @@ void AMyCharacter::ChangeSpeed()
 
 void AMyCharacter::TabSkill()
 {
-	auto HUD = Util::GetHUD(GetWorld());
+	auto HUD = UUIManager::Get()->GetHUD();
 	if (HUD->TabSkill->CurrentTime > 0.f)
 		return;
 	HUD->TabSkill->CurrentTime += 0.001f;

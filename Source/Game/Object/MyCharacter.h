@@ -13,9 +13,6 @@ class ABullet;
 class UInventoryComponent;
 class UWidgetComponent;
 class UUserWidget;
-class UInventoryWidget;
-class UEquipmentWidget;
-class UEnhanceWidget;
 class APet;
 class AWeapon;
 class AWing;
@@ -76,9 +73,7 @@ public:
 	void LeftMouseNonClick();
 	void PickUpGun();
 	void Zoom();
-	void OpenInventory();
-	void OpenEquipment();
-	void OpenEnhance();
+
 	void FlyingMode();
 	void SetAirControl(bool Flying);
 	void SelectWeapon(FKey Key);
@@ -101,10 +96,6 @@ public:
 	AWing* GetMyWing() { return MyWing; }
 	AHelmet* GetMyHelmet() { return MyHelmet; }
 	AShoes* GetMyShoes() { return MyShoes; }
-	UInventoryComponent* GetInventory() { return MyInventory; }
-	UInventoryWidget* GetInventoryWidget() { return MyInventoryWidget; }
-	UEquipmentWidget* GetEquipmentWidget() { return MyEquipmentWidget; }
-	UEnhanceWidget* GetEnhanceWidget() { return MyEnhanceWidget; }
 	APet* GetMyPet() { return MyPet; }
 	ACharacter_Tag* GetTagCharacter();
 
@@ -137,7 +128,9 @@ public:
 	UPROPERTY()
 		class UCameraComponent* Camera;
 
-
+	// Controller
+	UPROPERTY()
+		class APlayerController* MyController;
 
 
 
@@ -200,15 +193,6 @@ public:
 	UPROPERTY()
 		bool bCanPickUp = true;
 
-	UPROPERTY()
-		bool bIsInventoryOn = false;
-
-	UPROPERTY()
-		bool bIsEquipmentOn = false;
-
-	UPROPERTY()
-		bool bIsEnhanceOn = false;
-
 	// Sound
 	UPROPERTY()
 		FSounds Sounds;
@@ -232,38 +216,13 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = Bullet)
 		int BulletIndex = 0;
 
-
-	// Inventory
-	UPROPERTY(VisibleAnywhere)
-		 UInventoryComponent* MyInventory;
-
-	UPROPERTY(EditAnywhere, Category = "UI")
-		TSubclassOf<UUserWidget> MyInventoryWidgetClass;
-
-	UPROPERTY()
-		UInventoryWidget* MyInventoryWidget;
-
-	UPROPERTY(EditAnywhere, Category = "UI")
-		TSubclassOf<UUserWidget> MyEquipmentWidgetClass;
-
-	UPROPERTY()
-		UEquipmentWidget* MyEquipmentWidget;
-
-	UPROPERTY(EditAnywhere, Category = "UI")
-		UEnhanceWidget* MyEnhanceWidget;
-
-	UPROPERTY()
-		TSubclassOf<UEnhanceWidget> MyEnhanceWidgetClass;
-
 	FVector2D DragOffset;
 	bool bIsDragging = false;
 
 
 
 
-	// Controller
-	UPROPERTY()
-		class APlayerController* MyController;
+
 
 	UPROPERTY(EditAnywhere, Category = "UI")
 		TSubclassOf<AWing> MyWingClass;

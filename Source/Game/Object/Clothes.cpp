@@ -7,6 +7,8 @@
 #include "Kismet/GameplayStatics.h"  
 #include "InventoryWidget.h"
 #include "Pet.h"
+#include "UIManager.h"
+#include "MyHUD.h"
 
 AClothes::AClothes()
 {
@@ -36,7 +38,8 @@ void AClothes::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AAct
 
 		if (PlayerCharacter->bCanPickUp)
 		{
-			PlayerCharacter->GetInventoryWidget()->AddItemToInventory(ItemInfo);
+			UUIManager::Get()->GetHUD()->AcquireItem(ItemInfo.ItemName);
+			UUIManager::Get()->GetInventoryWidget()->AddItemToInventory(ItemInfo);
 			SetActorEnableCollision(false);
 			SetActorHiddenInGame(true);
 			SetActorTickEnabled(false);

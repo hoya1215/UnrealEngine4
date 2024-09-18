@@ -5,6 +5,8 @@
 #include "Skill_Tag.h"
 #include "Util.h"
 #include "SkillSlotWidget.h"
+#include "UIManager.h"
+#include "MyHUD.h"
 
 USkillManager* USkillManager::SkillManager = nullptr;
 
@@ -27,6 +29,6 @@ USkillManager* USkillManager::Get()
 void USkillManager::BeginPlay(UWorld* World, AMyCharacter* MyCharacter)
 {
 	Skill_Tag->BeginPlay(World, MyCharacter);
-	auto HUD = Util::GetHUD(World);
+	auto HUD = UUIManager::Get()->GetHUD();
 	HUD->TabSkill->SetSkill(Skill_Tag);
 }

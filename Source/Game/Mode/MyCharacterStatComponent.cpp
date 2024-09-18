@@ -9,6 +9,7 @@
 #include "MyHUD.h"
 #include "EnhanceWidget.h"
 #include "EnhanceSlotWidget.h"
+#include "UIManager.h"
 
 // Sets default values for this component's properties
 UMyCharacterStatComponent::UMyCharacterStatComponent()
@@ -151,8 +152,9 @@ void UMyCharacterStatComponent::UpdateExp(float NewExp)
 	AMyGameModeBase* MyGameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	if (MyGameMode)
 	{
-		UMyHUD* MyHUD = Cast<UMyHUD>(MyGameMode->Widget);
-		MyHUD->UpdateExp(ExpRatio);
+		UUIManager::Get()->GetHUD()->UpdateExp(ExpRatio);
+		//UMyHUD* MyHUD = Cast<UMyHUD>(MyGameMode->Widget);
+		//MyHUD->UpdateExp(ExpRatio);
 	}
 }
 
@@ -170,13 +172,14 @@ void UMyCharacterStatComponent::LevelUp(int Value)
 		Level += Value;
 	}
 
-	MyCharacter->GetEnhanceWidget()->UpdateEnhancePoint();
+	UUIManager::Get()->GetEnhanceWidget()->UpdateEnhancePoint();
 
 	AMyGameModeBase* MyGameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	if (MyGameMode)
 	{
-		UMyHUD* MyHUD = Cast<UMyHUD>(MyGameMode->Widget);
-		MyHUD->UpdateLevel(Level);
+		UUIManager::Get()->GetHUD()->UpdateLevel(Level);
+		//UMyHUD* MyHUD = Cast<UMyHUD>(MyGameMode->Widget);
+		//MyHUD->UpdateLevel(Level);
 	}
 
 	// 전레벨과의 스탯변동량 더해주기

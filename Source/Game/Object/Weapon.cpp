@@ -11,6 +11,8 @@
 #include "InventoryWidget.h"
 #include "Pet.h"
 #include "Util.h"
+#include "UIManager.h"
+#include "MyHUD.h"
 
 AWeapon::AWeapon()
 {
@@ -54,7 +56,8 @@ void AWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 
 		if (PlayerCharacter->bCanPickUp)
 		{
-			PlayerCharacter->GetInventoryWidget()->AddItemToInventory(ItemInfo);
+			UUIManager::Get()->GetHUD()->AcquireItem(ItemInfo.ItemName);
+			UUIManager::Get()->GetInventoryWidget()->AddItemToInventory(ItemInfo);
 			SetActorEnableCollision(false);
 			SetActorHiddenInGame(true);
 			SetActorTickEnabled(false);

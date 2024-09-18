@@ -14,6 +14,7 @@
 #include "Item.h"
 #include "Components/Button.h"
 #include "MyGameInstance.h"
+#include "ItemStatWidget.h"
 
 UInventoryWidget::UInventoryWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -37,6 +38,7 @@ void UInventoryWidget::NativeConstruct()
     DefaultData.Count = 0;
     DefaultSlot->SlotData = DefaultData;
     DefaultSlot->GameInstance = this->GameInstance;
+    DefaultSlot->ItemStatWidget->ResetStatText();
 
     Init();
     //InventoryBoard->ClearChildren();

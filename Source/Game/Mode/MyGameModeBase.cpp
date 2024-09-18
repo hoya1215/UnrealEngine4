@@ -18,6 +18,7 @@
 #include "Sound/SoundCue.h"
 #include "ItemPool.h"
 #include "PoolStorage.h"
+#include "UIManager.h"
 
 AMyGameModeBase::AMyGameModeBase()
 {
@@ -30,18 +31,18 @@ AMyGameModeBase::AMyGameModeBase()
 		HUDClass = HUD.Class;
 
 
-	static ConstructorHelpers::FClassFinder<UMyHUD> UI_HUD(TEXT("WidgetBlueprint'/Game/Custom/UI/WBP_HUD.WBP_HUD_C'"));
-	if (UI_HUD.Succeeded())
-	{
-		HUD_Class = UI_HUD.Class;
+	//static ConstructorHelpers::FClassFinder<UMyHUD> UI_HUD(TEXT("WidgetBlueprint'/Game/Custom/UI/WBP_HUD.WBP_HUD_C'"));
+	//if (UI_HUD.Succeeded())
+	//{
+	//	HUD_Class = UI_HUD.Class;
 
-		Widget = CreateWidget<UMyHUD>(GetWorld(), HUD_Class);
-		if (Widget)
-		{
-			Widget->AddToViewport();
-			//Widget->RemoveFromViewport(); 제거 
-		}
-	}
+	//	Widget = CreateWidget<UMyHUD>(GetWorld(), HUD_Class);
+	//	if (Widget)
+	//	{
+	//		Widget->AddToViewport();
+	//		//Widget->RemoveFromViewport(); 제거 
+	//	}
+	//}
 
 
 	//EnemyTypeCount = EENEMY_TYPE::ET_ENEMY_TYPE_COUNT;
@@ -62,8 +63,9 @@ void AMyGameModeBase::BeginPlay()
 
 
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	
-	Widget->SetCharacter(MyCharacter);
+	UUIManager::Get()->BeginPlay(MyCharacter);
+	//
+	//Widget->SetCharacter(MyCharacter);
 
 
 	auto Gun = GetWorld()->SpawnActor<AGun>(MyCharacter->GetActorLocation() + FVector(100.f, 0.f, 0.f), FRotator::ZeroRotator);

@@ -17,6 +17,8 @@
 #include "EquipmentWidget.h"
 #include "EnhanceWidget.h"
 #include "EnhanceSlotWidget.h"
+#include "UIManager.h"
+#include "ItemStatWidget.h"
 
 void UInventorySlotWidget::NativeConstruct()
 {
@@ -55,6 +57,7 @@ void UInventorySlotWidget::AddItem(FItemInfo ItemInfo)
             CurrentSlot->SlotTexture = this->SlotTexture;
             CurrentSlot->SlotImage->SetBrushFromTexture(CurrentSlot->SlotTexture);
             CurrentSlot->SlotData.ItemInfo = ItemInfo;
+            CurrentSlot->ItemStatWidget->FillStatText(ItemInfo);
         }
 
     }
@@ -76,7 +79,8 @@ void UInventorySlotWidget::AddItem(FItemInfo ItemInfo)
         }
     }
 
-    
+
+    ItemStatWidget->FillStatText(ItemInfo);
 
 }
 
@@ -87,6 +91,7 @@ void UInventorySlotWidget::SetItem(UInventorySlotWidget* OtherSlot)
 
     SlotText->SetText(OtherSlot->SlotText->GetText());
     SlotData = OtherSlot->SlotData;
+    ItemStatWidget->FillStatText(SlotData.ItemInfo);
 
     if (CurrentSlot != nullptr)
     {
@@ -94,7 +99,34 @@ void UInventorySlotWidget::SetItem(UInventorySlotWidget* OtherSlot)
         CurrentSlot->SlotImage->SetBrushFromTexture(CurrentSlot->SlotTexture);
         CurrentSlot->SlotText->SetText(OtherSlot->SlotText->GetText());
         CurrentSlot->SlotData = OtherSlot->SlotData;
+        CurrentSlot->ItemStatWidget->FillStatText(CurrentSlot->SlotData.ItemInfo);
     }
+
+    
+}
+
+void UInventorySlotWidget::ShowItemStat()
+{
+    //// 아이템 이름으로 스탯 가져와서 벡터끼리 더해주고 텍스트 채워주기
+    //UMyGameInstance* GameInstance = Cast<UMyGameInstance>(GetWorld()->GetGameInstance());
+    //auto BasicAbility = GameInstance->GetItemAbility(SlotData.ItemInfo.ItemName);
+    //auto AbilityChange = GameInstance->GetItemAbilityChange(SlotData.ItemInfo.ItemName);
+
+    //TArray<float> BasicStat = BasicAbility->GetStatList();
+    //TArray<float> ChangeStat = AbilityChange->GetStatList();
+
+    //for (int i = 0; i < BasicStat.Num(); ++i)
+    //{
+    //    BasicStat[i] += ChangeStat[i] * SlotData.ItemInfo.Level;
+    //}
+
+    //for (int i = 0; i < StatName.Num(); ++i)
+    //{
+    //    if (BasicStat[i] > 0.f)
+    //    {
+
+    //    }
+    //}
 }
 
 
@@ -132,11 +164,11 @@ FReply UInventorySlotWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InG
         AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
         auto ItemData = GameInstance->GetItemData(SlotData.ItemInfo.ItemName);
 
-        if (MyCharacter->bIsEnhanceOn)
+        if (UUIManager::Get()->GetEnhanceWidget()->GetVisibility() == ESlateVisibility::Visible)
         {
             if (ItemData->InventoryType == EINVENTORY_TYPE::EQUIPMENT)
             {
-                MyCharacter->GetEnhanceWidget()->ItemSlot->PushItem(this);
+                UUIManager::Get()->GetEnhanceWidget()->ItemSlot->PushItem(this);
             }
 
         }
@@ -206,6 +238,26 @@ bool UInventorySlotWidget::NativeOnDrop(const FGeometry& InGeometry, const FDrag
     return true;
 }
 
+void UInventorySlotWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
+
+    if (SlotData.ItemInfo.ItemName != FName(TEXT("NULL")))
+    {
+        ItemStatWidget->SetVisibility(ESlateVisibility::Visible);
+    }
+}
+
+void UInventorySlotWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
+{
+    Super::NativeOnMouseLeave(InMouseEvent);
+
+    if (SlotData.ItemInfo.ItemName != FName(TEXT("NULL")))
+    {
+         ItemStatWidget->SetVisibility(ESlateVisibility::Hidden);
+    }
+}
+
 //void UInventorySlotWidget::UseItem(FName Name)
 //{
 //
@@ -236,7 +288,7 @@ void UInventorySlotWidget::EquippedItem(FSlotData Data)
     {
         Item->SetItemInfo(SlotData.ItemInfo);
 
-        UEquipmentSlotWidget* CurrentEquipmentSlot = MyCharacter->GetEquipmentWidget()->EquipmentSlots[ItemData->EquipmentType];
+        UEquipmentSlotWidget* CurrentEquipmentSlot = UUIManager::Get()->GetEquipmentWidget()->EquipmentSlots[ItemData->EquipmentType];
         
         if (CurrentEquipmentSlot->SlotData.ItemInfo.ItemName == FName(TEXT("NULL")))
         {
@@ -265,26 +317,18 @@ void UInventorySlotWidget::EquippedItem(FSlotData Data)
             switch (Item->EquipmentType)
             {
             case EEQUIPMENT_TYPE::WING:
-                //MyCharacter->UnDressedWing();
                 Item->UnEquippedItem();
-                //Item->EquippedItem(Data.ItemInfo);
                 break;
             case EEQUIPMENT_TYPE::SHOES:
-                //MyCharacter->UnDressedShoes();
                 Item->UnEquippedItem();
-                //Item->EquippedItem(Data.ItemInfo);
                 break;
             case EEQUIPMENT_TYPE::HELMET:
-                //MyCharacter->UnDressedHelmet();
                 Item->UnEquippedItem();
-                //Item->EquippedItem(Data.ItemInfo);
                 break;
             default:
                 if (MyCharacter->GetMyWeapon() && (Item->EquipmentType == MyCharacter->GetMyWeapon()->EquipmentType))
                 {
-                   // MyCharacter->UnEquippedWeapon(PulledData.ItemInfo.ItemName);
                     Item->UnEquippedItem();
-                    //Item->EquippedItem(Data.ItemInfo);
                 }
                 break;
             }
@@ -292,25 +336,6 @@ void UInventorySlotWidget::EquippedItem(FSlotData Data)
             Item->EquippedItem(Data.ItemInfo);
         }
 
-
-
-
-
-        //FSlotData PulledData = Item->EquippedItem();
-        //if (PulledData.ItemName == FName(TEXT("NULL")))
-        //{
-        //    InventoryWidget->EquipmentSlotWidgets[this->Index]->SetItem(InventoryWidget->DefaultSlot);
-        //}
-        //else if (PulledData.ItemName == FName(TEXT("Destroy")))
-        //{
-        //    Item->Destroy();
-        //    InventoryWidget->EquipmentSlotWidgets[this->Index]->SetItem(InventoryWidget->DefaultSlot);
-        //}
-        //else
-        //{
-        //    SlotData.Count = 0;
-        //    InventoryWidget->EquipmentSlotWidgets[this->Index]->AddItem(PulledData);
-        //}
 
 
         if ((ItemData->EquipmentType == EEQUIPMENT_TYPE::MAIN ||
@@ -330,10 +355,14 @@ void UInventorySlotWidget::UpdateLevel()
 {
     FString Text = FString::Printf(TEXT("Lv.%d"), SlotData.ItemInfo.Level);
     SlotText->SetText(FText::FromString(Text));
+    ItemStatWidget->FillStatText(SlotData.ItemInfo);
     if (CurrentSlot)
     {
         CurrentSlot->SlotText->SetText(FText::FromString(Text));
+        CurrentSlot->ItemStatWidget->FillStatText(CurrentSlot->SlotData.ItemInfo);
     }
+
+    
 }
 
 //void UInventorySlotWidget::EquippedItem(AItem* Item)

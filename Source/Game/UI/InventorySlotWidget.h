@@ -32,6 +32,7 @@ public:
 };
 
 class UTexture2D;
+class UItemStatWidget;
 /**
  * 
  */
@@ -52,6 +53,8 @@ public:
 
 	void SetItem(UInventorySlotWidget* OtherSlot);
 
+	void ShowItemStat();
+
 	void UpdateLevel();
 
 	//void UseItem(EITEM_TYPE ItemType);
@@ -70,6 +73,9 @@ public:
 		UDragDropOperation*& OutOperation) override;
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
+
+	virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 
 public:
 	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -97,6 +103,9 @@ public:
 
 	UPROPERTY()
 		UInventorySlotWidget* CurrentSlot = nullptr;
+
+	UPROPERTY(meta = (BindWidget))
+		UItemStatWidget* ItemStatWidget;
 	
 
 public:

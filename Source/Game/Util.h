@@ -39,9 +39,4 @@ public:
 		return MyCharacter;
 	}
 
-	static UMyHUD* GetHUD(UWorld* World)
-	{
-		AMyGameModeBase* GameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(World));
-		return GameMode->Widget;
-	}
 };

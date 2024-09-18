@@ -14,6 +14,7 @@
 #include "PoolStorage.h"
 #include "Util.h"
 #include "MyCharacterStatComponent.h"
+#include "UIManager.h"
 
 AItem::AItem()
 {
@@ -55,7 +56,8 @@ void AItem::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 
 	if (MyPet || Character)
 	{
-		PlayerCharacter->GetInventoryWidget()->AddItemToInventory(ItemInfo);
+		UUIManager::Get()->GetHUD()->AcquireItem(ItemInfo.ItemName);
+		UUIManager::Get()->GetInventoryWidget()->AddItemToInventory(ItemInfo);
 		GameInstance->PoolStorage->ItemPool->ReturnItem(ItemInfo.ItemName, this);
 
 		//if (PlayerCharacter->bCanPickUp)

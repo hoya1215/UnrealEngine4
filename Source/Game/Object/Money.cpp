@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h" 
 #include "InventoryWidget.h"
 #include "Components/TextBlock.h"
+#include "UIManager.h"
 
 AMoney::AMoney()
 {
@@ -42,10 +43,10 @@ void AMoney::UseItem()
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
 	int32 MoneyAmount = FMath::RandRange(100, 300);
-	MyCharacter->GetInventoryWidget()->CurrentMoney += MoneyAmount;
+	UUIManager::Get()->GetInventoryWidget()->CurrentMoney += MoneyAmount;
 
 	const FString MoneyText = FString::Printf(TEXT("%d"), MoneyAmount);
-	MyCharacter->GetInventoryWidget()->MoneyAmount->SetText(FText::FromString(MoneyText));
+	UUIManager::Get()->GetInventoryWidget()->MoneyAmount->SetText(FText::FromString(MoneyText));
 
 	Destroy();
 }

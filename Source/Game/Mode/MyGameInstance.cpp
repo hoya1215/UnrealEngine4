@@ -62,6 +62,11 @@ void UMyGameInstance::Init()
 		UE_LOG(LogTemp, Warning, TEXT("No Pool Storage"));
 	}
 
+	StatNameList.Add(FName(TEXT("Power")));
+	StatNameList.Add(FName(TEXT("Speed")));
+	StatNameList.Add(FName(TEXT("Defense")));
+	StatNameList.Add(FName(TEXT("Hp")));
+
 
 }
 
